@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<title>The CEO Life & Business Planner</title>
+<style>
+:root{
+  --font-body:'Montserrat',sans-serif;--font-display:'Montserrat',sans-serif;--font-script:'Montserrat',sans-serif;
+  --p50:#f2eff8;--p100:#dfd4f6;--p200:#c8b3ec;--p400:#a77edc;--p600:#8e62c7;--p800:#6b459a;--p900:#3e2a57;
+  --g50:#f8f7fb;--g100:#e9e3f5;--g400:#8e84a6;--g600:#5e5276;
+  --t50:#e8f7f3;--t100:#c9ece3;--t600:#67b7a5;--t800:#2f7d6f;
+  --bg:#efedf2;--card:rgba(255,255,255,0.94);--border:rgba(142,98,199,0.18);--muted:#7a6f8f;--sidebar:#ffffff;
+  --sidebar-grad-start:#5d3f8a;--sidebar-grad-end:#3f2a63;
+  --glass:linear-gradient(145deg,rgba(255,255,255,0.95),rgba(247,244,252,0.86));
+  --aff-grad-start:#8f6bd0;--aff-grad-mid:#7552b6;--aff-grad-end:#56398e;--aff-shadow:rgba(62,42,87,0.32);--aff-quote:rgba(223,212,246,0.22);
+  --elev:0 16px 40px rgba(62,42,87,0.16);
+  --elev-soft:0 10px 24px rgba(62,42,87,0.1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-body);background:radial-gradient(circle at 15% -10%, rgba(200,179,236,0.2), transparent 42%),radial-gradient(circle at 90% 0%, rgba(103,183,165,0.12), transparent 30%),var(--bg);color:var(--p900);min-height:100vh;}
+.sb-brand h1,.ddisp,.topbar h2,.aff blockquote,.sval,.ct,.qb h4,.sh h2,.mobile-head-date{font-family:var(--font-display);}
+.sb-brand h1 em,.sb-foot .q{font-family:var(--font-script);font-style:italic;}
+
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;width:262px;height:100vh;background:linear-gradient(180deg,var(--sidebar-grad-start) 0%,var(--sidebar-grad-end) 100%);display:flex;flex-direction:column;z-index:100;overflow-y:auto;box-shadow:24px 0 50px rgba(45,28,72,.32);}
+
+.sb-brand{padding:22px 20px 14px;border-bottom:1px solid rgba(255,255,255,0.09);}
+.logo-tag{font-size:9px;font-weight:500;letter-spacing:.22em;color:var(--p200);text-transform:uppercase;margin-bottom:4px;}
+.sb-brand h1{font-family:var(--font-display);font-size:18px;font-weight:400;color:#fff;line-height:1.35;}
+.sb-brand h1 em{font-style:italic;color:var(--p200);}
+.sb-brand .author{font-size:11px;color:rgba(255,255,255,0.32);margin-top:3px;}
+.mode-toggle{padding:10px 20px;border-bottom:1px solid rgba(255,255,255,0.09);display:flex;gap:6px;}
+.mode-btn{flex:1;padding:7px 4px;border-radius:7px;font-size:11px;font-weight:500;text-align:center;cursor:pointer;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);background:transparent;transition:all .18s;font-family:'Montserrat',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;}
+.mode-btn svg{width:14px;height:14px;flex-shrink:0;opacity:.8;}
+.mode-btn.active svg{opacity:1;}
+.mode-btn.active{color:#fff;border-color:transparent;}
+.mode-btn.daily.active{background:var(--p600);}
+.mode-btn.perm.active{background:var(--t600);}
+.theme-corner{position:fixed;top:16px;right:24px;z-index:140;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.92);border:1px solid var(--border);box-shadow:var(--elev-soft);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.theme-corner label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+.theme-corner .palette-icon{width:20px;height:20px;color:var(--p600);pointer-events:none;}
+.theme-corner select{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.date-nav{padding:11px 20px;border-bottom:1px solid rgba(255,255,255,0.09);}
+.dnl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--p200);margin-bottom:5px;}
+.ddisp{font-family:var(--font-display);font-size:14px;color:#fff;margin-bottom:6px;line-height:1.3;}
+.darr{display:flex;gap:5px;align-items:center;}
+.darr button{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);border-radius:6px;padding:4px 9px;font-size:12px;cursor:pointer;transition:background .15s;font-family:'Montserrat',sans-serif;}
+.darr button:hover{background:rgba(255,255,255,0.16);}
+.tbtn{font-size:11px!important;background:rgba(179,130,86,0.22)!important;border-color:rgba(179,130,86,0.38)!important;color:var(--p100)!important;}
+.dwrap{margin-top:5px;}
+.dwrap input[type=date]{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.72);border-radius:6px;padding:5px 9px;font-size:12px;outline:none;font-family:'Montserrat',sans-serif;}
+.dwrap input[type=date]:focus{border-color:var(--p400);}
+.nl{font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,0.24);padding:11px 20px 4px;}
+.ni{display:flex;align-items:center;gap:10px;padding:8px 20px;cursor:pointer;transition:all .15s;border-left:3px solid transparent;font-size:13px;color:rgba(255,255,255,0.5);}
+.ni:hover{background:rgba(255,255,255,0.05);color:#fff;border-left-color:var(--p200);}
+.ni.active{background:rgba(179,130,86,0.18);color:var(--p100);border-left-color:var(--p400);}
+.ni.pn.active{background:rgba(140,105,75,0.2);color:var(--t100);border-left-color:var(--t600);}
+.ni svg{width:15px;height:15px;flex-shrink:0;opacity:.65;}
+.ni.active svg{opacity:1;}
+.sb-foot{padding:14px 20px;border-top:1px solid rgba(255,255,255,0.08);margin-top:auto;}
+.sb-foot .q{font-family:var(--font-display);font-style:italic;font-size:12px;color:rgba(255,255,255,0.24);line-height:1.6;}
+
+/* MAIN */
+.main{margin-left:262px;min-height:100vh;padding:30px 40px;}
+.main::before{content:'';position:fixed;inset:0;pointer-events:none;background:linear-gradient(120deg,rgba(255,255,255,0.06),transparent 35%);z-index:-1;}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.topbar h2{font-family:var(--font-display);font-size:26px;font-weight:400;color:var(--p900);}
+.topbar .sub{font-size:12px;color:var(--muted);margin-top:2px;}
+.sbadge{font-size:11px;padding:5px 13px;background:rgba(238,237,254,0.8);backdrop-filter:blur(6px);border-radius:20px;border:1px solid var(--p100);color:var(--p800);transition:all .3s;box-shadow:var(--elev-soft);}
+
+.sbadge.ok{background:#EAF3DE;border-color:#C0DD97;color:#3B6D11;}
+
+/* BANNER */
+.mbanner{border-radius:9px;padding:11px 16px;margin-bottom:20px;font-size:12px;display:flex;align-items:center;gap:9px;}
+.mb-d{background:var(--p50);border:1px solid var(--p100);color:var(--p800);}
+.mb-p{background:var(--t50);border:1px solid var(--t100);color:var(--t800);}
+.mdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.dd{background:var(--p400)}.dp{background:var(--t600)}
+
+/* SECTIONS */
+.sec{display:none;}.sec.active{display:block;}
+
+/* AFFIRMATION */
+.aff{background:linear-gradient(135deg,var(--aff-grad-start) 0%,var(--aff-grad-mid) 45%,var(--aff-grad-end) 100%);border-radius:14px;padding:24px 28px;margin-bottom:22px;position:relative;overflow:hidden;cursor:pointer;box-shadow:0 20px 36px var(--aff-shadow);}
+.aff::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,0.22),transparent 40%);pointer-events:none;}
+
+.aff::before{content:'"';position:absolute;top:-10px;left:14px;font-family:var(--font-display);font-size:120px;color:var(--aff-quote);line-height:1;}
+.aff blockquote{font-family:var(--font-display);font-size:19px;font-weight:300;font-style:italic;color:#fff;line-height:1.55;max-width:520px;position:relative;z-index:1;transition:opacity .3s;}
+.aff-hint{font-size:11px;color:var(--p200);margin-top:7px;}
+
+/* STATS */
+.srow{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:20px;}
+.stat{background:var(--glass);backdrop-filter:blur(10px);border-radius:12px;padding:16px;border:1px solid var(--border);position:relative;overflow:hidden;box-shadow:var(--elev-soft);}
+
+.stat::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;}
+.s1::before{background:var(--p400)}.s2::before{background:var(--p200)}.s3::before{background:#AFA9EC}.s4::before{background:var(--p600)}
+.slbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.sval{font-family:var(--font-display);font-size:28px;font-weight:600;color:var(--p900);line-height:1;}
+.ssub{font-size:11px;color:var(--muted);margin-top:3px;}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+
+/* CARD */
+.card{background:var(--glass);backdrop-filter:blur(10px);border-radius:14px;border:1px solid var(--border);overflow:hidden;margin-bottom:16px;box-shadow:var(--elev-soft);transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;}
+.card:hover{transform:translateY(-2px);box-shadow:var(--elev);border-color:rgba(143,95,55,0.24);}
+
+.card.pc{border-color:rgba(140,105,75,0.2);}
+.card .g2,.card .g3{margin-bottom:0;}
+
+/* CARD HEADER */
+.ch{padding:14px 18px 11px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;background:linear-gradient(180deg,rgba(255,255,255,0.56),rgba(255,255,255,0));}
+
+.pc .ch{border-bottom-color:rgba(140,105,75,0.12);}
+.ct{font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--p900);}
+.ch-right{display:flex;align-items:center;gap:7px;}
+.ctag{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
+.tp{background:var(--p50);color:var(--p800)}.tl{background:rgba(174,169,236,0.15);color:var(--p600)}.tg{background:var(--g50);color:var(--g600)}.tt{background:var(--t50);color:var(--t600)}
+
+/* EDIT BUTTON */
+.edit-btn{font-size:11px;padding:4px 10px;border-radius:7px;cursor:pointer;border:1px solid var(--p200);background:rgba(255,255,255,0.72);color:var(--p600);font-family:'Montserrat',sans-serif;transition:all .15s;white-space:nowrap;}
+
+.edit-btn:hover{background:var(--p50);}
+.edit-btn.editing{background:var(--p600);color:white;border-color:var(--p600);}
+.pc .edit-btn{border-color:var(--t100);color:var(--t600);}
+.pc .edit-btn:hover{background:var(--t50);}
+.pc .edit-btn.editing{background:var(--t600);color:white;border-color:var(--t600);}
+
+/* CARD BODY */
+.cb{padding:14px 18px;}
+
+/* VIEW MODE — shows saved text as readable paragraphs */
+.view-mode{display:block;}
+.edit-mode{display:none;}
+.card.editing .view-mode{display:none;}
+.card.editing .edit-mode{display:block;}
+
+.vfield{margin-bottom:12px;}
+.vfield:last-child{margin-bottom:0;}
+.vf-label{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.vf-val{font-size:13px;color:var(--p900);line-height:1.6;padding:7px 0;border-bottom:1px solid rgba(143,95,55,0.07);}
+.vf-val:last-child{border-bottom:none;}
+.vf-val.empty{color:var(--muted);font-style:italic;}
+
+/* FORM INPUTS */
+.fg{margin-bottom:11px;}
+.fg:last-child{margin-bottom:0;}
+.fl{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;display:block;}
+.fi,.ft{width:100%;border:1px solid rgba(143,95,55,0.22);border-radius:8px;padding:8px 10px;font-family:'Montserrat',sans-serif;font-size:13px;color:var(--p900);background:#fffaf4;outline:none;transition:border .15s, box-shadow .15s, background .15s;resize:vertical;}
+
+.fi:focus,.ft:focus{border-color:var(--p400);background:white;box-shadow:0 0 0 3px rgba(179,130,86,0.16);}
+
+.ft{min-height:65px;}
+.pc .fi,.pc .ft{border-color:rgba(140,105,75,0.24);background:#fbf4ec;}
+.pc .fi:focus,.pc .ft:focus{border-color:var(--t600);background:white;}
+
+/* CHECKLIST */
+.cl{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.cl li{display:flex;align-items:flex-start;gap:10px;padding:10px 11px;border:1px solid rgba(143,95,55,0.09);background:linear-gradient(140deg,rgba(255,255,255,0.94),rgba(249,245,255,0.86));border-radius:11px;font-size:13px;box-shadow:0 8px 18px rgba(62,42,87,0.06);transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
+.cl li:hover{transform:translateY(-1px);border-color:rgba(142,98,199,0.22);box-shadow:0 12px 20px rgba(62,42,87,0.09);}
+.cl li:last-child{border-bottom:1px solid rgba(143,95,55,0.09);}
+.cbx{width:19px;height:19px;border-radius:6px;border:1.5px solid var(--p200);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s;margin-top:1px;background:linear-gradient(150deg,rgba(255,255,255,0.95),rgba(236,229,250,0.9));box-shadow:inset 0 1px 0 rgba(255,255,255,0.75);}
+.cbx:hover{border-color:var(--p400);background:linear-gradient(150deg,rgba(255,255,255,1),rgba(242,234,255,0.95));}
+.cbx.ck{background:linear-gradient(145deg,var(--p400),var(--p600));border-color:var(--p600);box-shadow:0 6px 12px rgba(107,69,154,0.25);}
+.cbx.ck::after{content:'✓';color:white;font-size:11px;font-weight:600;}
+.cl li .it{font-weight:500;color:var(--p900);line-height:1.45;}
+.cl li.done .it{text-decoration:line-through;color:var(--muted);}
+
+/* NOTE EXPAND */
+.det{display:none;width:100%;margin-top:6px;padding-top:6px;border-top:1px dashed var(--p100);}
+.det.open{display:block;}
+.ewrap{flex:1;}
+.ebn{font-size:11px;padding:3px 7px;border-radius:4px;background:var(--p50);border:1px solid var(--p100);color:var(--p600);cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Montserrat',sans-serif;}
+.ebn:hover{background:var(--p100);}
+
+/* MOOD */
+.mood-row{display:flex;gap:6px;flex-wrap:wrap;padding:3px 0;}
+.md{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;border:2px solid transparent;transition:all .14s;}
+.md:hover{transform:scale(1.1);}
+.md.sel{border-color:var(--p600);box-shadow:0 0 0 3px rgba(143,95,55,0.14);}
+
+/* PLATFORM BADGES */
+.pgrid{display:flex;flex-wrap:wrap;gap:6px;}
+.pb{padding:5px 10px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1.5px solid transparent;background:var(--p50);color:var(--p800);transition:all .14s;}
+.pb.on{border-color:var(--p400);background:var(--p100);}
+
+/* CALENDAR */
+.cgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cdh{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;padding:5px 0;}
+.cd{aspect-ratio:1;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid transparent;transition:all .14s;position:relative;color:var(--p900);}
+.cd:hover{background:var(--p50);border-color:var(--p100);}
+.cd.tod{background:var(--p600);color:white;font-weight:600;}
+.cd.hd::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--p400);position:absolute;bottom:2px;}
+.cd.tod.hd::after{background:var(--p100);}
+.cd.emp{opacity:.2;cursor:default;pointer-events:none;}
+.cd.cur:not(.tod){background:var(--p50);border:2px solid var(--p400);}
+
+/* QUARTER BLOCKS */
+.qb{background:var(--t50);border-radius:8px;padding:12px 13px;border:1px solid var(--t100);}
+.qb.cur{border-color:var(--t600);border-width:2px;}
+.qb h4{font-family:var(--font-display);font-size:14px;font-weight:600;color:var(--p900);margin-bottom:6px;}
+.ql{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--t600);margin-bottom:3px;}
+
+/* SECTION HEADER */
+.sh{margin-bottom:18px;}
+.sh h2{font-family:var(--font-display);font-size:24px;font-weight:400;color:var(--p900);}
+.sh p{font-size:12px;color:var(--muted);margin-top:3px;}
+
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--p200);border-radius:3px;}
+
+.mobile-header{display:none;}
+.mobile-head-copy{min-width:0;display:flex;flex-direction:column;gap:2px;}
+.mobile-head-kicker{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--p600);}
+.mobile-head-date{font-family:var(--font-display);font-size:18px;color:var(--p900);line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mobile-menu-btn,.mobile-today-btn{border:1px solid var(--p100);background:rgba(255,255,255,0.9);color:var(--p800);border-radius:10px;padding:9px 11px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--elev-soft);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:500;gap:6px;flex-shrink:0;}
+
+.mobile-menu-btn svg{width:18px;height:18px;}
+.sidebar-backdrop{display:none;}
+body.sidebar-open{overflow:hidden;}
+.tracker-filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.tracker-count{font-size:12px;color:var(--muted);margin-left:4px;}
+.tracker-item{padding:12px 18px;border-bottom:1px solid rgba(143,95,55,0.07);display:flex;align-items:flex-start;gap:12px;cursor:pointer;transition:background .15s;}
+.tracker-item-main{flex:1;min-width:0;}
+.tracker-item-note{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:460px;}
+.tracker-item-side{text-align:right;flex-shrink:0;}
+.tracker-item-side.stack{display:flex;flex-direction:column;gap:6px;}
+.tracker-tabs{display:flex;gap:8px;flex-wrap:wrap;padding:12px 18px;border-bottom:1px solid rgba(140,105,75,0.1);}
+.tracker-tab{border:1px solid rgba(140,105,75,0.2);background:#fff;border-radius:999px;padding:6px 12px;font-size:12px;color:var(--t600);cursor:pointer;font-family:'Montserrat',sans-serif;}
+.tracker-tab.active{background:var(--t600);color:#fff;border-color:var(--t600);}
+.tracker-panel{display:none;}
+.tracker-panel.active{display:block;}
+.split-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.tracker-quick-add{padding:12px 18px;border-bottom:1px solid rgba(140,105,75,0.1);display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:rgba(255,255,255,0.62);}
+.tracker-pill{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+.tracker-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:12px 18px;border-bottom:1px solid rgba(140,105,75,0.1);background:rgba(255,255,255,0.58);}
+.tracker-metric{border:1px solid rgba(140,105,75,0.13);border-radius:10px;padding:9px 10px;background:#fff;}
+.tracker-metric-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.tracker-metric-value{font-size:16px;font-weight:600;color:var(--p900);}
+.tracker-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
+.tracker-actions .edit-btn{padding:3px 9px;font-size:11px;}
+
+@media (max-width: 980px){
+  .theme-corner{position:sticky;top:64px;left:auto;right:auto;z-index:125;margin:10px 16px 0 auto;}
+  .mobile-header{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:130;background:rgba(250,249,255,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 16px;}
+  .sidebar-backdrop{display:block;position:fixed;inset:0;background:rgba(38,33,92,0.34);z-index:119;opacity:0;pointer-events:none;transition:opacity .22s ease;}
+  body.sidebar-open .sidebar-backdrop{opacity:1;pointer-events:auto;}
+  .sidebar{width:min(84vw,320px);max-width:320px;transform:translateX(-105%);transition:transform .24s ease, box-shadow .24s ease;z-index:120;}
+  body.sidebar-open .sidebar{transform:translateX(0);box-shadow:0 16px 40px rgba(20,18,53,.35);}
+  .main{margin-left:0;padding:18px 18px 28px;}
+  .topbar{flex-wrap:wrap;align-items:flex-start;gap:10px;margin-bottom:16px;}
+  .srow{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+  .g2,.g3{grid-template-columns:1fr;gap:14px;}
+  .card,.stat{border-radius:14px;}
+  .ch,.cb{padding-left:14px;padding-right:14px;}
+  .ch{padding-top:13px;padding-bottom:10px;align-items:flex-start;}
+  .ch-right{flex-wrap:wrap;justify-content:flex-end;}
+  .mbanner{padding:10px 12px;align-items:flex-start;}
+  .aff{padding:20px 18px;}
+  .aff blockquote{font-size:17px;max-width:none;}
+  .mode-toggle{position:sticky;top:0;z-index:2;background:var(--sidebar);}
+  .darr{flex-wrap:wrap;}
+  .darr button{flex:1;}
+  .ni{padding:11px 18px;}
+  .tracker-filters{flex-direction:column;align-items:stretch !important;}
+  .tracker-filters .fi{max-width:none !important;width:100%;}
+  .tracker-count{margin-left:0 !important;}
+  .tracker-item{flex-direction:column !important;}
+  .tracker-item-side{width:100%;text-align:left !important;align-items:flex-start !important;}
+  .tracker-item-note{max-width:none !important;white-space:normal !important;overflow:visible !important;text-overflow:initial !important;}
+  .tracker-metrics{grid-template-columns:1fr;}
+  .split-2{grid-template-columns:1fr;}
+  #contact-modal>div,#opp-modal>div{margin:12px !important;max-width:none !important;width:calc(100% - 24px) !important;padding:22px 18px !important;}
+  [style*='max-width:420px'],[style*='max-width:460px']{max-width:none !important;}
+}
+
+@media (max-width: 640px){
+  .main{padding:16px 14px 24px;}
+  .topbar h2{font-size:22px;line-height:1.15;}
+  .srow{grid-template-columns:1fr;}
+  .mode-btn{font-size:10px;}
+  .mode-btn span{white-space:nowrap;}
+  .ctag{font-size:9px;}
+  .edit-btn{padding:5px 8px;}
+  .cgrid{gap:3px;}
+  .cd,.cdh{font-size:10px;}
+  .vf-val,.fi,.ft,.cl li,.pb{font-size:12px;}
+  .mobile-head-date{font-size:16px;}
+  .sb-foot{display:none;}
+}
+
+</style>
+</head>
+
+<body>
+<div class="mobile-header">
+  <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Open planner menu">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+  <div class="mobile-head-copy">
+    <div class="mobile-head-kicker" id="mobile-mode-label">Daily Planner</div>
+    <div class="mobile-head-date" id="mobile-date">Loading…</div>
+  </div>
+  <button class="mobile-today-btn" onclick="goToday()">Today</button>
+</div>
+<div class="theme-corner" title="Change palette">
+  <label for="theme-select">Palette</label>
+  <svg class="palette-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M21 13.2A8.8 8.8 0 1110.8 3a7.2 7.2 0 0010.2 10.2z"/></svg>
+  <select id="theme-select" onchange="onThemeChange(this.value)" aria-label="Choose planner palette">
+    <option value="lavender">Lavender Rebirth</option>
+    <option value="earth">Warm Earth</option>
+    <option value="midnight">Midnight Luxe</option>
+    <option value="royalgreen">Royal Green</option>
+    <option value="torques">Torques</option>
+    <option value="bw">Black &amp; White</option>
+  </select>
+</div>
+<div class="sidebar-backdrop" onclick="closeSidebar()"></div>
+
+<aside class="sidebar">
+  <div class="sb-brand">
+    <h1>The CEO Life &amp; <em>Business</em> Planner</h1>
+  </div>
+  <div class="mode-toggle">
+    <button class="mode-btn daily active" onclick="setMode('daily')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg><span>Daily</span></button>
+    <button class="mode-btn perm" onclick="setMode('permanent')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg><span>Permanent</span></button>
+  </div>
+  <div class="date-nav" id="dnb">
+    <div class="dnl">Planning for</div>
+    <div class="ddisp" id="sb-date">Loading…</div>
+    <div class="darr">
+      <button onclick="chDay(-1)">&#8592;</button>
+      <button class="tbtn" onclick="goToday()">Today</button>
+      <button onclick="chDay(1)">&#8594;</button>
+    </div>
+    <div class="dwrap"><input type="date" id="dpick" onchange="onDP(this.value)"/></div>
+  </div>
+  <nav id="dnav">
+    <div class="nl">Daily Planner</div>
+    <div class="ni active" onclick="showSec('dashboard',this)"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Dashboard</div>
+    <div class="ni" onclick="showSec('wellness',this)"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>Mind, Body &amp; Spirit</div>
+    <div class="ni" onclick="showSec('tasks',this)"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>Daily CEO Tasks</div>
+    <div class="ni" onclick="showSec('visibility',this)"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.36a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>Visibility &amp; Content</div>
+
+    <div class="ni" onclick="showSec('money',this)"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Money — Today</div>
+    <div class="ni" onclick="showSec('wins',this)"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>Wins &amp; Reflection</div>
+  </nav>
+  <nav id="pnav" style="display:none">
+    <div class="nl">Permanent Planner</div>
+    <div class="ni pn active" onclick="showSec('vision',this)"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>Vision &amp; Identity</div>
+    <div class="ni pn" onclick="showSec('goals',this)"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>Goals &amp; Quarterly Plan</div>
+    <div class="ni pn" onclick="showSec('moneyperm',this)"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Money — Goals &amp; Budget</div>
+    <div class="ni pn" onclick="showSec('networking',this)"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Networking &amp; Clients</div>
+  </nav>
+  <div class="sb-foot"><div class="q">"now it's time to come back to you."</div></div>
+</aside>
+
+<main class="main">
+
+<!-- ══ DASHBOARD ══ -->
+<section class="sec active" id="sec-dashboard">
+  <div class="topbar"><div><h2>Good morning, CEO ✦</h2><div class="sub" id="db-sub"></div></div><div id="sbadge" class="sbadge">Auto-saved</div></div>
+  <div class="mbanner mb-d"><div class="mdot dd"></div><span><strong>Daily entries</strong> — saved per day. Navigate past days with the arrows.</span></div>
+  <div class="aff" onclick="rotAff()"><blockquote id="affq">You don't need to earn rest. You don't need to earn joy.</blockquote><div class="aff-hint">Tap to refresh</div></div>
+  <div class="srow">
+    <div class="stat s1"><div class="slbl">Income Goal</div><div class="sval" id="db-ig">—</div><div class="ssub">From Permanent</div></div>
+    <div class="stat s2"><div class="slbl">Today's Mood</div><div class="sval" id="db-mood">—</div><div class="ssub">Set in Wellness</div></div>
+    <div class="stat s3"><div class="slbl">Tasks Done</div><div class="sval" id="db-td">0/0</div><div class="ssub">CEO tasks today</div></div>
+    <div class="stat s4"><div class="slbl">Today's Win</div><div class="sval" id="db-win" style="font-size:13px;margin-top:5px;line-height:1.4">—</div><div class="ssub">Set in Wins</div></div>
+  </div>
+  <div class="g2">
+    <div class="card" id="card-glance">
+      <div class="ch"><span class="ct">Today at a Glance</span><div class="ch-right"><span class="ctag tp">Daily</span><button class="edit-btn" onclick="toggleEdit('card-glance')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-glance"></div>
+        <div class="edit-mode">
+          <div class="fg"><label class="fl">How I want to feel today</label><input class="fi" id="db-feel" placeholder="e.g. Grounded, energised, clear…" oninput="sf('feel',this.value)"/></div>
+          <div class="fg"><label class="fl">Top 3 Priorities</label><textarea class="ft" id="db-pri" placeholder="1.&#10;2.&#10;3." oninput="sf('priorities',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Energy I'm bringing today</label><input class="fi" id="db-energy" placeholder="Bold, focused, magnetic…" oninput="sf('energy',this.value)"/></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" id="card-eod">
+      <div class="ch"><span class="ct">End of Day Reflection</span><div class="ch-right"><span class="ctag tl">Daily</span><button class="edit-btn" onclick="toggleEdit('card-eod')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-eod"></div>
+        <div class="edit-mode">
+          <div class="fg"><label class="fl">What worked today?</label><textarea class="ft" id="db-worked" oninput="sf('worked',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">What deserves celebrating?</label><textarea class="ft" id="db-celeb" placeholder="Don't skip this ✦" oninput="sf('celebrate',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">What will I release?</label><input class="fi" id="db-release" oninput="sf('release',this.value)"/></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card"><div class="ch"><span class="ct">365-Day Navigator</span><span class="ctag tg">Dots = saved entries · Click any day</span></div><div class="cb"><div id="mini-cal"></div></div></div>
+</section>
+
+<!-- ══ WELLNESS ══ -->
+<section class="sec" id="sec-wellness">
+  <div class="topbar"><div><h2>Mind, Body &amp; Spirit</h2><div class="sub" id="well-sub"></div></div><div class="sbadge ok">Auto-saved</div></div>
+  <div class="mbanner mb-d"><div class="mdot dd"></div><span><strong>Daily entry</strong> — your ritual check-in is saved per day.</span></div>
+  <div class="g3">
+    <div class="card" id="card-mind">
+      <div class="ch"><span class="ct">Mind</span><div class="ch-right"><span class="ctag tp">Daily</span><button class="edit-btn" onclick="toggleEdit('card-mind')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-mind"></div>
+        <div class="edit-mode">
+          <div class="fg"><label class="fl">Gratitude (3 things)</label><textarea class="ft" id="w-grat" placeholder="1.&#10;2.&#10;3." oninput="sf('w_grat',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Journal Prompt</label><textarea class="ft" id="w-journal" oninput="sf('w_journal',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Daily Affirmation</label><input class="fi" id="w-aff" placeholder="I am…" oninput="sf('w_aff',this.value)"/></div>
+          <div class="fg"><label class="fl">Mental Check-In</label><input class="fi" id="w-mental" oninput="sf('w_mental',this.value)"/></div>
+          <div class="fg"><label class="fl">Mood</label>
+            <div class="mood-row">
+              <div class="md" onclick="selMood(this,'😊','Joyful')" title="Joyful">😊</div>
+              <div class="md" onclick="selMood(this,'😌','Calm')" title="Calm">😌</div>
+              <div class="md" onclick="selMood(this,'🎯','Focused')" title="Focused">🎯</div>
+              <div class="md" onclick="selMood(this,'😴','Tired')" title="Tired">😴</div>
+              <div class="md" onclick="selMood(this,'😰','Anxious')" title="Anxious">😰</div>
+              <div class="md" onclick="selMood(this,'🙏','Grateful')" title="Grateful">🙏</div>
+              <div class="md" onclick="selMood(this,'💪','Powerful')" title="Powerful">💪</div>
+              <div class="md" onclick="selMood(this,'🌸','Soft')" title="Soft">🌸</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card" id="card-body">
+      <div class="ch"><span class="ct">Body</span><div class="ch-right"><span class="ctag tp">Daily</span><button class="edit-btn" onclick="toggleEdit('card-body')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-body"></div>
+        <div class="edit-mode">
+          <ul class="cl">
+            <li data-k="b_water"><div class="cbx" onclick="togChk(this,'b_water')"></div><span class="it">Water intake (8 glasses)</span></li>
+            <li data-k="b_move"><div class="cbx" onclick="togChk(this,'b_move')"></div><span class="it">Movement / Stretching</span></li>
+            <li data-k="b_meals"><div class="cbx" onclick="togChk(this,'b_meals')"></div><span class="it">Nutritious meals</span></li>
+            <li data-k="b_walk"><div class="cbx" onclick="togChk(this,'b_walk')"></div><span class="it">Walk / Exercise</span></li>
+            <li data-k="b_sleep"><div class="cbx" onclick="togChk(this,'b_sleep')"></div><span class="it">Rest / Sleep 7–8 hrs</span></li>
+            <li data-k="b_cycle"><div class="cbx" onclick="togChk(this,'b_cycle')"></div><span class="it">Cycle / Energy Awareness</span></li>
+          </ul>
+          <div class="fg" style="margin-top:10px"><label class="fl">Body Notes</label><textarea class="ft" id="w-bnotes" oninput="sf('w_bnotes',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" id="card-spirit">
+      <div class="ch"><span class="ct">Spirit</span><div class="ch-right"><span class="ctag tp">Daily</span><button class="edit-btn" onclick="toggleEdit('card-spirit')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-spirit"></div>
+        <div class="edit-mode">
+          <ul class="cl">
+            <li data-k="s_prayer"><div class="cbx" onclick="togChk(this,'s_prayer')"></div><span class="it">Prayer</span></li>
+            <li data-k="s_med"><div class="cbx" onclick="togChk(this,'s_med')"></div><span class="it">Meditation (10 min)</span></li>
+            <li data-k="s_scrip"><div class="cbx" onclick="togChk(this,'s_scrip')"></div><span class="it">Scripture / Devotional</span></li>
+            <li data-k="s_breath"><div class="cbx" onclick="togChk(this,'s_breath')"></div><span class="it">Breath work</span></li>
+            <li data-k="s_viz"><div class="cbx" onclick="togChk(this,'s_viz')"></div><span class="it">Visualization</span></li>
+            <li data-k="s_intuit"><div class="cbx" onclick="togChk(this,'s_intuit')"></div><span class="it">Intuition Check-In</span></li>
+          </ul>
+          <div class="fg" style="margin-top:10px"><label class="fl">Spirit Notes</label><textarea class="ft" id="w-snotes" oninput="sf('w_snotes',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Scripture / Devotional</label><textarea class="ft" id="w-scrip" oninput="sf('w_scrip',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TASKS ══ -->
+<section class="sec" id="sec-tasks">
+  <div class="topbar"><div><h2>Daily CEO Tasks</h2><div class="sub" id="tasks-sub"></div></div><div class="sbadge ok">Auto-saved</div></div>
+  <div class="mbanner mb-d"><div class="mdot dd"></div><span><strong>Daily entry</strong> — tasks reset each day. Click ✏️ Edit to check items and add notes.</span></div>
+  <div class="g2">
+    <div class="card" id="card-admin">
+      <div class="ch"><span class="ct">Admin &amp; Operations</span><div class="ch-right"><span class="ctag tp">Daily</span><button class="edit-btn" onclick="toggleEdit('card-admin')">✏️ Edit</button></div></div>
+      <div class="cb"><div class="view-mode" id="view-admin"></div><div class="edit-mode"><ul class="cl" id="admin-cl"></ul></div></div>
+    </div>
+    <div class="card" id="card-sales">
+      <div class="ch"><span class="ct">Sales &amp; Outreach</span><div class="ch-right"><span class="ctag tl">Daily</span><button class="edit-btn" onclick="toggleEdit('card-sales')">✏️ Edit</button></div></div>
+      <div class="cb"><div class="view-mode" id="view-sales"></div><div class="edit-mode"><ul class="cl" id="sales-cl"></ul></div></div>
+    </div>
+    <div class="card" id="card-connect">
+      <div class="ch"><span class="ct">Connection &amp; Networking</span><div class="ch-right"><span class="ctag tl">Daily</span><button class="edit-btn" onclick="toggleEdit('card-connect')">✏️ Edit</button></div></div>
+      <div class="cb"><div class="view-mode" id="view-connect"></div><div class="edit-mode"><ul class="cl" id="connect-cl"></ul></div></div>
+    </div>
+    <div class="card" id="card-vis">
+      <div class="ch"><span class="ct">Visibility &amp; Marketing</span><div class="ch-right"><span class="ctag tp">Daily</span><button class="edit-btn" onclick="toggleEdit('card-vis')">✏️ Edit</button></div></div>
+      <div class="cb"><div class="view-mode" id="view-vis"></div><div class="edit-mode"><ul class="cl" id="vis-cl"></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VISIBILITY ══ -->
+<section class="sec" id="sec-visibility">
+  <div class="topbar"><div><h2>Visibility &amp; Content Planner</h2><div class="sub" id="vis-sub"></div></div><div class="sbadge ok">Auto-saved</div></div>
+  <div class="mbanner mb-d"><div class="mdot dd"></div><span><strong>Daily entry</strong> — your content plan is saved per day.</span></div>
+  <div class="g2">
+    <div class="card" id="card-cplan">
+      <div class="ch"><span class="ct">Content Plan for Today</span><div class="ch-right"><span class="ctag tp">Daily</span><button class="edit-btn" onclick="toggleEdit('card-cplan')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-cplan"></div>
+        <div class="edit-mode">
+          <div class="fg"><label class="fl">What am I promoting today?</label><input class="fi" id="vis-promo" oninput="sf('vis_promo',this.value)"/></div>
+          <div class="fg"><label class="fl">Content Idea / Topic</label><textarea class="ft" id="vis-idea" oninput="sf('vis_idea',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Platforms Today</label>
+            <div class="pgrid" id="pgrid">
+              <div class="pb" onclick="togP(this,'vis_fb')">FB</div>
+              <div class="pb" onclick="togP(this,'vis_ig')">IG</div>
+              <div class="pb" onclick="togP(this,'vis_li')">LinkedIn</div>
+              <div class="pb" onclick="togP(this,'vis_yt')">YouTube</div>
+              <div class="pb" onclick="togP(this,'vis_tt')">TikTok</div>
+              <div class="pb" onclick="togP(this,'vis_bs')">Bluesky</div>
+              <div class="pb" onclick="togP(this,'vis_l8')">Lemon8</div>
+            </div>
+          </div>
+          <div class="fg"><label class="fl">Call-to-Action Today</label><input class="fi" id="vis-cta" oninput="sf('vis_cta',this.value)"/></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" id="card-cref">
+      <div class="ch"><span class="ct">Content Reflection</span><div class="ch-right"><span class="ctag tl">Daily</span><button class="edit-btn" onclick="toggleEdit('card-cref')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-cref"></div>
+        <div class="edit-mode">
+          <div class="fg"><label class="fl">Content Pillar Used Today</label>
+            <select class="fi" id="vis-pillar" onchange="sf('vis_pillar',this.value)">
+              <option value="">Select…</option>
+              <option>Educational</option><option>Storytelling</option><option>Authority</option>
+              <option>Personal Brand</option><option>Sales / Offer</option><option>Community / Engagement</option>
+            </select>
+          </div>
+          <div class="fg"><label class="fl">What does my audience need to hear?</label><textarea class="ft" id="vis-aud" oninput="sf('vis_aud',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">What conversation am I leading?</label><textarea class="ft" id="vis-convo" oninput="sf('vis_convo',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Engagement Notes</label><textarea class="ft" id="vis-engage" oninput="sf('vis_engage',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NETWORKING (PERMANENT) ══ -->
+<section class="sec" id="sec-networking">
+  <div class="topbar"><div><h2>Networking &amp; Clients</h2><div class="sub">Permanent — your contacts, leads &amp; follow-ups live here</div></div><div class="sbadge ok">Auto-saved</div></div>
+  <div class="mbanner mb-p"><div class="mdot dp"></div><span><strong>Permanent tracker</strong> — add contacts once, update their status anytime, come back whenever needed.</span></div>
+
+  <!-- LEADS / CONTACTS TRACKER -->
+  <div class="card pc" style="margin-bottom:16px">
+    <div class="ch">
+      <span class="ct">Lead &amp; Contact Tracker</span>
+      <div class="ch-right">
+        <span class="ctag tt">Permanent</span>
+        <button class="edit-btn" style="background:var(--t600);color:white;border-color:var(--t600)" onclick="openAddContact()">+ Add Contact</button>
+      </div>
+    </div>
+    <div class="cb" style="padding:0">
+      <!-- Filter bar -->
+      <div class="tracker-filters" style="padding:12px 18px;border-bottom:1px solid rgba(140,105,75,0.1);display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <input class="fi" id="net-search" placeholder="Search name, platform, notes…" style="max-width:220px;min-height:0;padding:6px 10px" oninput="renderContacts()"/>
+        <select class="fi" id="net-filter-status" style="max-width:140px;min-height:0;padding:6px 10px" onchange="renderContacts()">
+          <option value="">All Statuses</option>
+          <option>New Lead</option><option>Warm</option><option>Hot</option>
+          <option>Discovery Call</option><option>Proposal Sent</option><option>Client</option>
+          <option>Follow Up</option><option>Speaking</option><option>Collab</option><option>Closed</option>
+        </select>
+        <select class="fi" id="net-filter-type" style="max-width:140px;min-height:0;padding:6px 10px" onchange="renderContacts()">
+          <option value="">All Types</option>
+          <option>Lead</option><option>Client</option><option>Referral Partner</option>
+          <option>Speaking Opp</option><option>Collaborator</option><option>Networking</option>
+        </select>
+        <span id="net-count" class="tracker-count" style="font-size:12px;color:var(--muted);margin-left:4px"></span>
+      </div>
+      <div id="contacts-list" style="min-height:120px"></div>
+    </div>
+  </div>
+
+  <!-- SPEAKING OPPORTUNITIES -->
+  <div class="card pc" style="margin-bottom:16px">
+    <div class="ch">
+      <span class="ct">Speaking &amp; Visibility Opportunities</span>
+      <div class="ch-right">
+        <span class="ctag tt">Permanent</span>
+        <button class="edit-btn" style="background:var(--t600);color:white;border-color:var(--t600)" onclick="openAddOpp()">+ Add Opportunity</button>
+      </div>
+    </div>
+    <div class="cb" style="padding:0">
+      <div class="tracker-filters" style="padding:12px 18px;border-bottom:1px solid rgba(140,105,75,0.1);display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <input class="fi" id="opp-search" placeholder="Search opportunity, host, notes…" style="max-width:240px;min-height:0;padding:6px 10px" oninput="renderOpps()"/>
+        <select class="fi" id="opp-filter-status" style="max-width:150px;min-height:0;padding:6px 10px" onchange="renderOpps()">
+          <option value="">All Statuses</option>
+          <option>Idea</option><option>To Pitch</option><option>Pitched</option>
+          <option>Follow Up</option><option>Booked</option><option>Completed</option><option>Passed</option>
+        </select>
+        <select class="fi" id="opp-filter-type" style="max-width:170px;min-height:0;padding:6px 10px" onchange="renderOpps()">
+          <option value="">All Types</option>
+          <option>Podcast / Radio</option><option>Webinar / Workshop</option><option>Summit / Panel</option>
+          <option>Collaboration</option><option>Guest Feature</option><option>Other</option>
+        </select>
+        <span id="opp-count" class="tracker-count" style="font-size:12px;color:var(--muted);margin-left:4px"></span>
+      </div>
+      <div id="opp-list" style="min-height:120px"></div>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT OPPORTUNITY MODAL -->
+  <div id="opp-modal" style="display:none;position:fixed;inset:0;background:rgba(38,33,92,0.45);z-index:999;align-items:center;justify-content:center">
+    <div style="background:white;border-radius:14px;padding:28px 30px;width:100%;max-width:520px;margin:20px;box-shadow:0 20px 60px rgba(38,33,92,0.2);max-height:90vh;overflow-y:auto">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <span style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--p900)" id="opp-modal-title">Add Opportunity</span>
+        <button onclick="closeOppModal()" style="background:var(--g50);border:none;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:13px;color:var(--g600);font-family:'Montserrat',sans-serif">✕ Close</button>
+      </div>
+      <input type="hidden" id="opp-edit-id"/>
+      <div class="fg"><label class="fl">Opportunity Name *</label><input class="fi" id="o-name" placeholder="Podcast, summit, guest feature…"/></div>
+      <div class="split-2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="fg"><label class="fl">Type</label>
+          <select class="fi" id="o-type">
+            <option>Podcast / Radio</option><option>Webinar / Workshop</option><option>Summit / Panel</option>
+            <option>Collaboration</option><option>Guest Feature</option><option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Status</label>
+          <select class="fi" id="o-status">
+            <option>Idea</option><option>To Pitch</option><option>Pitched</option>
+            <option>Follow Up</option><option>Booked</option><option>Completed</option><option>Passed</option>
+          </select>
+        </div>
+      </div>
+      <div class="split-2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="fg"><label class="fl">Host / Platform</label><input class="fi" id="o-platform" placeholder="Host, publication, event…"/></div>
+        <div class="fg"><label class="fl">Follow-Up Date</label><input class="fi" type="date" id="o-fudate"/></div>
+      </div>
+      <div class="fg"><label class="fl">Contact Info</label><input class="fi" id="o-contact" placeholder="Email, DM, booking link…"/></div>
+      <div class="fg"><label class="fl">Notes / Pitch History</label><textarea class="ft" id="o-notes" placeholder="Pitch angle, audience, requirements, conversation history…" style="min-height:90px"></textarea></div>
+      <div class="fg"><label class="fl">Next Action</label><input class="fi" id="o-nextaction" placeholder="Pitch, follow up, send bio, confirm date…"/></div>
+      <div style="display:flex;gap:8px;margin-top:6px">
+        <button onclick="saveOpp()" style="flex:1;padding:10px;background:var(--t600);color:white;border:none;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:500;cursor:pointer">Save Opportunity</button>
+        <button id="opp-delete-btn" onclick="deleteOpp()" style="padding:10px 16px;background:white;color:#A32D2D;border:1px solid #F7C1C1;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:13px;cursor:pointer;display:none">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT MODAL -->
+  <div id="contact-modal" style="display:none;position:fixed;inset:0;background:rgba(38,33,92,0.45);z-index:999;align-items:center;justify-content:center">
+    <div style="background:white;border-radius:14px;padding:28px 30px;width:100%;max-width:520px;margin:20px;box-shadow:0 20px 60px rgba(38,33,92,0.2);max-height:90vh;overflow-y:auto">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <span style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--p900)" id="modal-title">Add Contact</span>
+        <button onclick="closeModal()" style="background:var(--g50);border:none;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:13px;color:var(--g600);font-family:'Montserrat',sans-serif">✕ Close</button>
+      </div>
+      <input type="hidden" id="modal-edit-id"/>
+      <div class="fg"><label class="fl">Name *</label><input class="fi" id="m-name" placeholder="Full name"/></div>
+      <div class="split-2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="fg"><label class="fl">Type</label>
+          <select class="fi" id="m-type">
+            <option>Lead</option><option>Client</option><option>Referral Partner</option>
+            <option>Speaking Opp</option><option>Collaborator</option><option>Networking</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Status</label>
+          <select class="fi" id="m-status">
+            <option>New Lead</option><option>Warm</option><option>Hot</option>
+            <option>Discovery Call</option><option>Proposal Sent</option><option>Client</option>
+            <option>Follow Up</option><option>Speaking</option><option>Collab</option><option>Closed</option>
+          </select>
+        </div>
+      </div>
+      <div class="split-2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="fg"><label class="fl">Platform / Where You Met</label><input class="fi" id="m-platform" placeholder="Instagram, LinkedIn, Event…"/></div>
+        <div class="fg"><label class="fl">Follow-Up Date</label><input class="fi" type="date" id="m-fudate"/></div>
+      </div>
+      <div class="fg"><label class="fl">Contact Info (email / DM / phone)</label><input class="fi" id="m-contact" placeholder="How to reach them…"/></div>
+      <div class="fg"><label class="fl">Notes / History</label><textarea class="ft" id="m-notes" placeholder="Call notes, what you discussed, what they need…" style="min-height:90px"></textarea></div>
+      <div class="fg"><label class="fl">Next Action</label><input class="fi" id="m-nextaction" placeholder="What's the next step?"/></div>
+      <div style="display:flex;gap:8px;margin-top:6px">
+        <button onclick="saveContact()" style="flex:1;padding:10px;background:var(--t600);color:white;border:none;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:500;cursor:pointer">Save Contact</button>
+        <button id="modal-delete-btn" onclick="deleteContact()" style="padding:10px 16px;background:white;color:#A32D2D;border:1px solid #F7C1C1;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:13px;cursor:pointer;display:none">Delete</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MONEY TODAY ══ -->
+<section class="sec" id="sec-money">
+  <div class="topbar"><div><h2>Money — Today</h2><div class="sub" id="money-sub"></div></div><div class="sbadge ok">Auto-saved</div></div>
+  <div class="mbanner mb-d"><div class="mdot dd"></div><span><strong>Daily entry</strong> — log today's income and expenses. Goals live in Permanent → Money.</span></div>
+  <div class="g2">
+    <div class="card" id="card-rev">
+      <div class="ch"><span class="ct">Revenue &amp; Sales Today</span><div class="ch-right"><span class="ctag tp">Daily</span><button class="edit-btn" onclick="toggleEdit('card-rev')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-rev"></div>
+        <div class="edit-mode">
+          <div class="fg"><label class="fl">Revenue Received Today ($)</label><input class="fi" type="number" id="m-rev" placeholder="0.00" oninput="sf('m_rev',this.value)"/></div>
+          <div class="fg"><label class="fl">Offer / Service Sold</label><input class="fi" id="m-offer" oninput="sf('m_offer',this.value)"/></div>
+          <div class="fg"><label class="fl">Client Payment From</label><input class="fi" id="m-client" oninput="sf('m_client',this.value)"/></div>
+          <div class="fg"><label class="fl">Sales Activity Notes</label><textarea class="ft" id="m-snotes" oninput="sf('m_snotes',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" id="card-exp">
+      <div class="ch"><span class="ct">Expenses Today</span><div class="ch-right"><span class="ctag tl">Daily</span><button class="edit-btn" onclick="toggleEdit('card-exp')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-exp"></div>
+        <div class="edit-mode">
+          <div class="fg"><label class="fl">Business Expense Today ($)</label><input class="fi" type="number" id="m-exp" placeholder="0.00" oninput="sf('m_exp',this.value)"/></div>
+          <div class="fg"><label class="fl">What Was it For?</label><input class="fi" id="m-expdesc" oninput="sf('m_expdesc',this.value)"/></div>
+          <div class="fg"><label class="fl">Tax Write-Off Note</label><textarea class="ft" id="m-tax" oninput="sf('m_tax',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Revenue-Creating Activity Today</label><textarea class="ft" id="m-ract" oninput="sf('m_ract',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Cash Flow Note</label><input class="fi" id="m-cash" oninput="sf('m_cash',this.value)"/></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WINS ══ -->
+<section class="sec" id="sec-wins">
+  <div class="topbar"><div><h2>Wins &amp; Reflection</h2><div class="sub" id="wins-sub"></div></div><div class="sbadge ok">Auto-saved</div></div>
+  <div class="mbanner mb-d"><div class="mdot dd"></div><span><strong>Daily wins</strong> — log each day's win and lesson. <strong>Monthly Reflection</strong> opens only on the last day of the month.</span></div>
+  <div class="g2">
+    <div class="card" id="card-wins">
+      <div class="ch"><span class="ct">Today's Win ✦</span><div class="ch-right"><span class="ctag tp">Daily</span><button class="edit-btn" onclick="toggleEdit('card-wins')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-wins"></div>
+        <div class="edit-mode">
+          <div class="fg"><label class="fl">My Win Today</label><textarea class="ft" id="g-win" placeholder="What did you achieve? Even small wins count." oninput="sf('g_win',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">What I'm Proud Of</label><textarea class="ft" id="g-proud" placeholder="Don't skip this ✦" oninput="sf('g_proud',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Lesson Learned Today</label><textarea class="ft" id="g-lesson" oninput="sf('g_lesson',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" id="card-refl">
+      <div class="ch"><span class="ct">Monthly Reflection</span><div class="ch-right"><span class="ctag tl">Month-End</span><button class="edit-btn" id="refl-edit-btn" onclick="toggleEdit('card-refl')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-refl"></div>
+        <div class="edit-mode" id="refl-edit-wrap">
+          <div class="fg"><label class="fl">What worked this month?</label><textarea class="ft" id="g-worked" oninput="sf('g_worked',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">What drained me?</label><textarea class="ft" id="g-drained" oninput="sf('g_drained',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">What do I need to release?</label><textarea class="ft" id="g-release" oninput="sf('g_release',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Celebrations</label><textarea class="ft" id="g-celeb" oninput="sf('g_celeb',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VISION (PERMANENT) ══ -->
+<section class="sec" id="sec-vision">
+  <div class="topbar"><div><h2>Vision &amp; Identity</h2><div class="sub">Permanent — write once, update as you grow</div></div><div class="sbadge ok">Auto-saved</div></div>
+  <div class="mbanner mb-p"><div class="mdot dp"></div><span><strong>Permanent</strong> — saved once, never tied to a date. Edit anytime.</span></div>
+  <div class="g2">
+    <div class="card pc" id="card-ceo">
+      <div class="ch"><span class="ct">My CEO Identity</span><div class="ch-right"><span class="ctag tt">Permanent</span><button class="edit-btn" onclick="toggleEdit('card-ceo')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-ceo"></div>
+        <div class="edit-mode">
+          <div class="fg"><label class="fl">Word of the Year</label><input class="fi" id="p-word" placeholder="Expansion, Abundance, Flow…" oninput="sp('p_word',this.value)"/></div>
+          <div class="fg"><label class="fl">Who am I becoming this season?</label><textarea class="ft" id="p-becoming" oninput="sp('p_becoming',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">My Business Mission</label><textarea class="ft" id="p-mission" placeholder="What do you do, for whom, and why?" oninput="sp('p_mission',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">My Why</label><textarea class="ft" id="p-why" oninput="sp('p_why',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+    <div class="card pc" id="card-visdream">
+      <div class="ch"><span class="ct">Vision &amp; Dream Life</span><div class="ch-right"><span class="ctag tt">Permanent</span><button class="edit-btn" onclick="toggleEdit('card-visdream')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-visdream"></div>
+        <div class="edit-mode">
+          <div class="fg"><label class="fl">My Vision for This Year</label><textarea class="ft" id="p-vision" oninput="sp('p_vision',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">My Dream Lifestyle</label><textarea class="ft" id="p-lifestyle" oninput="sp('p_lifestyle',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Yearly Income Goal</label><input class="fi" id="p-income" placeholder="$" oninput="sp('p_income',this.value)"/></div>
+          <div class="fg"><label class="fl">Ideal Client Profile</label><textarea class="ft" id="p-client" oninput="sp('p_client',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Signature Offer / Service</label><textarea class="ft" id="p-offer" oninput="sp('p_offer',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card pc" id="card-vals">
+    <div class="ch"><span class="ct">Business Values</span><div class="ch-right"><span class="ctag tt">Permanent</span><button class="edit-btn" onclick="toggleEdit('card-vals')">✏️ Edit</button></div></div>
+    <div class="cb">
+      <div class="view-mode" id="view-vals"></div>
+      <div class="edit-mode"><div class="g3">
+        <div class="fg"><label class="fl">Value 1</label><input class="fi" id="p-v1" placeholder="Integrity" oninput="sp('p_v1',this.value)"/></div>
+        <div class="fg"><label class="fl">Value 2</label><input class="fi" id="p-v2" placeholder="Service" oninput="sp('p_v2',this.value)"/></div>
+        <div class="fg"><label class="fl">Value 3</label><input class="fi" id="p-v3" placeholder="Growth" oninput="sp('p_v3',this.value)"/></div>
+        <div class="fg"><label class="fl">Value 4</label><input class="fi" id="p-v4" placeholder="Community" oninput="sp('p_v4',this.value)"/></div>
+        <div class="fg"><label class="fl">Value 5</label><input class="fi" id="p-v5" placeholder="Authenticity" oninput="sp('p_v5',this.value)"/></div>
+        <div class="fg"><label class="fl">Value 6</label><input class="fi" id="p-v6" placeholder="Impact" oninput="sp('p_v6',this.value)"/></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GOALS (PERMANENT) ══ -->
+<section class="sec" id="sec-goals">
+  <div class="topbar"><div><h2>Goals &amp; Quarterly Plan</h2><div class="sub">Permanent — review and update each quarter</div></div><div class="sbadge ok">Auto-saved</div></div>
+  <div class="mbanner mb-p"><div class="mdot dp"></div><span><strong>Permanent</strong> — your annual vision and quarterly goals. Edit anytime.</span></div>
+  <div class="g2">
+    <div class="card pc" id="card-annual">
+      <div class="ch"><span class="ct">Annual Vision</span><div class="ch-right"><span class="ctag tt">Permanent</span><button class="edit-btn" onclick="toggleEdit('card-annual')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-annual"></div>
+        <div class="edit-mode">
+          <div class="fg"><label class="fl">Annual Revenue Goal</label><input class="fi" id="p-annual" placeholder="$" oninput="sp('p_annual',this.value)"/></div>
+          <div class="fg"><label class="fl">Annual Personal Goal</label><textarea class="ft" id="p-personal" oninput="sp('p_personal',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Annual Business Goal</label><textarea class="ft" id="p-bizgoal" oninput="sp('p_bizgoal',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Mid-Year Reflection</label><textarea class="ft" id="p-midyear" oninput="sp('p_midyear',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Year-End Reflection</label><textarea class="ft" id="p-yearend" oninput="sp('p_yearend',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+    <div class="card pc" id="card-qtrs">
+      <div class="ch"><span class="ct">Quarterly Goals</span><div class="ch-right"><span class="ctag tt">Permanent</span><button class="edit-btn" onclick="toggleEdit('card-qtrs')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-qtrs"></div>
+        <div class="edit-mode"><div class="g2" style="gap:10px">
+          <div class="qb"><div class="ql">Q1 · Jan–Mar</div><h4>Foundation</h4><textarea class="ft" id="p-q1" style="min-height:55px" oninput="sp('p_q1',this.value)"></textarea></div>
+          <div class="qb cur"><div class="ql">Q2 · Apr–Jun ← Now</div><h4>Momentum</h4><textarea class="ft" id="p-q2" style="min-height:55px" oninput="sp('p_q2',this.value)"></textarea></div>
+          <div class="qb"><div class="ql">Q3 · Jul–Sep</div><h4>Scale</h4><textarea class="ft" id="p-q3" style="min-height:55px" oninput="sp('p_q3',this.value)"></textarea></div>
+          <div class="qb"><div class="ql">Q4 · Oct–Dec</div><h4>Harvest</h4><textarea class="ft" id="p-q4" style="min-height:55px" oninput="sp('p_q4',this.value)"></textarea></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MONEY PERM ══ -->
+<section class="sec" id="sec-moneyperm">
+  <div class="topbar"><div><h2>Money — Goals &amp; Budget</h2><div class="sub">Permanent — your financial foundation</div></div><div class="sbadge ok">Auto-saved</div></div>
+  <div class="mbanner mb-p"><div class="mdot dp"></div><span><strong>Permanent</strong> — income goals, living budget, and recurring expenses. Edit anytime.</span></div>
+  <div class="g2">
+    <div class="card pc" id="card-incgoal">
+      <div class="ch"><span class="ct">Income &amp; Sales Goals</span><div class="ch-right"><span class="ctag tt">Permanent</span><button class="edit-btn" onclick="toggleEdit('card-incgoal')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-incgoal"></div>
+        <div class="edit-mode">
+          <div class="fg"><label class="fl">Annual Income Goal ($)</label><input class="fi" id="p-income-goal" placeholder="60000" oninput="sp('p_income_goal',this.value)"/></div>
+          <div class="fg"><label class="fl">Monthly Sales Goal ($)</label><input class="fi" id="p-month-goal" placeholder="5000" oninput="sp('p_month_goal',this.value)"/></div>
+          <div class="fg"><label class="fl">Clients Needed to Hit Goal</label><input class="fi" id="p-clients" placeholder="e.g. 4 clients at $1,250" oninput="sp('p_clients',this.value)"/></div>
+          <div class="fg"><label class="fl">What activity creates revenue?</label><textarea class="ft" id="p-rev-act" oninput="sp('p_rev_act',this.value)"></textarea></div>
+          <div class="fg"><label class="fl">Offer Sales Goal</label><textarea class="ft" id="p-offer-goal" oninput="sp('p_offer_goal',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+    <div class="card pc" id="card-budget">
+      <div class="ch"><span class="ct">Essential Living Budget</span><div class="ch-right"><span class="ctag tt">Permanent</span><button class="edit-btn" onclick="toggleEdit('card-budget')">✏️ Edit</button></div></div>
+      <div class="cb">
+        <div class="view-mode" id="view-budget"></div>
+        <div class="edit-mode">
+          <div class="fg"><label class="fl">Rent / Mortgage ($)</label><input class="fi" id="p-rent" oninput="sp('p_rent',this.value)"/></div>
+          <div class="fg"><label class="fl">Food / Groceries ($)</label><input class="fi" id="p-food" oninput="sp('p_food',this.value)"/></div>
+          <div class="fg"><label class="fl">Transportation / Gas ($)</label><input class="fi" id="p-transport" oninput="sp('p_transport',this.value)"/></div>
+          <div class="fg"><label class="fl">Insurance ($)</label><input class="fi" id="p-insurance" oninput="sp('p_insurance',this.value)"/></div>
+          <div class="fg"><label class="fl">Internet / Cell Phone ($)</label><input class="fi" id="p-internet" oninput="sp('p_internet',this.value)"/></div>
+          <div class="fg"><label class="fl">Other Essential Expenses</label><textarea class="ft" id="p-other-bills" oninput="sp('p_other_bills',this.value)"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card pc" id="card-bizexp">
+    <div class="ch"><span class="ct">Recurring Business Expenses</span><div class="ch-right"><span class="ctag tt">Permanent</span><button class="edit-btn" onclick="toggleEdit('card-bizexp')">✏️ Edit</button></div></div>
+    <div class="cb">
+      <div class="view-mode" id="view-bizexp"></div>
+      <div class="edit-mode"><div class="g3">
+        <div class="fg"><label class="fl">Website / Hosting ($)</label><input class="fi" id="p-website" oninput="sp('p_website',this.value)"/></div>
+        <div class="fg"><label class="fl">Email Marketing ($)</label><input class="fi" id="p-email" oninput="sp('p_email',this.value)"/></div>
+        <div class="fg"><label class="fl">Subscriptions ($)</label><input class="fi" id="p-subs" oninput="sp('p_subs',this.value)"/></div>
+        <div class="fg"><label class="fl">Coaching / Mentoring ($)</label><input class="fi" id="p-coaching" oninput="sp('p_coaching',this.value)"/></div>
+        <div class="fg"><label class="fl">Advertising ($)</label><input class="fi" id="p-ads" oninput="sp('p_ads',this.value)"/></div>
+        <div class="fg"><label class="fl">Other Business Expenses</label><textarea class="ft" id="p-other-biz" oninput="sp('p_other_biz',this.value)"></textarea></div>
+      </div></div>
+    </div>
+  </div>
+  <div class="card pc" style="margin-top:16px">
+    <div class="ch">
+      <span class="ct">Money Trackers</span>
+      <div class="ch-right"><span class="ctag tt">Permanent</span></div>
+    </div>
+    <div class="tracker-metrics">
+      <div class="tracker-metric">
+        <div class="tracker-metric-label">Tracked Revenue</div>
+        <div class="tracker-metric-value" id="money-metric-revenue">$0.00</div>
+      </div>
+      <div class="tracker-metric">
+        <div class="tracker-metric-label">Tracked Expenses</div>
+        <div class="tracker-metric-value" id="money-metric-expense">$0.00</div>
+      </div>
+      <div class="tracker-metric">
+        <div class="tracker-metric-label">Net Cash Flow</div>
+        <div class="tracker-metric-value" id="money-metric-net">$0.00</div>
+      </div>
+    </div>
+    <div class="tracker-tabs">
+      <button class="tracker-tab active" id="tab-revenue" onclick="setMoneyTrackerTab('revenue')">Revenue Tracker</button>
+      <button class="tracker-tab" id="tab-expense" onclick="setMoneyTrackerTab('expense')">Expense Tracker</button>
+      <button class="tracker-tab" id="tab-debt" onclick="setMoneyTrackerTab('debt')">Debt Tracker</button>
+    </div>
+
+    <div class="tracker-panel active" id="panel-revenue">
+      <div class="tracker-quick-add">
+        <span class="tracker-pill">Add Revenue</span>
+        <input class="fi" type="date" id="rev-add-date" style="max-width:160px;min-height:0;padding:6px 10px"/>
+        <input class="fi" id="rev-add-amount" type="number" placeholder="Amount" style="max-width:120px;min-height:0;padding:6px 10px"/>
+        <input class="fi" id="rev-add-client" placeholder="Client / Offer" style="max-width:220px;min-height:0;padding:6px 10px"/>
+        <button class="edit-btn" onclick="addRevenueEntry()">+ Add Revenue</button>
+      </div>
+      <div class="tracker-filters" style="padding:12px 18px;border-bottom:1px solid rgba(140,105,75,0.1)">
+        <input class="fi" id="rev-track-search" placeholder="Search date, client, offer, notes…" style="max-width:280px;min-height:0;padding:6px 10px" oninput="renderMoneySummary()"/>
+        <span id="rev-track-count" class="tracker-count"></span>
+      </div>
+      <div id="revenue-tracker-list" style="min-height:120px"></div>
+    </div>
+
+    <div class="tracker-panel" id="panel-expense">
+      <div class="tracker-quick-add">
+        <span class="tracker-pill">Add Expense</span>
+        <input class="fi" type="date" id="exp-add-date" style="max-width:160px;min-height:0;padding:6px 10px"/>
+        <input class="fi" id="exp-add-amount" type="number" placeholder="Amount" style="max-width:120px;min-height:0;padding:6px 10px"/>
+        <input class="fi" id="exp-add-desc" placeholder="Category / Description" style="max-width:220px;min-height:0;padding:6px 10px"/>
+        <button class="edit-btn" onclick="addExpenseEntry()">+ Add Expense</button>
+      </div>
+      <div class="tracker-filters" style="padding:12px 18px;border-bottom:1px solid rgba(140,105,75,0.1)">
+        <input class="fi" id="exp-track-search" placeholder="Search date, category, notes…" style="max-width:280px;min-height:0;padding:6px 10px" oninput="renderMoneySummary()"/>
+        <span id="exp-track-count" class="tracker-count"></span>
+      </div>
+      <div id="expense-tracker-list" style="min-height:120px"></div>
+    </div>
+
+    <div class="tracker-panel" id="panel-debt">
+      <div class="tracker-filters" style="padding:12px 18px;border-bottom:1px solid rgba(140,105,75,0.1)">
+        <input class="fi" id="debt-name" placeholder="Debt name (e.g. Credit Card)" style="max-width:210px;min-height:0;padding:6px 10px"/>
+        <input class="fi" id="debt-balance" placeholder="Balance" style="max-width:120px;min-height:0;padding:6px 10px"/>
+        <input class="fi" id="debt-payment" placeholder="Monthly payment" style="max-width:150px;min-height:0;padding:6px 10px"/>
+        <button class="edit-btn" onclick="addDebtEntry()">+ Add Debt</button>
+      </div>
+      <div class="tracker-filters" style="padding:12px 18px;border-bottom:1px solid rgba(140,105,75,0.1)">
+        <input class="fi" id="debt-track-search" placeholder="Search debts…" style="max-width:280px;min-height:0;padding:6px 10px" oninput="renderMoneySummary()"/>
+        <span id="debt-track-count" class="tracker-count"></span>
+      </div>
+      <div id="debt-tracker-list" style="min-height:120px"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+<script>
+const DP='ceo_daily_',PK='ceo_permanent',THEME_KEY='ceo_theme_palette';
+let cd=tds(),st=null,moneyTab='revenue';
+const THEMES={
+  lavender:{
+    '--font-body':"'Montserrat',sans-serif",'--font-display':"'Montserrat',sans-serif",'--font-script':"'Montserrat',sans-serif",
+    '--p50':'#f2eff8','--p100':'#dfd4f6','--p200':'#c8b3ec','--p400':'#a77edc','--p600':'#8e62c7','--p800':'#6b459a','--p900':'#3e2a57',
+    '--g50':'#f8f7fb','--g100':'#e9e3f5','--g400':'#8e84a6','--g600':'#5e5276',
+    '--t50':'#e8f7f3','--t100':'#c9ece3','--t600':'#67b7a5','--t800':'#2f7d6f',
+    '--bg':'#efedf2','--card':'rgba(255,255,255,0.94)','--border':'rgba(142,98,199,0.18)','--muted':'#7a6f8f',
+    '--sidebar':'#ffffff','--sidebar-grad-start':'#5d3f8a','--sidebar-grad-end':'#3f2a63',
+    '--glass':'linear-gradient(145deg,rgba(255,255,255,0.95),rgba(247,244,252,0.86))',
+    '--aff-grad-start':'#8f6bd0','--aff-grad-mid':'#7552b6','--aff-grad-end':'#56398e','--aff-shadow':'rgba(62,42,87,0.32)','--aff-quote':'rgba(223,212,246,0.22)',
+    '--elev':'0 16px 40px rgba(62,42,87,0.16)','--elev-soft':'0 10px 24px rgba(62,42,87,0.1)'
+  },
+  earth:{
+    '--font-body':"'Montserrat',sans-serif",'--font-display':"'Montserrat',sans-serif",'--font-script':"'Montserrat',sans-serif",
+    '--p50':'#f6efe7','--p100':'#ecdcc8','--p200':'#d7b998','--p400':'#b38256','--p600':'#8f5f37','--p800':'#5a3a27','--p900':'#2b1e16',
+    '--g50':'#fbf8f4','--g100':'#e8dfd5','--g400':'#938579','--g600':'#5f554c',
+    '--t50':'#efe8df','--t100':'#dbc7af','--t600':'#8c694b','--t800':'#62462f',
+    '--bg':'#f7f1ea','--card':'rgba(255,251,246,0.92)','--border':'rgba(143,95,55,0.18)','--muted':'#76675a',
+    '--sidebar':'#2c1c15','--sidebar-grad-start':'#3b261d','--sidebar-grad-end':'#251812',
+    '--glass':'linear-gradient(145deg,rgba(255,251,246,0.96),rgba(249,241,233,0.84))',
+    '--aff-grad-start':'#7c5633','--aff-grad-mid':'#5f3f25','--aff-grad-end':'#3b2618','--aff-shadow':'rgba(59,38,24,0.35)','--aff-quote':'rgba(236,220,200,0.16)',
+    '--elev':'0 16px 40px rgba(43,30,22,0.12)','--elev-soft':'0 10px 24px rgba(43,30,22,0.1)'
+  },
+  midnight:{
+    '--font-body':"'Montserrat',sans-serif",'--font-display':"'Montserrat',sans-serif",'--font-script':"'Montserrat',sans-serif",
+    '--p50':'#f0f0ff','--p100':'#d2d3ff','--p200':'#aeb0f7','--p400':'#8084ef','--p600':'#5f64ce','--p800':'#383e8d','--p900':'#1e244f',
+    '--g50':'#f4f6fb','--g100':'#dfe4f2','--g400':'#8b95b5','--g600':'#556081',
+    '--t50':'#e4f8ff','--t100':'#c5ebf8','--t600':'#55b2cf','--t800':'#2b7289',
+    '--bg':'#edf1f8','--card':'rgba(255,255,255,0.95)','--border':'rgba(95,100,206,0.18)','--muted':'#62708f',
+    '--sidebar':'#1e2145','--sidebar-grad-start':'#2d3065','--sidebar-grad-end':'#171935',
+    '--glass':'linear-gradient(145deg,rgba(255,255,255,0.96),rgba(240,244,255,0.9))',
+    '--aff-grad-start':'#36408e','--aff-grad-mid':'#262f6f','--aff-grad-end':'#181f4f','--aff-shadow':'rgba(24,31,79,0.38)','--aff-quote':'rgba(210,211,255,0.18)',
+    '--elev':'0 16px 40px rgba(30,36,79,0.2)','--elev-soft':'0 10px 24px rgba(30,36,79,0.14)'
+  },
+  royalgreen:{
+    '--font-body':"'Montserrat',sans-serif",'--font-display':"'Montserrat',sans-serif",'--font-script':"'Montserrat',sans-serif",
+    '--p50':'#eef8f2','--p100':'#cfe8d9','--p200':'#a7d3bb','--p400':'#4ea374','--p600':'#2f7f53','--p800':'#1f5c3a','--p900':'#123623',
+    '--g50':'#f4faf6','--g100':'#dcebdd','--g400':'#7f9f87','--g600':'#4f6f59',
+    '--t50':'#e8f6ef','--t100':'#cae8da','--t600':'#5ea980','--t800':'#2f6f4a',
+    '--bg':'#edf5f0','--card':'rgba(255,255,255,0.95)','--border':'rgba(47,127,83,0.2)','--muted':'#5e7867',
+    '--sidebar':'#123623','--sidebar-grad-start':'#21563a','--sidebar-grad-end':'#123623',
+    '--glass':'linear-gradient(145deg,rgba(255,255,255,0.97),rgba(239,248,242,0.9))',
+    '--aff-grad-start':'#2f7f53','--aff-grad-mid':'#215e3d','--aff-grad-end':'#123623','--aff-shadow':'rgba(18,54,35,0.35)','--aff-quote':'rgba(207,232,217,0.22)',
+    '--elev':'0 16px 40px rgba(18,54,35,0.18)','--elev-soft':'0 10px 24px rgba(18,54,35,0.12)'
+  },
+  torques:{
+    '--font-body':"'Montserrat',sans-serif",'--font-display':"'Montserrat',sans-serif",'--font-script':"'Montserrat',sans-serif",
+    '--p50':'#edf9fb','--p100':'#cceff4','--p200':'#9edce6','--p400':'#4db8c7','--p600':'#2f8fa0','--p800':'#236775','--p900':'#17404a',
+    '--g50':'#f2fafc','--g100':'#dff1f6','--g400':'#7ca6b4','--g600':'#4b7180',
+    '--t50':'#e6f7f6','--t100':'#c5ece9','--t600':'#4db8ad','--t800':'#2d7a73',
+    '--bg':'#ecf6f8','--card':'rgba(255,255,255,0.95)','--border':'rgba(47,143,160,0.2)','--muted':'#5f7f8a',
+    '--sidebar':'#17404a','--sidebar-grad-start':'#236775','--sidebar-grad-end':'#17404a',
+    '--glass':'linear-gradient(145deg,rgba(255,255,255,0.97),rgba(236,248,250,0.9))',
+    '--aff-grad-start':'#2f8fa0','--aff-grad-mid':'#236775','--aff-grad-end':'#17404a','--aff-shadow':'rgba(23,64,74,0.35)','--aff-quote':'rgba(204,239,244,0.22)',
+    '--elev':'0 16px 40px rgba(23,64,74,0.18)','--elev-soft':'0 10px 24px rgba(23,64,74,0.12)'
+  },
+  bw:{
+    '--font-body':"'Montserrat',sans-serif",'--font-display':"'Montserrat',sans-serif",'--font-script':"'Montserrat',sans-serif",
+    '--p50':'#f2f2f2','--p100':'#dfdfdf','--p200':'#bfbfbf','--p400':'#888888','--p600':'#595959','--p800':'#2f2f2f','--p900':'#111111',
+    '--g50':'#f7f7f7','--g100':'#e6e6e6','--g400':'#9e9e9e','--g600':'#666666',
+    '--t50':'#ededed','--t100':'#d6d6d6','--t600':'#757575','--t800':'#3c3c3c',
+    '--bg':'#ececec','--card':'rgba(255,255,255,0.95)','--border':'rgba(60,60,60,0.2)','--muted':'#5f5f5f',
+    '--sidebar':'#1a1a1a','--sidebar-grad-start':'#2f2f2f','--sidebar-grad-end':'#111111',
+    '--glass':'linear-gradient(145deg,rgba(255,255,255,0.97),rgba(240,240,240,0.9))',
+    '--aff-grad-start':'#5e5e5e','--aff-grad-mid':'#3f3f3f','--aff-grad-end':'#1e1e1e','--aff-shadow':'rgba(24,24,24,0.35)','--aff-quote':'rgba(223,223,223,0.2)',
+    '--elev':'0 16px 40px rgba(17,17,17,0.18)','--elev-soft':'0 10px 24px rgba(17,17,17,0.12)'
+  }
+};
+const AFFS=["You don't need to earn rest. You don't need to earn joy.","The version of yourself you've been putting off has been waiting patiently.","Your needs are not a burden. They are a compass.","Choosing yourself is not abandonment. It is finally showing up.","You are not behind. You are exactly where your next chapter begins.","This is not a breakdown. This is a rebirth.","You've given enough. You've waited long enough. The next chapter is yours.","What would it feel like to finally choose yourself?"];
+let ai=0;
+
+function applyTheme(themeName){
+  const choice=THEMES[themeName]?themeName:'lavender';
+  const vars=THEMES[choice];
+  Object.entries(vars).forEach(([k,v])=>document.documentElement.style.setProperty(k,v));
+  localStorage.setItem(THEME_KEY,choice);
+  const sel=document.getElementById('theme-select');
+  if(sel)sel.value=choice;
+}
+
+function onThemeChange(themeName){applyTheme(themeName);}
+
+const TG={
+  'admin-cl':[['t_email','Check Emails'],['t_followup','Follow-Ups'],['t_proposal','Proposal Letters'],['t_invoice','Invoices'],['t_contract','Contracts'],['t_scheduling','Scheduling'],['t_cs','Customer Service']],
+  'sales-cl':[['t_cold','Cold Calling'],['t_warm','Warm Calling'],['t_salesfu','Sales Follow-Ups'],['t_leads','Lead Outreach'],['t_discovery','Discovery Calls'],['t_dms','DMs / Conversations'],['t_nurture','Client Nurturing']],
+  'connect-cl':[['t_vnet','Virtual Networking'],['t_ipnet','In-Person Networking'],['t_chat','Coffee / Tea Chats'],['t_referral','Referral Outreach'],['t_community','Community Building']],
+  'vis-cl':[['t_create','Create Content'],['t_sched','Schedule Content'],['t_post','Post Content'],['t_engage','Engagement'],['t_brand','Brand Messaging']]
+};
+const AT=Object.values(TG).flat().map(t=>t[0]);
+const CK=['b_water','b_move','b_meals','b_walk','b_sleep','b_cycle','s_prayer','s_med','s_scrip','s_breath','s_viz','s_intuit',...AT];
+const PL=['vis_fb','vis_ig','vis_li','vis_yt','vis_tt','vis_bs','vis_l8'];
+
+// Maps: field key -> element id
+const DM={
+  'feel':'db-feel','priorities':'db-pri','energy':'db-energy','worked':'db-worked','celebrate':'db-celeb','release':'db-release',
+  'w_grat':'w-grat','w_journal':'w-journal','w_aff':'w-aff','w_mental':'w-mental','w_bnotes':'w-bnotes','w_snotes':'w-snotes','w_scrip':'w-scrip',
+  'vis_promo':'vis-promo','vis_idea':'vis-idea','vis_cta':'vis-cta','vis_aud':'vis-aud','vis_convo':'vis-convo','vis_engage':'vis-engage',
+  'net_leads':'net-leads','net_out':'net-out','net_disc':'net-disc','net_comment':'net-comment','net_event':'net-event','net_speak':'net-speak','net_collab':'net-collab','net_fu':'net-fu',
+  'm_rev':'m-rev','m_offer':'m-offer','m_client':'m-client','m_snotes':'m-snotes','m_exp':'m-exp','m_expdesc':'m-expdesc','m_tax':'m-tax','m_ract':'m-ract','m_cash':'m-cash',
+  'g_win':'g-win','g_proud':'g-proud','g_lesson':'g-lesson','g_worked':'g-worked','g_drained':'g-drained','g_release':'g-release','g_celeb':'g-celeb'
+};
+const PM={
+  'p_word':'p-word','p_becoming':'p-becoming','p_mission':'p-mission','p_why':'p-why',
+  'p_vision':'p-vision','p_lifestyle':'p-lifestyle','p_income':'p-income','p_client':'p-client','p_offer':'p-offer',
+  'p_v1':'p-v1','p_v2':'p-v2','p_v3':'p-v3','p_v4':'p-v4','p_v5':'p-v5','p_v6':'p-v6',
+  'p_annual':'p-annual','p_personal':'p-personal','p_bizgoal':'p-bizgoal','p_midyear':'p-midyear','p_yearend':'p-yearend',
+  'p_q1':'p-q1','p_q2':'p-q2','p_q3':'p-q3','p_q4':'p-q4',
+  'p_income_goal':'p-income-goal','p_month_goal':'p-month-goal','p_clients':'p-clients','p_rev_act':'p-rev-act','p_offer_goal':'p-offer-goal',
+  'p_rent':'p-rent','p_food':'p-food','p_transport':'p-transport','p_insurance':'p-insurance','p_internet':'p-internet','p_other_bills':'p-other-bills',
+  'p_website':'p-website','p_email':'p-email','p_subs':'p-subs','p_coaching':'p-coaching','p_ads':'p-ads','p_other_biz':'p-other-biz',
+  'p_speak_pod':'p-speak-pod','p_speak_web':'p-speak-web','p_speak_live':'p-speak-live','p_collab':'p-collab'
+};
+
+// VIEW configs: card id -> array of {label, keys}
+const VC={
+  'card-glance':[{l:'How I want to feel',k:'feel'},{l:'Top 3 Priorities',k:'priorities'},{l:'Energy I\'m bringing',k:'energy'}],
+  'card-eod':[{l:'What worked today',k:'worked'},{l:'What deserves celebrating',k:'celebrate'},{l:'What I\'ll release',k:'release'}],
+  'card-mind':[{l:'Gratitude',k:'w_grat'},{l:'Journal',k:'w_journal'},{l:'Affirmation',k:'w_aff'},{l:'Mental Check-In',k:'w_mental'},{l:'Mood',k:'w_mood'}],
+  'card-body':[{l:'Body Check',k:'_body_checks'},{l:'Body Notes',k:'w_bnotes'}],
+  'card-spirit':[{l:'Spirit Check',k:'_spirit_checks'},{l:'Spirit Notes',k:'w_snotes'},{l:'Scripture / Devotional',k:'w_scrip'}],
+  'card-admin':[{l:'Tasks',k:'_admin_tasks'}],
+  'card-sales':[{l:'Tasks',k:'_sales_tasks'}],
+  'card-connect':[{l:'Tasks',k:'_connect_tasks'}],
+  'card-vis':[{l:'Tasks',k:'_vis_tasks'}],
+  'card-cplan':[{l:'Promoting',k:'vis_promo'},{l:'Content Idea',k:'vis_idea'},{l:'Platforms',k:'_platforms'},{l:'Call-to-Action',k:'vis_cta'}],
+  'card-cref':[{l:'Content Pillar',k:'vis_pillar'},{l:'Audience Needs',k:'vis_aud'},{l:'Conversation Leading',k:'vis_convo'},{l:'Engagement Notes',k:'vis_engage'}],
+  'card-leads':[{l:'New Leads',k:'net_leads'},{l:'Outreach Done',k:'net_out'},{l:'Discovery Calls',k:'net_disc'},{l:'Strategic Commenting',k:'net_comment'}],
+  'card-events':[{l:'Event / Chat',k:'net_event'},{l:'Speaking Pitched',k:'net_speak'},{l:'Collabs',k:'net_collab'},{l:'Follow-Up Needed',k:'net_fu'}],
+  'card-rev':[{l:'Revenue ($)',k:'m_rev'},{l:'Offer Sold',k:'m_offer'},{l:'Client Payment From',k:'m_client'},{l:'Sales Notes',k:'m_snotes'}],
+  'card-exp':[{l:'Expense ($)',k:'m_exp'},{l:'Expense For',k:'m_expdesc'},{l:'Tax Write-Off',k:'m_tax'},{l:'Revenue Activity',k:'m_ract'},{l:'Cash Flow',k:'m_cash'}],
+  'card-wins':[{l:'My Win Today',k:'g_win'},{l:'What I\'m Proud Of',k:'g_proud'},{l:'Lesson Learned',k:'g_lesson'}],
+  'card-refl':[{l:'What worked',k:'g_worked'},{l:'What drained me',k:'g_drained'},{l:'What to release',k:'g_release'},{l:'Celebrations',k:'g_celeb'}],
+  'card-ceo':[{l:'Word of the Year',k:'p_word'},{l:'Becoming',k:'p_becoming'},{l:'Mission',k:'p_mission'},{l:'My Why',k:'p_why'}],
+  'card-visdream':[{l:'Vision for This Year',k:'p_vision'},{l:'Dream Lifestyle',k:'p_lifestyle'},{l:'Income Goal',k:'p_income'},{l:'Ideal Client',k:'p_client'},{l:'Signature Offer',k:'p_offer'}],
+  'card-vals':[{l:'Value 1',k:'p_v1'},{l:'Value 2',k:'p_v2'},{l:'Value 3',k:'p_v3'},{l:'Value 4',k:'p_v4'},{l:'Value 5',k:'p_v5'},{l:'Value 6',k:'p_v6'}],
+  'card-annual':[{l:'Annual Revenue Goal',k:'p_annual'},{l:'Personal Goal',k:'p_personal'},{l:'Business Goal',k:'p_bizgoal'},{l:'Mid-Year Reflection',k:'p_midyear'},{l:'Year-End Reflection',k:'p_yearend'}],
+  'card-qtrs':[{l:'Q1 – Foundation',k:'p_q1'},{l:'Q2 – Momentum',k:'p_q2'},{l:'Q3 – Scale',k:'p_q3'},{l:'Q4 – Harvest',k:'p_q4'}],
+  'card-incgoal':[{l:'Annual Income Goal',k:'p_income_goal'},{l:'Monthly Sales Goal',k:'p_month_goal'},{l:'Clients Needed',k:'p_clients'},{l:'Revenue Activity',k:'p_rev_act'},{l:'Offer Sales Goal',k:'p_offer_goal'}],
+  'card-budget':[{l:'Rent / Mortgage',k:'p_rent'},{l:'Food / Groceries',k:'p_food'},{l:'Transportation',k:'p_transport'},{l:'Insurance',k:'p_insurance'},{l:'Internet / Cell',k:'p_internet'},{l:'Other Essentials',k:'p_other_bills'}],
+  'card-bizexp':[{l:'Website',k:'p_website'},{l:'Email Marketing',k:'p_email'},{l:'Subscriptions',k:'p_subs'},{l:'Coaching',k:'p_coaching'},{l:'Advertising',k:'p_ads'},{l:'Other Business',k:'p_other_biz'}],
+  'card-speaking':[{l:'Podcasts / Radio',k:'p_speak_pod'},{l:'Webinars / Workshops',k:'p_speak_web'},{l:'In-Person / Summits / Panels',k:'p_speak_live'},{l:'Collaboration Opportunities',k:'p_collab'}]
+};
+
+function tds(){return new Date().toISOString().split('T')[0];}
+function fmt(s){const d=new Date(s+'T12:00:00');return d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});}
+function ldd(d){const r=localStorage.getItem(DP+d);return r?JSON.parse(r):{};}
+function sdd(d,v){localStorage.setItem(DP+d,JSON.stringify(v));}
+function ldp(){const r=localStorage.getItem(PK);return r?JSON.parse(r):{};}
+function sdp(v){localStorage.setItem(PK,JSON.stringify(v));}
+
+function sf(k,v){const d=ldd(cd);d[k]=v;sdd(cd,d);flash();updateStats();refreshViews();if(MONEY_KEYS.includes(k))renderMoneySummary();if(k.startsWith('g_'))updateMonthEndState();}
+function sp(k,v){const d=ldp();d[k]=v;sdp(d);flash();refreshViews();}
+
+function flash(){
+  clearTimeout(st);
+  document.querySelectorAll('.sbadge').forEach(b=>{b.textContent='Saving…';b.className='sbadge';});
+  st=setTimeout(()=>{document.querySelectorAll('.sbadge').forEach(b=>{b.textContent='Saved ✓';b.className='sbadge ok';});},380);
+}
+
+// VIEW/EDIT TOGGLE
+function toggleEdit(cardId){
+  const card=document.getElementById(cardId);
+  if(!card)return;
+  const isEditing=card.classList.contains('editing');
+  const btn=card.querySelector('.edit-btn');
+  if(isEditing){
+    card.classList.remove('editing');
+    if(btn){btn.textContent='✏️ Edit';btn.classList.remove('editing');}
+    refreshCardView(cardId);
+  } else {
+    card.classList.add('editing');
+    if(btn){btn.textContent='✓ Done';btn.classList.add('editing');}
+  }
+}
+
+function getVal(k,daily,perm){
+  if(k.startsWith('p_'))return perm[k]||'';
+  if(k==='_body_checks'){const bs=['b_water','b_move','b_meals','b_walk','b_sleep','b_cycle'];const lbl=['Water','Movement','Meals','Walk/Exercise','Sleep','Cycle'];return bs.map((b,i)=>daily[b]?'✓ '+lbl[i]:'').filter(Boolean).join(' · ')||'';}
+  if(k==='_spirit_checks'){const ss=['s_prayer','s_med','s_scrip','s_breath','s_viz','s_intuit'];const lbl=['Prayer','Meditation','Scripture','Breathwork','Visualization','Intuition'];return ss.map((s,i)=>daily[s]?'✓ '+lbl[i]:'').filter(Boolean).join(' · ')||'';}
+  if(k==='_admin_tasks'){return TG['admin-cl'].map(([tk,tl])=>daily[tk]?'✓ '+tl+(daily[tk+'_note']?' — '+daily[tk+'_note']:''):'').filter(Boolean).join('\n')||'';}
+  if(k==='_sales_tasks'){return TG['sales-cl'].map(([tk,tl])=>daily[tk]?'✓ '+tl+(daily[tk+'_note']?' — '+daily[tk+'_note']:''):'').filter(Boolean).join('\n')||'';}
+  if(k==='_connect_tasks'){return TG['connect-cl'].map(([tk,tl])=>daily[tk]?'✓ '+tl+(daily[tk+'_note']?' — '+daily[tk+'_note']:''):'').filter(Boolean).join('\n')||'';}
+  if(k==='_vis_tasks'){return TG['vis-cl'].map(([tk,tl])=>daily[tk]?'✓ '+tl+(daily[tk+'_note']?' — '+daily[tk+'_note']:''):'').filter(Boolean).join('\n')||'';}
+  if(k==='_platforms'){const names=['FB','IG','LinkedIn','YouTube','TikTok','Bluesky','Lemon8'];return PL.map((p,i)=>daily[p]?names[i]:'').filter(Boolean).join(', ')||'';}
+  if(k==='w_mood'){const mm={'Joyful':'😊 Joyful','Calm':'😌 Calm','Focused':'🎯 Focused','Tired':'😴 Tired','Anxious':'😰 Anxious','Grateful':'🙏 Grateful','Powerful':'💪 Powerful','Soft':'🌸 Soft'};return mm[daily[k]]||'';}
+  return daily[k]||'';
+}
+
+function refreshCardView(cardId){
+  const vEl=document.getElementById('view-'+cardId.replace('card-',''));
+  if(!vEl)return;
+  const daily=ldd(cd),perm=ldp();
+  const fields=VC[cardId]||[];
+  if(!fields.length){vEl.innerHTML='<div style="color:var(--muted);font-size:13px;font-style:italic">No fields configured.</div>';return;}
+  let html='';
+  let hasAny=false;
+  fields.forEach(({l,k})=>{
+    const v=getVal(k,daily,perm);
+    if(v){hasAny=true;}
+    html+=`<div class="vfield"><div class="vf-label">${l}</div><div class="vf-val${v?'':' empty'}">${v?v.replace(/\n/g,'<br>'):'Not filled in yet — click ✏️ Edit to add'}</div></div>`;
+  });
+  vEl.innerHTML=html;
+}
+
+function refreshViews(){
+  Object.keys(VC).forEach(cardId=>{ const card=document.getElementById(cardId); if(card&&!card.classList.contains('editing'))refreshCardView(cardId); });
+}
+
+function buildTaskLists(){
+  Object.entries(TG).forEach(([lid,tasks])=>{
+    const ul=document.getElementById(lid);if(!ul)return;
+    ul.innerHTML=tasks.map(([k,label])=>`
+      <li data-k="${k}">
+        <div class="cbx" onclick="togChk(this,'${k}')"></div>
+        <div class="ewrap"><span class="it">${label}</span>
+          <div class="det" id="det-${k}"><textarea class="ft" style="margin-top:6px" placeholder="Notes for ${label}…" oninput="sf('${k}_note',this.value)" id="nt-${k}"></textarea></div>
+        </div>
+        <button class="ebn" onclick="togDet('${k}')">+ Note</button>
+      </li>`).join('');
+  });
+}
+
+function populateInputs(date){
+  const d=ldd(date);
+  Object.entries(DM).forEach(([k,eid])=>{const el=document.getElementById(eid);if(el)el.value=d[k]||'';});
+  const ps=document.getElementById('vis-pillar');if(ps)ps.value=d['vis_pillar']||'';
+  AT.forEach(k=>{const el=document.getElementById('nt-'+k);if(el)el.value=d[k+'_note']||'';});
+  CK.forEach(k=>{
+    const li=document.querySelector(`[data-k="${k}"]`);if(!li)return;
+    const box=li.querySelector('.cbx');const ck=d[k]===true;
+    box.classList.toggle('ck',ck);box.textContent=ck?'✓':'';li.classList.toggle('done',ck);
+  });
+  document.querySelectorAll('#pgrid .pb').forEach((b,i)=>{b.classList.toggle('on',!!d[PL[i]]);});
+  const mood=d['w_mood'];
+  document.querySelectorAll('.md').forEach(m=>{m.classList.remove('sel');if(mood&&m.title===mood)m.classList.add('sel');});
+  ['db-sub','well-sub','tasks-sub','vis-sub','net-sub','money-sub','wins-sub'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=fmt(date);});
+}
+
+function populatePermInputs(){
+  const d=ldp();
+  Object.entries(PM).forEach(([k,eid])=>{const el=document.getElementById(eid);if(el)el.value=d[k]||'';});
+}
+
+function togChk(box,k){const li=box.closest('[data-k]');const ck=!box.classList.contains('ck');box.classList.toggle('ck',ck);box.textContent=ck?'✓':'';li.classList.toggle('done',ck);sf(k,ck);}
+function togP(b,k){const on=!b.classList.contains('on');b.classList.toggle('on',on);sf(k,on);}
+function togDet(k){document.getElementById('det-'+k)?.classList.toggle('open');}
+function selMood(dot,emoji,label){document.querySelectorAll('.md').forEach(d=>d.classList.remove('sel'));dot.classList.add('sel');sf('w_mood',label);}
+
+function updateStats(){
+  const d=ldd(cd),p=ldp();
+  const ig=document.getElementById('db-ig');if(ig)ig.textContent=p['p_income_goal']||p['p_income']||'—';
+  const mm=document.getElementById('db-mood');const mmap={'Joyful':'😊','Calm':'😌','Focused':'🎯','Tired':'😴','Anxious':'😰','Grateful':'🙏','Powerful':'💪','Soft':'🌸'};
+  if(mm)mm.textContent=mmap[d['w_mood']]||'—';
+  const done=AT.filter(k=>d[k]===true).length;
+  const td=document.getElementById('db-td');if(td)td.textContent=done+'/'+AT.length;
+  const win=document.getElementById('db-win');if(win){const w=d['g_win']||'';win.textContent=w?w.substring(0,24)+(w.length>24?'…':''):'—';}
+}
+
+function switchTo(date){
+  cd=date;
+  document.getElementById('sb-date').textContent=fmt(date);
+  document.getElementById('dpick').value=date;
+  const revDate=document.getElementById('rev-add-date');if(revDate&&!revDate.value)revDate.value=date;
+  const expDate=document.getElementById('exp-add-date');if(expDate&&!expDate.value)expDate.value=date;
+  populateInputs(date);
+  refreshViews();
+  updateStats();
+  updateMonthEndState();
+  renderMoneySummary();
+  updateMobileHeader();
+}
+function chDay(d){const dt=new Date(cd+'T12:00:00');dt.setDate(dt.getDate()+d);switchTo(dt.toISOString().split('T')[0]);}
+function goToday(){switchTo(tds());}
+function onDP(v){if(v)switchTo(v);}
+
+let calBase=null;
+function renderCal(){
+  const wrap=document.getElementById('mini-cal');if(!wrap)return;
+  const base=calBase||cd,dt=new Date(base+'T12:00:00');
+  const yr=dt.getFullYear(),mo=dt.getMonth();
+  const fd=new Date(yr,mo,1).getDay(),dim=new Date(yr,mo+1,0).getDate();
+  const mn=dt.toLocaleDateString('en-US',{month:'long',year:'numeric'}),today=tds();
+  let h=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <button onclick="calNav(-1)" style="background:var(--p50);border:1px solid var(--p100);color:var(--p800);border-radius:6px;padding:3px 9px;cursor:pointer;font-size:12px;font-family:'Montserrat',sans-serif">&#8592;</button>
+    <span style="font-family:var(--font-display);font-size:15px;color:var(--p900)">${mn}</span>
+    <button onclick="calNav(1)" style="background:var(--p50);border:1px solid var(--p100);color:var(--p800);border-radius:6px;padding:3px 9px;cursor:pointer;font-size:12px;font-family:'Montserrat',sans-serif">&#8594;</button>
+  </div><div class="cgrid">`;
+  ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{h+=`<div class="cdh">${d}</div>`;});
+  for(let i=0;i<fd;i++)h+=`<div class="cd emp"></div>`;
+  for(let day=1;day<=dim;day++){
+    const ds=yr+'-'+String(mo+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+    const hasd=!!localStorage.getItem(DP+ds),isT=ds===today,isC=ds===cd;
+    let cls='cd';if(isT)cls+=' tod';else if(isC)cls+=' cur';if(hasd)cls+=' hd';
+    h+=`<div class="${cls}" onclick="switchTo('${ds}')" title="${ds}">${day}</div>`;
+  }
+  h+='</div>';wrap.innerHTML=h;
+}
+function calNav(d){const dt=new Date((calBase||cd)+'T12:00:00');dt.setMonth(dt.getMonth()+d);calBase=dt.toISOString().split('T')[0];renderCal();}
+function rotAff(){ai=(ai+1)%AFFS.length;const el=document.getElementById('affq');el.style.opacity='0';setTimeout(()=>{el.textContent=AFFS[ai];el.style.opacity='1';el.style.transition='opacity .3s';},180);}
+
+
+function updateMobileHeader(){
+  const dateEl=document.getElementById('mobile-date');
+  if(dateEl)dateEl.textContent=fmt(cd);
+}
+function updateMobileMode(mode){
+  const modeEl=document.getElementById('mobile-mode-label');
+  if(modeEl)modeEl.textContent=mode==='permanent'?'Permanent Planner':'Daily Planner';
+}
+function closeSidebar(){document.body.classList.remove('sidebar-open');}
+function toggleSidebar(){document.body.classList.toggle('sidebar-open');}
+
+function setMode(mode){
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.mode-btn.'+(mode==='permanent'?'perm':'daily')).classList.add('active');
+  document.getElementById('dnav').style.display=mode==='daily'?'block':'none';
+  document.getElementById('pnav').style.display=mode==='permanent'?'block':'none';
+  document.getElementById('dnb').style.display=mode==='daily'?'block':'none';
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  updateMobileMode(mode);
+  if(mode==='daily'){
+    const f=document.querySelector('#dnav .ni');if(f)f.classList.add('active');
+    document.getElementById('sec-dashboard')?.classList.add('active');
+  } else {
+    const f=document.querySelector('#pnav .ni');if(f)f.classList.add('active');
+    document.getElementById('sec-vision')?.classList.add('active');
+  }
+  closeSidebar();
+}
+
+function showSec(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  document.getElementById('sec-'+id)?.classList.add('active');
+  if(el&&el.classList)el.classList.add('active');
+  closeSidebar();
+  if(window.innerWidth<=980)window.scrollTo({top:0,behavior:'smooth'});
+}
+
+
+function isMonthEnd(dateStr){
+  const dt=new Date(dateStr+'T12:00:00');
+  return dt.getDate()===new Date(dt.getFullYear(),dt.getMonth()+1,0).getDate();
+}
+
+function updateMonthEndState(){
+  const card=document.getElementById('card-refl');
+  const btn=document.getElementById('refl-edit-btn');
+  const view=document.getElementById('view-refl');
+  if(!card||!btn||!view)return;
+  if(!isMonthEnd(cd)){
+    card.classList.remove('editing');
+    btn.disabled=true;
+    btn.textContent='Month-End Only';
+    btn.classList.remove('editing');
+    btn.style.opacity='.65';
+    btn.style.cursor='not-allowed';
+    view.innerHTML=`<div class="vfield"><div class="vf-label">Available on the last day of the month</div><div class="vf-val empty">This reflection opens only at month-end. Come back on ${new Date(cd+'T12:00:00').toLocaleDateString('en-US',{month:'long',year:'numeric'})}'s last day to complete it.</div></div>`;
+    return;
+  }
+  btn.disabled=false;
+  btn.style.opacity='1';
+  btn.style.cursor='pointer';
+  if(card.classList.contains('editing')){btn.textContent='✓ Done';btn.classList.add('editing');}
+  else {btn.textContent='✏️ Edit';btn.classList.remove('editing');refreshCardView('card-refl');}
+}
+
+function moneyNum(v){const n=parseFloat(v);return Number.isFinite(n)?n:0;}
+function moneyFmt(v){return '$'+Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function getDailyRaw(date){const key=DP+date;const raw=localStorage.getItem(key);if(!raw)return{};try{return JSON.parse(raw)||{};}catch(e){return{};}}
+function saveDailyRaw(date,data){const key=DP+date;localStorage.setItem(key,JSON.stringify(data));}
+function joinUnique(a,b){
+  const base=(a||'').trim(),incoming=(b||'').trim();
+  if(!incoming)return base;
+  if(!base)return incoming;
+  if(base.toLowerCase().includes(incoming.toLowerCase()))return base;
+  return base+' · '+incoming;
+}
+function appendLine(a,b){
+  const base=(a||'').trim(),incoming=(b||'').trim();
+  if(!incoming)return base;
+  return base?base+'\n'+incoming:incoming;
+}
+function addRevenueEntry(){
+  const date=(document.getElementById('rev-add-date')?.value||'').trim()||tds();
+  const amount=moneyNum(document.getElementById('rev-add-amount')?.value||'0');
+  const client=(document.getElementById('rev-add-client')?.value||'').trim();
+  if(amount<=0){document.getElementById('rev-add-amount')?.focus();return;}
+  const d=getDailyRaw(date);
+  d.m_rev=(moneyNum(d.m_rev)+amount).toFixed(2);
+  d.m_client=joinUnique(d.m_client,client);
+  d.m_offer=joinUnique(d.m_offer,client);
+  d.m_snotes=appendLine(d.m_snotes,`Quick add • ${moneyFmt(amount)} • ${client||'Revenue item'}`);
+  saveDailyRaw(date,d);
+  document.getElementById('rev-add-date').value=date;
+  document.getElementById('rev-add-amount').value='';
+  document.getElementById('rev-add-client').value='';
+  if(date===cd)ld();
+  renderMoneySummary();
+  flash();
+}
+function addExpenseEntry(){
+  const date=(document.getElementById('exp-add-date')?.value||'').trim()||tds();
+  const amount=moneyNum(document.getElementById('exp-add-amount')?.value||'0');
+  const desc=(document.getElementById('exp-add-desc')?.value||'').trim();
+  if(amount<=0){document.getElementById('exp-add-amount')?.focus();return;}
+  const d=getDailyRaw(date);
+  d.m_exp=(moneyNum(d.m_exp)+amount).toFixed(2);
+  d.m_expdesc=joinUnique(d.m_expdesc,desc);
+  d.m_cash=appendLine(d.m_cash,`Quick add • ${moneyFmt(amount)} • ${desc||'Expense item'}`);
+  saveDailyRaw(date,d);
+  document.getElementById('exp-add-date').value=date;
+  document.getElementById('exp-add-amount').value='';
+  document.getElementById('exp-add-desc').value='';
+  if(date===cd)ld();
+  renderMoneySummary();
+  flash();
+}
+function removeMoneyEntry(date,type,evt){
+  if(evt)evt.stopPropagation();
+  if(!confirm(`Remove this ${type} entry from ${date}?`))return;
+  const d=getDailyRaw(date);
+  if(type==='revenue')['m_rev','m_offer','m_client','m_snotes'].forEach(k=>delete d[k]);
+  if(type==='expense')['m_exp','m_expdesc','m_tax','m_ract','m_cash'].forEach(k=>delete d[k]);
+  const hasData=Object.values(d).some(v=>String(v??'').trim()!=='');
+  const key=DP+date;
+  if(hasData)localStorage.setItem(key,JSON.stringify(d));else localStorage.removeItem(key);
+  if(date===cd)ld();
+  renderMoneySummary();
+  flash();
+}
+
+function getMoneyEntries(){
+  const entries=[];
+  for(let i=0;i<localStorage.length;i++){
+    const key=localStorage.key(i);
+    if(!key||!key.startsWith(DP))continue;
+    const date=key.slice(DP.length);
+    const raw=localStorage.getItem(key);
+    if(!raw)continue;
+    let d={};
+    try{d=JSON.parse(raw)||{};}catch(e){continue;}
+    const hasMoney=MONEY_KEYS.some(k=>String(d[k]||'').trim()!=='');
+    if(!hasMoney)continue;
+    const revenue=moneyNum(d.m_rev),expense=moneyNum(d.m_exp);
+    entries.push({
+      date,
+      revenue,
+      expense,
+      offer:d.m_offer||'',
+      client:d.m_client||'',
+      salesNotes:d.m_snotes||'',
+      expenseDesc:d.m_expdesc||'',
+      tax:d.m_tax||'',
+      revenueActivity:d.m_ract||'',
+      cash:d.m_cash||''
+    });
+  }
+  entries.sort((a,b)=>b.date.localeCompare(a.date));
+  return entries;
+}
+
+
+function goToMoneyDate(date){
+  switchTo(date);
+  setMode('daily');
+  const moneyNav=Array.from(document.querySelectorAll('#dnav .ni')).find(n=>n.textContent.includes('Money'));
+  showSec('money',moneyNav);
+}
+
+function setMoneyTrackerTab(tab){
+  moneyTab=tab;
+  ['revenue','expense','debt'].forEach(t=>{
+    document.getElementById('tab-'+t)?.classList.toggle('active',t===tab);
+    document.getElementById('panel-'+t)?.classList.toggle('active',t===tab);
+  });
+  renderMoneySummary();
+}
+
+function loadDebtEntries(){const r=localStorage.getItem(DEBT_KEY);return r?JSON.parse(r):[];}
+function saveDebtEntries(arr){localStorage.setItem(DEBT_KEY,JSON.stringify(arr));}
+
+function addDebtEntry(){
+  const name=(document.getElementById('debt-name')?.value||'').trim();
+  if(!name){document.getElementById('debt-name')?.focus();return;}
+  const balance=moneyNum(document.getElementById('debt-balance')?.value||'0');
+  const payment=moneyNum(document.getElementById('debt-payment')?.value||'0');
+  const debts=loadDebtEntries();
+  debts.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),name,balance,payment,updated:new Date().toISOString()});
+  saveDebtEntries(debts);
+  document.getElementById('debt-name').value='';
+  document.getElementById('debt-balance').value='';
+  document.getElementById('debt-payment').value='';
+  renderMoneySummary();
+  flash();
+}
+
+function deleteDebtEntry(id){
+  const debts=loadDebtEntries().filter(d=>d.id!==id);
+  saveDebtEntries(debts);
+  renderMoneySummary();
+  flash();
+}
+
+function renderMoneySummary(){
+  const entries=getMoneyEntries();
+  const totalRevenue=entries.reduce((sum,e)=>sum+moneyNum(e.revenue),0);
+  const totalExpense=entries.reduce((sum,e)=>sum+moneyNum(e.expense),0);
+  const totalNet=totalRevenue-totalExpense;
+  const revenueMetric=document.getElementById('money-metric-revenue');
+  const expenseMetric=document.getElementById('money-metric-expense');
+  const netMetric=document.getElementById('money-metric-net');
+  if(revenueMetric)revenueMetric.textContent=moneyFmt(totalRevenue);
+  if(expenseMetric)expenseMetric.textContent=moneyFmt(totalExpense);
+  if(netMetric){
+    netMetric.textContent=moneyFmt(totalNet);
+    netMetric.style.color=totalNet<0?'#A32D2D':'#2F7D6F';
+  }
+
+  const revSearch=(document.getElementById('rev-track-search')?.value||'').toLowerCase();
+  const rev=entries.filter(e=>e.revenue>0&&[e.date,e.offer,e.client,e.salesNotes,e.revenueActivity].join(' ').toLowerCase().includes(revSearch));
+  const revCount=document.getElementById('rev-track-count'); if(revCount)revCount.textContent=rev.length+' entr'+(rev.length===1?'y':'ies');
+  const revList=document.getElementById('revenue-tracker-list');
+  if(revList)revList.innerHTML=rev.length?rev.map(e=>{
+    const dt=new Date(e.date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    return `<div class="tracker-item" onmouseover="this.style.background='var(--t50)'" onmouseout="this.style.background=''" onclick="goToMoneyDate('${e.date}')">
+      <div class="tracker-item-main"><div style="font-size:14px;font-weight:500;color:var(--p900)">${dt}</div><div style="font-size:12px;color:var(--p600)">${e.client||e.offer||'Revenue entry'}</div>${e.salesNotes?`<div class="tracker-item-note">${e.salesNotes}</div>`:''}</div>
+      <div class="tracker-item-side stack"><div style="font-size:11px;font-weight:500;padding:3px 8px;border-radius:6px;background:#EAF3DE;color:#3B6D11">+ ${moneyFmt(e.revenue)}</div><div class="tracker-actions"><button class="edit-btn" onclick="goToMoneyDate('${e.date}');event.stopPropagation();">Open</button><button class="edit-btn" style="color:#A32D2D;border-color:#F7C1C1" onclick="removeMoneyEntry('${e.date}','revenue',event)">Remove</button></div></div></div>`;
+  }).join(''):`<div style="padding:32px 18px;text-align:center;color:var(--muted);font-size:13px;font-style:italic">No revenue entries yet.</div>`;
+
+  const expSearch=(document.getElementById('exp-track-search')?.value||'').toLowerCase();
+  const exp=entries.filter(e=>e.expense>0&&[e.date,e.expenseDesc,e.tax,e.cash].join(' ').toLowerCase().includes(expSearch));
+  const expCount=document.getElementById('exp-track-count'); if(expCount)expCount.textContent=exp.length+' entr'+(exp.length===1?'y':'ies');
+  const expList=document.getElementById('expense-tracker-list');
+  if(expList)expList.innerHTML=exp.length?exp.map(e=>{
+    const dt=new Date(e.date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    return `<div class="tracker-item" onmouseover="this.style.background='var(--t50)'" onmouseout="this.style.background=''" onclick="goToMoneyDate('${e.date}')">
+      <div class="tracker-item-main"><div style="font-size:14px;font-weight:500;color:var(--p900)">${dt}</div><div style="font-size:12px;color:var(--p600)">${e.expenseDesc||'Expense entry'}</div>${e.cash?`<div class="tracker-item-note">${e.cash}</div>`:''}</div>
+      <div class="tracker-item-side stack"><div style="font-size:11px;font-weight:500;padding:3px 8px;border-radius:6px;background:#FCEBEB;color:#A32D2D">- ${moneyFmt(e.expense)}</div><div class="tracker-actions"><button class="edit-btn" onclick="goToMoneyDate('${e.date}');event.stopPropagation();">Open</button><button class="edit-btn" style="color:#A32D2D;border-color:#F7C1C1" onclick="removeMoneyEntry('${e.date}','expense',event)">Remove</button></div></div></div>`;
+  }).join(''):`<div style="padding:32px 18px;text-align:center;color:var(--muted);font-size:13px;font-style:italic">No expense entries yet.</div>`;
+
+  const debtSearch=(document.getElementById('debt-track-search')?.value||'').toLowerCase();
+  const debts=loadDebtEntries().filter(d=>[d.name,String(d.balance),String(d.payment)].join(' ').toLowerCase().includes(debtSearch));
+  const debtCount=document.getElementById('debt-track-count'); if(debtCount)debtCount.textContent=debts.length+' debt'+(debts.length===1?'':'s');
+  const debtList=document.getElementById('debt-tracker-list');
+  if(debtList)debtList.innerHTML=debts.length?debts.map(d=>`<div class="tracker-item" onmouseover="this.style.background='var(--t50)'" onmouseout="this.style.background=''">
+    <div class="tracker-item-main"><div style="font-size:14px;font-weight:500;color:var(--p900)">${d.name}</div><div style="font-size:12px;color:var(--p600)">Monthly Payment: ${moneyFmt(d.payment)}</div></div>
+    <div class="tracker-item-side stack"><div style="font-size:11px;font-weight:500;padding:3px 8px;border-radius:6px;background:#FAEEDA;color:#854F0B">Balance: ${moneyFmt(d.balance)}</div><button class="edit-btn" onclick="deleteDebtEntry('${d.id}')">Delete</button></div>
+  </div>`).join(''):`<div style="padding:32px 18px;text-align:center;color:var(--muted);font-size:13px;font-style:italic">No debt entries yet. Add your first debt above.</div>`;
+}
+
+// ── CONTACTS TRACKER ──
+const CONTACTS_KEY='ceo_contacts';
+const OPPS_KEY='ceo_opportunities';
+const DEBT_KEY='ceo_debt_tracker';
+const MONEY_KEYS=['m_rev','m_offer','m_client','m_snotes','m_exp','m_expdesc','m_tax','m_ract','m_cash'];
+function loadContacts(){const r=localStorage.getItem(CONTACTS_KEY);return r?JSON.parse(r):[];}
+function saveContacts(arr){localStorage.setItem(CONTACTS_KEY,JSON.stringify(arr));}
+
+const STATUS_COLORS={
+  'New Lead':'background:#EEEDFE;color:#3C3489',
+  'Warm':'background:#FAEEDA;color:#854F0B',
+  'Hot':'background:#FAECE7;color:#993C1D',
+  'Discovery Call':'background:rgba(174,169,236,0.18);color:#534AB7',
+  'Proposal Sent':'background:#EAF3DE;color:#3B6D11',
+  'Client':'background:#E1F5EE;color:#0F6E56',
+  'Follow Up':'background:#FAEEDA;color:#854F0B',
+  'Speaking':'background:rgba(174,169,236,0.18);color:#534AB7',
+  'Collab':'background:#E1F5EE;color:#0F6E56',
+  'Closed':'background:#F1EFE8;color:#5F5E5A'
+};
+
+function renderContacts(){
+  const list=document.getElementById('contacts-list');
+  const count=document.getElementById('net-count');
+  if(!list)return;
+  let contacts=loadContacts();
+  const search=(document.getElementById('net-search')?.value||'').toLowerCase();
+  const fStatus=document.getElementById('net-filter-status')?.value||'';
+  const fType=document.getElementById('net-filter-type')?.value||'';
+  let filtered=contacts.filter(c=>{
+    const matchS=!search||(c.name||'').toLowerCase().includes(search)||(c.platform||'').toLowerCase().includes(search)||(c.notes||'').toLowerCase().includes(search)||(c.nextaction||'').toLowerCase().includes(search);
+    const matchSt=!fStatus||c.status===fStatus;
+    const matchT=!fType||c.type===fType;
+    return matchS&&matchSt&&matchT;
+  });
+  if(count)count.textContent=filtered.length+' contact'+(filtered.length!==1?'s':'');
+  if(!filtered.length){
+    list.innerHTML=`<div style="padding:32px 18px;text-align:center;color:var(--muted);font-size:13px;font-style:italic">${contacts.length?'No contacts match your filters.':'No contacts yet. Click + Add Contact to get started.'}</div>`;
+    return;
+  }
+  // Sort: follow-up date soonest first, then by name
+  filtered.sort((a,b)=>{
+    if(a.fudate&&b.fudate)return a.fudate.localeCompare(b.fudate);
+    if(a.fudate)return -1;if(b.fudate)return 1;
+    return (a.name||'').localeCompare(b.name||'');
+  });
+  list.innerHTML=filtered.map(c=>{
+    const sc=STATUS_COLORS[c.status]||'background:var(--g50);color:var(--g600)';
+    const today=new Date().toISOString().split('T')[0];
+    const overdue=c.fudate&&c.fudate<today;
+    const soon=c.fudate&&c.fudate>=today&&c.fudate<=new Date(Date.now()+3*86400000).toISOString().split('T')[0];
+    const fudisplay=c.fudate?new Date(c.fudate+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';
+    return `<div class="tracker-item" onmouseover="this.style.background='var(--p50)'" onmouseout="this.style.background=''" onclick="openEditContact('${c.id}')">
+      <div class="tracker-item-main">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
+          <span style="font-size:14px;font-weight:500;color:var(--p900)">${c.name||'Unnamed'}</span>
+          <span style="font-size:10px;padding:2px 8px;border-radius:20px;${sc}">${c.status||''}</span>
+          ${c.type?`<span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--g50);color:var(--g600)">${c.type}</span>`:''}
+          ${c.platform?`<span style="font-size:11px;color:var(--muted)">· ${c.platform}</span>`:''}
+        </div>
+        ${c.nextaction?`<div style="font-size:12px;color:var(--p600);margin-bottom:3px">→ ${c.nextaction}</div>`:''}
+        ${c.notes?`<div class="tracker-item-note">${c.notes}</div>`:''}
+      </div>
+      <div class="tracker-item-side">
+        ${fudisplay?`<div style="font-size:11px;font-weight:500;padding:3px 8px;border-radius:6px;${overdue?'background:#FCEBEB;color:#A32D2D':soon?'background:#FAEEDA;color:#854F0B':'background:var(--g50);color:var(--g600)'}">${overdue?'⚠ Overdue':'📅 '+fudisplay}</div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openAddContact(){
+  document.getElementById('modal-title').textContent='Add Contact';
+  document.getElementById('modal-edit-id').value='';
+  document.getElementById('m-name').value='';
+  document.getElementById('m-type').value='Lead';
+  document.getElementById('m-status').value='New Lead';
+  document.getElementById('m-platform').value='';
+  document.getElementById('m-fudate').value='';
+  document.getElementById('m-contact').value='';
+  document.getElementById('m-notes').value='';
+  document.getElementById('m-nextaction').value='';
+  document.getElementById('modal-delete-btn').style.display='none';
+  const m=document.getElementById('contact-modal');m.style.display='flex';
+}
+
+function openEditContact(id){
+  const contacts=loadContacts();
+  const c=contacts.find(x=>x.id===id);if(!c)return;
+  document.getElementById('modal-title').textContent='Edit Contact';
+  document.getElementById('modal-edit-id').value=id;
+  document.getElementById('m-name').value=c.name||'';
+  document.getElementById('m-type').value=c.type||'Lead';
+  document.getElementById('m-status').value=c.status||'New Lead';
+  document.getElementById('m-platform').value=c.platform||'';
+  document.getElementById('m-fudate').value=c.fudate||'';
+  document.getElementById('m-contact').value=c.contact||'';
+  document.getElementById('m-notes').value=c.notes||'';
+  document.getElementById('m-nextaction').value=c.nextaction||'';
+  document.getElementById('modal-delete-btn').style.display='block';
+  const m=document.getElementById('contact-modal');m.style.display='flex';
+}
+
+function saveContact(){
+  const name=document.getElementById('m-name').value.trim();
+  if(!name){document.getElementById('m-name').focus();return;}
+  const editId=document.getElementById('modal-edit-id').value;
+  const contacts=loadContacts();
+  const entry={
+    id:editId||Date.now().toString(36)+Math.random().toString(36).slice(2,6),
+    name,
+    type:document.getElementById('m-type').value,
+    status:document.getElementById('m-status').value,
+    platform:document.getElementById('m-platform').value.trim(),
+    fudate:document.getElementById('m-fudate').value,
+    contact:document.getElementById('m-contact').value.trim(),
+    notes:document.getElementById('m-notes').value.trim(),
+    nextaction:document.getElementById('m-nextaction').value.trim(),
+    updated:new Date().toISOString()
+  };
+  if(editId){const i=contacts.findIndex(x=>x.id===editId);if(i>-1)contacts[i]=entry;else contacts.push(entry);}
+  else contacts.push(entry);
+  saveContacts(contacts);
+  closeModal();
+  renderContacts();
+  updateMonthEndState();
+  renderMoneySummary();
+  flash();
+}
+
+function deleteContact(){
+  const id=document.getElementById('modal-edit-id').value;if(!id)return;
+  if(!confirm('Delete this contact?'))return;
+  const contacts=loadContacts().filter(c=>c.id!==id);
+  saveContacts(contacts);
+  closeModal();
+  renderContacts();
+  flash();
+}
+
+function closeModal(){
+  const m=document.getElementById('contact-modal');
+  if(m)m.style.display='none';
+}
+
+// Close modal on backdrop click
+document.addEventListener('click',e=>{
+  const m=document.getElementById('contact-modal');
+  const om=document.getElementById('opp-modal');
+  if(m&&e.target===m)closeModal();
+  if(om&&e.target===om)closeOppModal();
+});
+
+window.addEventListener('resize',()=>{if(window.innerWidth>980)closeSidebar();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSidebar();});
+
+function loadOpps(){const r=localStorage.getItem(OPPS_KEY);return r?JSON.parse(r):[];}
+function saveOpps(arr){localStorage.setItem(OPPS_KEY,JSON.stringify(arr));}
+
+const OPP_STATUS_COLORS={
+  'Idea':'background:#F1EFE8;color:#5F5E5A',
+  'To Pitch':'background:#EEEDFE;color:#3C3489',
+  'Pitched':'background:rgba(174,169,236,0.18);color:#534AB7',
+  'Follow Up':'background:#FAEEDA;color:#854F0B',
+  'Booked':'background:#EAF3DE;color:#3B6D11',
+  'Completed':'background:#E1F5EE;color:#0F6E56',
+  'Passed':'background:#FAECE7;color:#993C1D'
+};
+
+function renderOpps(){
+  const list=document.getElementById('opp-list');
+  const count=document.getElementById('opp-count');
+  if(!list)return;
+  let opps=loadOpps();
+  const search=(document.getElementById('opp-search')?.value||'').toLowerCase();
+  const fStatus=document.getElementById('opp-filter-status')?.value||'';
+  const fType=document.getElementById('opp-filter-type')?.value||'';
+  let filtered=opps.filter(o=>{
+    const matchS=!search||[o.name,o.platform,o.notes,o.nextaction,o.contact].join(' ').toLowerCase().includes(search);
+    const matchSt=!fStatus||o.status===fStatus;
+    const matchT=!fType||o.type===fType;
+    return matchS&&matchSt&&matchT;
+  });
+  if(count)count.textContent=filtered.length+' opportunit'+(filtered.length===1?'y':'ies');
+  if(!filtered.length){
+    list.innerHTML=`<div style="padding:32px 18px;text-align:center;color:var(--muted);font-size:13px;font-style:italic">${opps.length?'No opportunities match your filters.':'No opportunities yet. Click + Add Opportunity to get started.'}</div>`;
+    return;
+  }
+  filtered.sort((a,b)=>{
+    if(a.fudate&&b.fudate)return a.fudate.localeCompare(b.fudate);
+    if(a.fudate)return -1;if(b.fudate)return 1;
+    return (a.name||'').localeCompare(b.name||'');
+  });
+  list.innerHTML=filtered.map(o=>{
+    const sc=OPP_STATUS_COLORS[o.status]||'background:var(--g50);color:var(--g600)';
+    const today=new Date().toISOString().split('T')[0];
+    const overdue=o.fudate&&o.fudate<today;
+    const soon=o.fudate&&o.fudate>=today&&o.fudate<=new Date(Date.now()+3*86400000).toISOString().split('T')[0];
+    const fudisplay=o.fudate?new Date(o.fudate+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';
+    return `<div class="tracker-item" onmouseover="this.style.background='var(--t50)'" onmouseout="this.style.background=''" onclick="openEditOpp('${o.id}')">
+      <div class="tracker-item-main">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
+          <span style="font-size:14px;font-weight:500;color:var(--p900)">${o.name||'Untitled Opportunity'}</span>
+          <span style="font-size:10px;padding:2px 8px;border-radius:20px;${sc}">${o.status||''}</span>
+          ${o.type?`<span style="font-size:10px;padding:2px 8px;border-radius:20px;background:var(--g50);color:var(--g600)">${o.type}</span>`:''}
+          ${o.platform?`<span style="font-size:11px;color:var(--muted)">· ${o.platform}</span>`:''}
+        </div>
+        ${o.nextaction?`<div style="font-size:12px;color:var(--t600);margin-bottom:3px">→ ${o.nextaction}</div>`:''}
+        ${o.notes?`<div class="tracker-item-note">${o.notes}</div>`:''}
+      </div>
+      <div class="tracker-item-side">
+        ${fudisplay?`<div style="font-size:11px;font-weight:500;padding:3px 8px;border-radius:6px;${overdue?'background:#FCEBEB;color:#A32D2D':soon?'background:#FAEEDA;color:#854F0B':'background:var(--g50);color:var(--g600)'}">${overdue?'⚠ Overdue':'📅 '+fudisplay}</div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openAddOpp(){
+  document.getElementById('opp-modal-title').textContent='Add Opportunity';
+  document.getElementById('opp-edit-id').value='';
+  document.getElementById('o-name').value='';
+  document.getElementById('o-type').value='Podcast / Radio';
+  document.getElementById('o-status').value='Idea';
+  document.getElementById('o-platform').value='';
+  document.getElementById('o-fudate').value='';
+  document.getElementById('o-contact').value='';
+  document.getElementById('o-notes').value='';
+  document.getElementById('o-nextaction').value='';
+  document.getElementById('opp-delete-btn').style.display='none';
+  const m=document.getElementById('opp-modal');m.style.display='flex';
+}
+
+function openEditOpp(id){
+  const opps=loadOpps();
+  const o=opps.find(x=>x.id===id);if(!o)return;
+  document.getElementById('opp-modal-title').textContent='Edit Opportunity';
+  document.getElementById('opp-edit-id').value=id;
+  document.getElementById('o-name').value=o.name||'';
+  document.getElementById('o-type').value=o.type||'Podcast / Radio';
+  document.getElementById('o-status').value=o.status||'Idea';
+  document.getElementById('o-platform').value=o.platform||'';
+  document.getElementById('o-fudate').value=o.fudate||'';
+  document.getElementById('o-contact').value=o.contact||'';
+  document.getElementById('o-notes').value=o.notes||'';
+  document.getElementById('o-nextaction').value=o.nextaction||'';
+  document.getElementById('opp-delete-btn').style.display='block';
+  const m=document.getElementById('opp-modal');m.style.display='flex';
+}
+
+function saveOpp(){
+  const name=document.getElementById('o-name').value.trim();
+  if(!name){document.getElementById('o-name').focus();return;}
+  const editId=document.getElementById('opp-edit-id').value;
+  const opps=loadOpps();
+  const entry={
+    id:editId||Date.now().toString(36)+Math.random().toString(36).slice(2,6),
+    name,
+    type:document.getElementById('o-type').value,
+    status:document.getElementById('o-status').value,
+    platform:document.getElementById('o-platform').value.trim(),
+    fudate:document.getElementById('o-fudate').value,
+    contact:document.getElementById('o-contact').value.trim(),
+    notes:document.getElementById('o-notes').value.trim(),
+    nextaction:document.getElementById('o-nextaction').value.trim(),
+    updated:new Date().toISOString()
+  };
+  if(editId){const i=opps.findIndex(x=>x.id===editId);if(i>-1)opps[i]=entry;else opps.push(entry);} else opps.push(entry);
+  saveOpps(opps);
+  closeOppModal();
+  renderOpps();
+  flash();
+}
+
+function deleteOpp(){
+  const id=document.getElementById('opp-edit-id').value;if(!id)return;
+  if(!confirm('Delete this opportunity?'))return;
+  const opps=loadOpps().filter(o=>o.id!==id);
+  saveOpps(opps);
+  closeOppModal();renderOpps();flash();
+}
+
+function closeOppModal(){
+  const m=document.getElementById('opp-modal');
+  if(m)m.style.display='none';
+}
+
+// INIT
+buildTaskLists();
+applyTheme(localStorage.getItem(THEME_KEY)||'lavender');
+switchTo(tds());
+updateMobileMode('daily');
+populatePermInputs();
+refreshViews();
+renderCal();
+renderContacts();
+renderOpps();
+setMoneyTrackerTab('revenue');
+const revDate=document.getElementById('rev-add-date');if(revDate)revDate.value=cd;
+const expDate=document.getElementById('exp-add-date');if(expDate)expDate.value=cd;
+</script>
+</body>
+</html>
