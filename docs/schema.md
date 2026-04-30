@@ -12,6 +12,24 @@ Plus 5 tracker tables for relational/list data.
 
 ## Tables
 
+### 0. `profiles`
+One row per user. Auto-created on signup via trigger.
+
+| Column | Type | Notes |
+|---|---|---|
+| id | UUID PK → auth.users | |
+| full_name | TEXT | |
+| business_name | TEXT | |
+| role | TEXT | e.g. "CEO", "Founder" |
+| avatar_url | TEXT | |
+| timezone | TEXT | DEFAULT 'UTC' |
+| theme | TEXT | DEFAULT 'light' |
+| onboarding_completed | BOOLEAN | DEFAULT false |
+| created_at | TIMESTAMPTZ | |
+| updated_at | TIMESTAMPTZ | auto-trigger |
+
+---
+
 ### 1. `daily_entries`
 One row per `(user_id, entry_date)`.
 
@@ -267,4 +285,4 @@ expense_entries (user_id, entry_date)
 1. **Task defaults** — seed `daily_tasks` rows from template on first access per day, or create on demand?
 2. **Multi-user** — single user for now or full multi-tenant from day 1?
 3. **Affirmations** — currently hardcoded in JS. Store custom ones in DB?
-4. **Theme preference** — store in `permanent_data` or Supabase user metadata?
+4. ~~**Theme preference**~~ — resolved: stored in `profiles.theme`
