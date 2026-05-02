@@ -1,8 +1,16 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { ChevronDownIcon } from 'lucide-react'
 import { createClient } from '@/utils/supabase/client'
 import { Button } from '@/components/animate-ui/components/buttons/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from '@/components/animate-ui/components/radix/dropdown-menu'
 
 const TIMEZONES = [
   'UTC',
@@ -164,17 +172,26 @@ export function OnboardingWizard() {
             <div className="space-y-4">
               <div className="space-y-1.5">
                 <label className="text-sm font-medium">Timezone</label>
-                <select
-                  value={form.timezone}
-                  onChange={(e) => update('timezone', e.target.value)}
-                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none transition-shadow focus:ring-2 focus:ring-ring"
-                >
-                  {TIMEZONES.map((tz) => (
-                    <option key={tz} value={tz}>
-                      {tz}
-                    </option>
-                  ))}
-                </select>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm outline-none transition-shadow hover:bg-accent focus:ring-2 focus:ring-ring">
+                      {form.timezone}
+                      <ChevronDownIcon className="size-4 text-muted-foreground" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-64 max-h-60">
+                    <DropdownMenuRadioGroup
+                      value={form.timezone}
+                      onValueChange={(v) => update('timezone', v)}
+                    >
+                      {TIMEZONES.map((tz) => (
+                        <DropdownMenuRadioItem key={tz} value={tz}>
+                          {tz}
+                        </DropdownMenuRadioItem>
+                      ))}
+                    </DropdownMenuRadioGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium">Theme</label>
