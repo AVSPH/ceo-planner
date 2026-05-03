@@ -4,7 +4,10 @@
       "mcp__supabase__list_projects",
       "mcp__supabase__list_tables",
       "mcp__supabase__apply_migration",
-      "mcp__supabase__generate_typescript_types"
+      "mcp__supabase__generate_typescript_types",
+      "Bash(Get-ChildItem -Path \"D:\\\\ReactJS\\\\ceo-planner\" -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(grep -E \"\\\\.\\(tsx|ts\\)$\")"
     ]
   },
   "enabledMcpjsonServers": [

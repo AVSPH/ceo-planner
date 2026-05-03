@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'motion/react'
-import { Heart, Eye, DollarSign, Users, Target, Star, Settings } from 'lucide-react'
+import { CheckSquare, Eye, DollarSign, Target, BarChart2, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { LayoutDashboard } from '@/components/animate-ui/icons/layout-dashboard'
 
@@ -28,17 +28,16 @@ function lucideIcon(Icon: React.ElementType) {
 const NAV_ITEMS: NavItem[] = [
   {
     href: '/app/dashboard',
-    label: 'Dashboard',
+    label: 'Today',
     renderIcon: (hovered) => (
       <LayoutDashboard animate={hovered} className="size-5 shrink-0" />
     ),
   },
-  { href: '/app/wellness',    label: 'Wellness',    renderIcon: lucideIcon(Heart) },
-  { href: '/app/visibility',  label: 'Visibility',  renderIcon: lucideIcon(Eye) },
-  { href: '/app/money',       label: 'Money',       renderIcon: lucideIcon(DollarSign) },
-  { href: '/app/networking',  label: 'Networking',  renderIcon: lucideIcon(Users) },
-  { href: '/app/vision',      label: 'Vision',      renderIcon: lucideIcon(Target) },
-  { href: '/app/wins',        label: 'Wins',        renderIcon: lucideIcon(Star) },
+  { href: '/app/tasks',      label: 'Tasks',      renderIcon: lucideIcon(CheckSquare) },
+  { href: '/app/money',      label: 'Money',      renderIcon: lucideIcon(DollarSign) },
+  { href: '/app/visibility', label: 'Visibility', renderIcon: lucideIcon(Eye) },
+  { href: '/app/vision',     label: 'Vision',     renderIcon: lucideIcon(Target) },
+  { href: '/app/insights',   label: 'Insights',   renderIcon: lucideIcon(BarChart2) },
 ]
 
 function NavLink({ href, label, renderIcon }: NavItem) {
