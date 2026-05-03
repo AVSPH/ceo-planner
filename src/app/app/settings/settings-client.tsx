@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import { motion, AnimatePresence } from 'motion/react'
-import { Camera, Trash2, Sun, Moon, Monitor } from 'lucide-react'
+import { Camera, Trash2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/utils/supabase/client'
 import { signOut } from '@/lib/actions/auth'
@@ -54,9 +54,14 @@ function Input({ value, onChange, placeholder, type = 'text' }: {
 }
 
 const THEMES = [
-  { value: 'light',  label: 'Light',  Icon: Sun },
-  { value: 'dark',   label: 'Dark',   Icon: Moon },
-  { value: 'system', label: 'System', Icon: Monitor },
+  { value: 'system',   label: 'System',   bg: 'linear-gradient(135deg, #f4f4f5 50%, #18181b 50%)', accent: null },
+  { value: 'light',    label: 'Light',    bg: '#ffffff',  accent: '#18181b' },
+  { value: 'dark',     label: 'Dark',     bg: '#18181b',  accent: '#e4e4e7' },
+  { value: 'indigo',   label: 'Indigo',   bg: '#f4f4f5',  accent: '#6366f1' },
+  { value: 'rose',     label: 'Rose',     bg: '#f4f4f5',  accent: '#f43f5e' },
+  { value: 'emerald',  label: 'Emerald',  bg: '#f4f4f5',  accent: '#10b981' },
+  { value: 'amber',    label: 'Amber',    bg: '#f4f4f5',  accent: '#f59e0b' },
+  { value: 'midnight', label: 'Midnight', bg: '#0d0f1e',  accent: '#6366f1' },
 ] as const
 
 export function SettingsClient({ userId, email, initialProfile }: Props) {
@@ -243,29 +248,54 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
       <SectionCard title="Appearance">
         <Field label="Theme">
           {mounted ? (
-            <div className="flex gap-2">
-              {THEMES.map(({ value, label, Icon }) => (
-                <button
-                  key={value}
-                  type="button"
-                  onClick={() => {
-                    setTheme(value)
-                    supabase.from('profiles').update({ theme: value }).eq('id', userId)
-                  }}
-                  className={cn(
-                    'flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-all',
-                    theme === value
-                      ? 'bg-primary text-primary-foreground border-primary'
-                      : 'hover:bg-muted text-muted-foreground'
-                  )}
-                >
-                  <Icon className="size-4" />
-                  {label}
-                </button>
-              ))}
+            <div className="grid grid-cols-4 gap-3">
+              {THEMES.map(({ value, label, bg, accent }) => {
+                const active = theme === value
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => {
+                      setTheme(value)
+                      supabase.from('profiles').update({ theme: value }).eq('id', userId)
+                    }}
+                    className={cn(
+                      'flex flex-col items-center gap-1.5 rounded-xl border-2 p-2.5 transition-all',
+                      active
+                        ? 'border-primary'
+                        : 'border-transparent hover:border-border'
+                    )}
+                  >
+                    <div
+                      className="size-10 rounded-lg border overflow-hidden relative"
+                      style={{ background: bg }}
+                    >
+                      {accent && (
+                        <div
+                          className="absolute bottom-1.5 right-1.5 size-3 rounded-full shadow-sm"
+                          style={{ background: accent }}
+                        />
+                      )}
+                    </div>
+                    <span className={cn(
+                      'text-xs font-medium',
+                      active ? 'text-foreground' : 'text-muted-foreground'
+                    )}>
+                      {label}
+                    </span>
+                  </button>
+                )
+              })}
             </div>
           ) : (
-            <div className="h-9 w-48 rounded-lg bg-muted animate-pulse" />
+            <div className="grid grid-cols-4 gap-3">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="flex flex-col items-center gap-1.5 p-2.5">
+                  <div className="size-10 rounded-lg bg-muted animate-pulse" />
+                  <div className="h-3 w-10 rounded bg-muted animate-pulse" />
+                </div>
+              ))}
+            </div>
           )}
         </Field>
       </SectionCard>
@@ -291,6 +321,23 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
         >
           {pwLoading ? 'Updating...' : 'Update password'}
         </button>
+      </SectionCard>
+
+      {/* ── Account ── */}
+      <SectionCard title="Account">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm font-medium">Sign out</p>
+            <p className="text-xs text-muted-foreground mt-0.5">{email}</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => signOut()}
+            className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-muted transition"
+          >
+            Sign out
+          </button>
+        </div>
       </SectionCard>
 
       {/* ── Danger zone ── */}
