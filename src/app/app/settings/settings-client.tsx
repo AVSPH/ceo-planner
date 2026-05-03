@@ -54,14 +54,14 @@ function Input({ value, onChange, placeholder, type = 'text' }: {
 }
 
 const THEMES = [
-  { value: 'system',   label: 'System',   bg: 'linear-gradient(135deg, #f4f4f5 50%, #18181b 50%)', accent: null },
-  { value: 'light',    label: 'Light',    bg: '#ffffff',  accent: '#18181b' },
-  { value: 'dark',     label: 'Dark',     bg: '#18181b',  accent: '#e4e4e7' },
-  { value: 'indigo',   label: 'Indigo',   bg: '#f4f4f5',  accent: '#6366f1' },
-  { value: 'rose',     label: 'Rose',     bg: '#f4f4f5',  accent: '#f43f5e' },
-  { value: 'emerald',  label: 'Emerald',  bg: '#f4f4f5',  accent: '#10b981' },
-  { value: 'amber',    label: 'Amber',    bg: '#f4f4f5',  accent: '#f59e0b' },
-  { value: 'midnight', label: 'Midnight', bg: '#0d0f1e',  accent: '#6366f1' },
+  { value: 'system',   label: 'System',   bg: 'linear-gradient(135deg, #ffffff 50%, #1c1c1c 50%)', accent: null },
+  { value: 'light',    label: 'Light',    bg: '#ffffff',  accent: '#222222' },
+  { value: 'dark',     label: 'Dark',     bg: '#1c1c1c',  accent: '#e5e5e5' },
+  { value: 'indigo',   label: 'Indigo',   bg: '#f0eeff',  accent: '#4f46e5' },
+  { value: 'rose',     label: 'Rose',     bg: '#fff0f1',  accent: '#e11d48' },
+  { value: 'emerald',  label: 'Emerald',  bg: '#edfdf5',  accent: '#059669' },
+  { value: 'amber',    label: 'Amber',    bg: '#fefce8',  accent: '#d97706' },
+  { value: 'midnight', label: 'Midnight', bg: '#0c0f1d',  accent: '#6366f1' },
 ] as const
 
 export function SettingsClient({ userId, email, initialProfile }: Props) {
