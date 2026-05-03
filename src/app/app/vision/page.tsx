@@ -1,23 +1,20 @@
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { createClient } from '@/utils/supabase/server'
-import { VisibilityClient } from './visibility-client'
+import { VisionClient } from './vision-client'
 
-export default async function VisibilityPage() {
+export default async function VisionPage() {
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/auth/login')
 
-  const today = new Date().toISOString().split('T')[0]
-
-  const { data: entry } = await supabase
-    .from('daily_entries')
+  const { data } = await supabase
+    .from('permanent_data')
     .select('*')
     .eq('user_id', user.id)
-    .eq('entry_date', today)
     .maybeSingle()
 
-  return <VisibilityClient userId={user.id} today={today} initialEntry={entry} />
+  return <VisionClient userId={user.id} initialData={data} />
 }

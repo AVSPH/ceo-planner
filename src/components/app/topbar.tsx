@@ -35,9 +35,13 @@ export function Topbar({ profile }: { profile: Profile }) {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon" className="rounded-full" hoverScale={1.03}>
-            <span className="flex size-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
-              {initials}
-            </span>
+            {profile.avatar_url ? (
+              <img src={profile.avatar_url} alt={initials} className="size-8 rounded-full object-cover" />
+            ) : (
+              <span className="flex size-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
+                {initials}
+              </span>
+            )}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-52">

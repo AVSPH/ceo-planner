@@ -52,6 +52,10 @@ interface Props {
 
 export function DailyLog({ entry, onUpdate }: Props) {
   return (
+    <div className="space-y-3">
+      <p className="text-xs text-muted-foreground">
+        Fields save automatically as you type. No save button needed.
+      </p>
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
       {/* Revenue */}
       <div className="rounded-xl border bg-card p-5 space-y-4">
@@ -143,6 +147,7 @@ export function DailyLog({ entry, onUpdate }: Props) {
           />
         </Field>
       </div>
+    </div>
     </div>
   )
 }
