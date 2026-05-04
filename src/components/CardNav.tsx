@@ -189,13 +189,13 @@ const CardNav: React.FC<CardNavProps> = ({
             <span className="font-display italic font-bold text-lg tracking-tight text-gray-900">LIFE & CEO Planner</span>
           </div>
 
-          <button
-            type="button"
-            className="card-nav-cta-button hidden md:inline-flex border-0 rounded-[calc(0.75rem-0.2rem)] px-4 items-center h-full font-medium cursor-pointer transition-colors duration-300"
+          <a
+            href="/auth/login"
+            className="card-nav-cta-button hidden md:inline-flex border-0 rounded-[calc(0.75rem-0.2rem)] px-4 items-center h-full font-medium cursor-pointer transition-colors duration-300 no-underline"
             style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
           >
-            Get Started
-          </button>
+            Login
+          </a>
         </div>
 
         <div
