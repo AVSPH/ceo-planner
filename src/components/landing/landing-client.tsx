@@ -7,6 +7,7 @@ import {
   Calendar, CheckSquare, DollarSign, RotateCcw, BookOpen,
   ArrowRight, Heart, Star, Sparkles,
 } from 'lucide-react'
+import Image from 'next/image'
 import { BentoCard, BentoGrid } from '@/components/ui/bento-grid'
 
 const fadeUp: Variants = {
@@ -53,71 +54,65 @@ const PAIN_POINTS = [
   'You\'re ready for change, but overwhelmed by how',
 ]
 
+function BentoBackground({ src, position = 'object-center' }: { src: string; position?: string }) {
+  return (
+    <div className="absolute inset-0">
+      <Image src={src} alt="" fill className={`object-cover ${position} opacity-70`} />
+      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
+    </div>
+  )
+}
+
 const FEATURES = [
   {
+    // Row 1 — card 1 (wide)
     Icon: Calendar,
     name: 'Daily Structure Pages',
     description: 'No more guessing what to do. Start each day with a clear plan that tells you exactly where to focus.',
     href: '/auth/signup',
     cta: 'Get started',
-    className: 'col-span-3 lg:col-span-1',
-    background: (
-      <div className="absolute inset-0 flex items-center justify-center opacity-5">
-        <Calendar className="size-48 text-gray-900" />
-      </div>
-    ),
+    className: 'col-span-3 lg:col-span-2',
+    background: <BentoBackground src="/assets/Angelic D Planner.png" position="object-top" />,
   },
   {
+    // Row 1 — card 2 (narrow)
     Icon: CheckSquare,
     name: 'Weekly Planning System',
-    description: 'Stay focused, not scattered. Map your week with intention so every day builds toward your bigger goals.',
+    description: 'Stay focused, not scattered. Map your week so every day builds toward your bigger goals.',
     href: '/auth/signup',
     cta: 'Get started',
-    className: 'col-span-3 lg:col-span-2',
-    background: (
-      <div className="absolute inset-0 flex items-end justify-end p-8 opacity-5">
-        <CheckSquare className="size-48 text-gray-900" />
-      </div>
-    ),
+    className: 'col-span-3 lg:col-span-1',
+    background: <BentoBackground src="/assets/Angelic D CEO Planners.png" />,
   },
   {
+    // Row 2 — card 1
     Icon: DollarSign,
     name: 'Income Planning + Tracking',
-    description: 'Turn effort into money. Track income goals, log progress daily, and watch your financial picture get clearer.',
+    description: 'Turn effort into money. Track income goals and log progress daily.',
     href: '/auth/signup',
     cta: 'Get started',
-    className: 'col-span-3 lg:col-span-2',
-    background: (
-      <div className="absolute inset-0 flex items-center justify-end p-8 opacity-5">
-        <DollarSign className="size-48 text-gray-900" />
-      </div>
-    ),
+    className: 'col-span-3 lg:col-span-1',
+    background: <BentoBackground src="/assets/Angelic B Digital table.png" />,
   },
   {
+    // Row 2 — card 2
     Icon: RotateCcw,
     name: 'Consistency System',
     description: 'Built-in systems that keep you on track even when life feels heavy.',
     href: '/auth/signup',
     cta: 'Get started',
     className: 'col-span-3 lg:col-span-1',
-    background: (
-      <div className="absolute inset-0 flex items-center justify-center opacity-5">
-        <RotateCcw className="size-40 text-gray-900" />
-      </div>
-    ),
+    background: <BentoBackground src="/assets/Angelic Bus My Plan Story (1).png" position="object-top" />,
   },
   {
+    // Row 2 — card 3
     Icon: BookOpen,
-    name: 'Simple Routines That Create Stability',
-    description: 'Morning and evening rituals that calm your nervous system and ground your day — designed for real life, not perfect conditions.',
+    name: 'Simple Routines',
+    description: 'Morning and evening rituals that calm your nervous system and ground your day.',
     href: '/auth/signup',
     cta: 'Get started',
-    className: 'col-span-3',
-    background: (
-      <div className="absolute inset-0 flex items-center justify-end p-12 opacity-5">
-        <BookOpen className="size-48 text-gray-900" />
-      </div>
-    ),
+    className: 'col-span-3 lg:col-span-1',
+    background: <BentoBackground src="/assets/Angelic D 1st Image.png" />,
   },
 ]
 
