@@ -17,7 +17,7 @@ export type CardNavItem = {
 };
 
 export interface CardNavProps {
-  logo: string;
+  logo?: string;
   logoAlt?: string;
   items: CardNavItem[];
   className?: string;
@@ -186,7 +186,7 @@ const CardNav: React.FC<CardNavProps> = ({
           </div>
 
           <div className="logo-container flex items-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 order-1 md:order-none">
-            <img src={logo} alt={logoAlt} className="logo h-[28px]" />
+            <span className="font-display italic font-bold text-lg tracking-tight text-gray-900">CEO Planner</span>
           </div>
 
           <button

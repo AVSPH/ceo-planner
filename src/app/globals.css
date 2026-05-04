@@ -9,7 +9,19 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-heading: var(--font-display);
+  /* Brand palette */
+  --color-brand: var(--brand-primary);
+  --color-brand-cta: var(--brand-secondary);
+  --color-brand-cta-hover: var(--brand-cta-hover);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-blush: var(--brand-blush);
+  --color-brand-bg-light: var(--brand-bg-light);
+  --color-brand-bg-main: var(--brand-bg-main);
+  --color-brand-text: var(--brand-text);
+  --color-brand-muted: var(--brand-muted);
+  --color-brand-highlight: var(--brand-highlight);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -46,6 +58,20 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ── Brand tokens ── */
+:root {
+  --brand-primary:    #b186e0;
+  --brand-secondary:  #82c2b4;
+  --brand-cta-hover:  #3A9EA3;
+  --brand-accent:     #d2d3ff;
+  --brand-blush:      #D4A9B8;
+  --brand-bg-light:   #F4F0F8;
+  --brand-bg-main:    #FDFBFF;
+  --brand-text:       #2E2E3A;
+  --brand-muted:      #8A8A99;
+  --brand-highlight:  #E8F6F7;
 }
 
 /* ── Light (default) ── */
