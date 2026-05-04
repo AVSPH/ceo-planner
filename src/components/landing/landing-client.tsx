@@ -270,7 +270,6 @@ export function LandingClient() {
               <motion.div variants={stagger} className="space-y-1">
                 {PAIN_POINTS.map((point, i) => (
                   <motion.div key={i} variants={fadeUpDelay(i * 0.05)} className="flex items-start gap-3 py-3 border-b border-brand-accent/20 last:border-0">
-                    <span className="text-brand-blush mt-0.5 shrink-0">—</span>
                     <p className="text-brand-text text-sm leading-relaxed">{point}</p>
                   </motion.div>
                 ))}
@@ -301,7 +300,7 @@ export function LandingClient() {
                   </motion.div>
                 ))}
                 <motion.div variants={fadeUp} className="p-4 rounded-xl bg-brand/10 border border-brand/20 mt-2">
-                  <p className="text-brand-muted text-sm">You don't follow through — not because you can't…</p>
+                  <p className="text-brand-muted text-sm">You don't follow through, not because you can't…</p>
                   <p className="font-semibold text-white text-sm mt-1">but because you don't have a structure that holds you.</p>
                 </motion.div>
               </motion.div>
@@ -330,7 +329,7 @@ export function LandingClient() {
                   The Life & CEO Planner changes everything.
                 </h2>
                 <p className="text-brand-muted text-sm pt-2">
-                  A simple daily system — not another thing to manage.
+                  A simple daily system, not another thing to manage.
                 </p>
               </motion.div>
               <motion.div variants={stagger} className="space-y-3">
@@ -427,12 +426,11 @@ export function LandingClient() {
               </motion.div>
               <motion.div variants={stagger} className="space-y-1">
                 {[
-                  'I was a solo mom in survival mode — overwhelmed, inconsistent, and trying to rebuild my life from scratch.',
+                  'I was a solo mom in survival mode, overwhelmed, inconsistent, and trying to rebuild my life from scratch.',
                   'Nothing worked until I created a simple system that gave me structure, clarity, and direction.',
-                  'This planner helped me move from chaos to consistency — and start making real progress.',
+                  'This planner helped me move from chaos to consistency and start making real progress.',
                 ].map((text, i) => (
                   <motion.div key={i} variants={fadeUpDelay(i * 0.07)} className="flex items-start gap-3 py-3 border-b border-brand-accent/20 last:border-0">
-                    <span className="text-brand-blush mt-0.5 shrink-0">—</span>
                     <p className="text-brand-text text-sm leading-relaxed">{text}</p>
                   </motion.div>
                 ))}
@@ -611,7 +609,7 @@ export function LandingClient() {
                 </div>
                 <span className="font-bold text-sm text-brand-text">Life & CEO Planner</span>
               </div>
-              <p className="text-xs text-brand-muted">Helping women 30+ turn chaos into structure — and structure into income.</p>
+              <p className="text-xs text-brand-muted">Helping women 30+ turn chaos into structure and structure into income.</p>
             </div>
             <div className="space-y-3">
               <p className="text-xs font-semibold uppercase tracking-widest text-brand-text">Product</p>
