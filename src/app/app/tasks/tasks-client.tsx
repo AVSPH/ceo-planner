@@ -127,37 +127,46 @@ export function TasksClient({ userId, initialTasks }: Props) {
   const todayCount = overdue.length + todayPending.length + recurringPending.length
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 pb-10">
+    <div className="max-w-2xl mx-auto space-y-6 pb-10 relative">
+      {/* Visual Ambient Light Background Blobs */}
+      <div className="absolute inset-0 -top-10 -z-10 h-72 overflow-hidden opacity-30 select-none pointer-events-none">
+        <div className="absolute -top-10 left-1/4 w-72 h-72 rounded-full bg-primary/20 blur-3xl" />
+        <div className="absolute top-20 right-1/4 w-60 h-60 rounded-full bg-secondary/20 blur-3xl" />
+      </div>
+
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Tasks</h1>
+        <div>
+          <h1 className="text-3xl font-display font-bold tracking-tight text-foreground">Tasks</h1>
+          <p className="text-xs text-muted-foreground mt-0.5">Manage priorities and clear the plate</p>
+        </div>
         <button
           type="button"
           onClick={() => { setEditTarget(null); setFormOpen(true) }}
-          className="flex items-center gap-1.5 rounded-lg bg-primary text-primary-foreground px-3 py-1.5 text-sm font-medium hover:bg-primary/90 transition-colors"
+          className="flex items-center gap-1.5 rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold hover:bg-primary/90 transition-all duration-200 hover:shadow-md hover:shadow-primary/10 hover:-translate-y-0.5"
         >
-          <Plus className="size-4" />
+          <Plus className="size-4.5" />
           New task
         </button>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 rounded-lg bg-muted p-1">
+      <div className="flex gap-1.5 rounded-xl bg-muted/35 backdrop-blur-md p-1.5 border border-muted/50">
         {TABS.map(t => (
           <button
             key={t.id}
             type="button"
             onClick={() => setTab(t.id)}
             className={cn(
-              'flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-150',
+              'flex-1 rounded-lg px-3 py-2 text-sm font-bold tracking-wide transition-all duration-200 hover:text-foreground',
               tab === t.id
-                ? 'bg-background text-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground'
+                ? 'bg-background/80 text-foreground shadow-sm backdrop-blur-md border border-border/40'
+                : 'text-muted-foreground hover:bg-muted/30'
             )}
           >
             {t.label}
             {t.id === 'today' && todayCount > 0 && (
-              <span className="ml-1.5 rounded-full bg-primary/20 text-primary px-1.5 py-0.5 text-[10px] font-semibold">
+              <span className="ml-2 rounded-full bg-primary/15 text-primary px-2 py-0.5 text-[10px] font-bold">
                 {todayCount}
               </span>
             )}
@@ -172,7 +181,7 @@ export function TasksClient({ userId, initialTasks }: Props) {
           onChange={e => setQuickAdd(e.target.value)}
           onKeyDown={handleQuickAdd}
           placeholder="Quick add task for today… (Enter to save)"
-          className="w-full rounded-xl border bg-card px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary/30 placeholder:text-muted-foreground/50 transition-all"
+          className="w-full rounded-2xl border border-muted/60 bg-card/45 backdrop-blur-xl px-4 py-3.5 text-sm outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary/40 placeholder:text-muted-foreground/45 transition-all"
         />
       )}
 
