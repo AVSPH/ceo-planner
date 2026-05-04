@@ -5,28 +5,28 @@ import Link from 'next/link'
 import { motion, useInView, useScroll, useTransform } from 'motion/react'
 import {
   Calendar, CheckSquare, DollarSign, RotateCcw, BookOpen,
-  ArrowRight, Sparkles, ChevronRight, Heart, Star,
+  ArrowRight, Heart, Star, Sparkles,
 } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { BentoCard, BentoGrid } from '@/components/ui/bento-grid'
 
 const fadeUp = {
-  hidden:   { opacity: 0, y: 24 },
-  visible:  { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  hidden:   { opacity: 0, y: 20 },
+  visible:  { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 }
 
 const fadeUpDelay = (delay: number) => ({
-  hidden:   { opacity: 0, y: 24 },
-  visible:  { opacity: 1, y: 0, transition: { duration: 0.6, delay, ease: 'easeOut' } },
+  hidden:   { opacity: 0, y: 20 },
+  visible:  { opacity: 1, y: 0, transition: { duration: 0.5, delay, ease: 'easeOut' } },
 })
 
 const stagger = {
   hidden:  {},
-  visible: { transition: { staggerChildren: 0.09 } },
+  visible: { transition: { staggerChildren: 0.08 } },
 }
 
 const scaleIn = {
-  hidden:   { opacity: 0, scale: 0.95 },
-  visible:  { opacity: 1, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+  hidden:   { opacity: 0, scale: 0.97 },
+  visible:  { opacity: 1, scale: 1, transition: { duration: 0.4, ease: 'easeOut' } },
 }
 
 function Reveal({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -55,48 +55,70 @@ const PAIN_POINTS = [
 
 const FEATURES = [
   {
-    icon: Calendar,
-    title: 'Daily Structure Pages',
-    tag: 'Daily',
-    desc: 'No more guessing what to do. Start each day with a clear, structured plan that tells you exactly where to focus.',
-    gradient: 'from-rose-500 to-pink-600',
+    Icon: Calendar,
+    name: 'Daily Structure Pages',
+    description: 'No more guessing what to do. Start each day with a clear plan that tells you exactly where to focus.',
+    href: '/auth/signup',
+    cta: 'Get started',
+    className: 'col-span-3 lg:col-span-1',
+    background: (
+      <div className="absolute inset-0 flex items-center justify-center opacity-5">
+        <Calendar className="size-48 text-gray-900" />
+      </div>
+    ),
   },
   {
-    icon: CheckSquare,
-    title: 'Weekly Planning System',
-    tag: 'Weekly',
-    desc: 'Stay focused, not scattered. Map your week with intention so every day builds toward your bigger goals.',
-    gradient: 'from-violet-500 to-purple-600',
+    Icon: CheckSquare,
+    name: 'Weekly Planning System',
+    description: 'Stay focused, not scattered. Map your week with intention so every day builds toward your bigger goals.',
+    href: '/auth/signup',
+    cta: 'Get started',
+    className: 'col-span-3 lg:col-span-2',
+    background: (
+      <div className="absolute inset-0 flex items-end justify-end p-8 opacity-5">
+        <CheckSquare className="size-48 text-gray-900" />
+      </div>
+    ),
   },
   {
-    icon: DollarSign,
-    title: 'Income Planning + Tracking',
-    tag: 'Money',
-    desc: 'Turn effort into money. Track your income goals, log progress daily, and watch your financial picture get clearer.',
-    gradient: 'from-emerald-500 to-teal-500',
+    Icon: DollarSign,
+    name: 'Income Planning + Tracking',
+    description: 'Turn effort into money. Track income goals, log progress daily, and watch your financial picture get clearer.',
+    href: '/auth/signup',
+    cta: 'Get started',
+    className: 'col-span-3 lg:col-span-2',
+    background: (
+      <div className="absolute inset-0 flex items-center justify-end p-8 opacity-5">
+        <DollarSign className="size-48 text-gray-900" />
+      </div>
+    ),
   },
   {
-    icon: RotateCcw,
-    title: 'Consistency System',
-    tag: 'Habits',
-    desc: 'So you actually follow through. Built-in systems that keep you on track even when life feels heavy.',
-    gradient: 'from-amber-500 to-orange-500',
+    Icon: RotateCcw,
+    name: 'Consistency System',
+    description: 'Built-in systems that keep you on track even when life feels heavy.',
+    href: '/auth/signup',
+    cta: 'Get started',
+    className: 'col-span-3 lg:col-span-1',
+    background: (
+      <div className="absolute inset-0 flex items-center justify-center opacity-5">
+        <RotateCcw className="size-40 text-gray-900" />
+      </div>
+    ),
   },
   {
-    icon: BookOpen,
-    title: 'Simple Routines',
-    tag: 'Stability',
-    desc: 'Create stability through simplicity. Morning and evening rituals that calm your nervous system and ground your day.',
-    gradient: 'from-sky-500 to-cyan-500',
+    Icon: BookOpen,
+    name: 'Simple Routines That Create Stability',
+    description: 'Morning and evening rituals that calm your nervous system and ground your day — designed for real life, not perfect conditions.',
+    href: '/auth/signup',
+    cta: 'Get started',
+    className: 'col-span-3',
+    background: (
+      <div className="absolute inset-0 flex items-center justify-end p-12 opacity-5">
+        <BookOpen className="size-48 text-gray-900" />
+      </div>
+    ),
   },
-]
-
-const WHY_WORKS = [
-  { label: 'Not hustle-based', desc: 'Progress without burning out' },
-  { label: 'Not overwhelming', desc: 'One step at a time, always' },
-  { label: 'Built for women rebuilding', desc: 'Designed for your real life' },
-  { label: 'Structure + emotional stability', desc: 'Head and heart, together' },
-  { label: 'Real life, not perfect routines', desc: 'Works even on hard days' },
 ]
 
 const PRICING = [
@@ -105,10 +127,9 @@ const PRICING = [
     name: 'Planner',
     price: '$29.99',
     period: 'one-time',
-    badge: 'Free for one week',
-    badgeColor: 'bg-emerald-100 text-emerald-700',
+    badge: 'Free for 1 week',
     highlight: false,
-    features: ['Instant access', 'Lifetime use', 'Daily structure pages', 'Weekly planning system', 'All 5 modules'],
+    features: ['Instant access', 'Lifetime use', 'All 5 modules', 'Step-by-step structure system'],
   },
   {
     id: 'monthly',
@@ -116,9 +137,8 @@ const PRICING = [
     price: '$22.22',
     period: 'per month',
     badge: null,
-    badgeColor: '',
     highlight: false,
-    features: ['Everything in Planner', 'Monthly subscription', 'New content drops', 'Priority support'],
+    features: ['Everything in Planner', 'Monthly subscription', 'New content drops', 'Support'],
   },
   {
     id: '6months',
@@ -126,9 +146,8 @@ const PRICING = [
     price: '$130',
     period: '6 months',
     badge: 'Most popular',
-    badgeColor: 'bg-violet-100 text-violet-700',
     highlight: true,
-    features: ['Everything in Monthly', 'Save vs monthly', '6 months of access', 'Bonus resources'],
+    features: ['Everything in Monthly', 'Save vs monthly', '6 months access', 'Bonus resources'],
   },
   {
     id: '12months',
@@ -136,7 +155,6 @@ const PRICING = [
     price: '$260',
     period: 'per year',
     badge: 'Best value',
-    badgeColor: 'bg-rose-100 text-rose-700',
     highlight: false,
     features: ['Everything in 6 Months', 'Full year access', 'Maximum savings', 'VIP support'],
   },
@@ -145,29 +163,25 @@ const PRICING = [
 export function LandingClient() {
   const containerRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: containerRef })
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0.3])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0.4])
 
   return (
     <div ref={containerRef} className="flex min-h-screen flex-col bg-white text-gray-900 overflow-x-hidden">
 
       {/* ── Navbar ── */}
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-rose-100 bg-white/70 backdrop-blur-2xl">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-xl">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex items-center gap-2"
-          >
-            <div className="size-8 rounded-lg bg-gradient-to-br from-rose-500 to-violet-600 flex items-center justify-center shadow-lg shadow-rose-500/20">
-              <Sparkles className="size-4 text-white" />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2">
+            <div className="size-7 rounded-md bg-rose-600 flex items-center justify-center">
+              <Sparkles className="size-3.5 text-white" />
             </div>
             <span className="text-sm font-bold tracking-tight">Life & CEO Planner</span>
           </motion.div>
           <div className="flex items-center gap-2">
-            <Link href="/auth/login" className="rounded-lg px-3 py-2 text-xs font-medium text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/auth/login" className="rounded-lg px-3 py-2 text-xs font-medium text-gray-500 hover:text-gray-900 transition-colors">
               Sign in
             </Link>
-            <Link href="/auth/signup" className="rounded-lg bg-gradient-to-r from-rose-500 to-violet-600 px-3 py-2 text-xs font-semibold text-white hover:opacity-90 transition-opacity">
+            <Link href="/auth/signup" className="rounded-lg bg-rose-600 px-3 py-2 text-xs font-semibold text-white hover:bg-rose-700 transition-colors">
               Get The Planner
             </Link>
           </div>
@@ -176,159 +190,118 @@ export function LandingClient() {
 
       {/* ── Hero ── */}
       <motion.section style={{ opacity: heroOpacity }} className="relative flex min-h-screen items-center justify-center px-6 pt-16">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] h-[700px] w-[700px] rounded-full bg-rose-200/40 blur-[130px]" />
-          <div className="absolute top-1/3 right-1/4 h-72 w-72 rounded-full bg-violet-200/30 blur-[90px]" />
-          <div className="absolute bottom-1/4 left-1/4 h-64 w-64 rounded-full bg-pink-200/25 blur-[80px]" />
-          <div
-            className="absolute inset-0 opacity-[0.025]"
-            style={{
-              backgroundImage: 'linear-gradient(rgba(0,0,0,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,1) 1px, transparent 1px)',
-              backgroundSize: '64px 64px',
-            }}
-          />
-        </div>
-
         <motion.div
           initial="hidden"
           animate="visible"
           variants={stagger}
-          className="relative z-10 mx-auto max-w-4xl text-center"
+          className="relative z-10 mx-auto max-w-3xl text-center"
         >
-          <motion.div variants={fadeUp} className="mb-8 flex justify-center">
-            <motion.span
-              whileHover={{ scale: 1.05 }}
-              className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50/60 px-4 py-2 text-xs font-medium text-rose-700 backdrop-blur-sm cursor-pointer"
-            >
-              <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-              For women 30+ ready to create real change
-            </motion.span>
-          </motion.div>
+          <motion.p variants={fadeUp} className="mb-4 text-xs font-semibold uppercase tracking-widest text-rose-600">
+            For women 30+ ready to create real change
+          </motion.p>
 
           <motion.h1
             variants={fadeUp}
             className="mb-6 text-5xl font-black leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl text-gray-900"
           >
-            Turn chaos into structure —{' '}
-            <br className="hidden sm:block" />
-            <span className="bg-gradient-to-r from-rose-600 to-violet-600 bg-clip-text text-transparent">
-              and structure into income.
-            </span>
+            Helping women 30+ turn chaos into structure —
+            <span className="block text-rose-600"> and structure into income.</span>
           </motion.h1>
 
-          <motion.p
-            variants={fadeUp}
-            className="mx-auto mb-6 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg"
-          >
+          <motion.p variants={fadeUp} className="mx-auto mb-3 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">
             Simple, step-by-step systems to help you stay consistent, get organized, and finally see real progress.
           </motion.p>
 
-          <motion.p
-            variants={fadeUp}
-            className="mx-auto mb-10 max-w-xl text-sm italic text-gray-500"
-          >
+          <motion.p variants={fadeUp} className="mx-auto mb-10 max-w-xl text-sm text-gray-400 italic">
             Your life doesn't change from thinking about it. It changes when you have a system you actually follow.
           </motion.p>
 
-          <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-center gap-3 mb-12">
+          <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/auth/signup"
-              className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 to-violet-600 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-rose-500/30 hover:opacity-90 transition-all duration-200"
+              className="group inline-flex items-center gap-2 rounded-xl bg-rose-600 px-8 py-4 text-sm font-semibold text-white hover:bg-rose-700 transition-colors"
             >
               Get The Planner
               <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
             <Link
               href="#pricing"
-              className="inline-flex items-center gap-2 rounded-xl border-2 border-gray-300 bg-white px-8 py-4 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:border-gray-400 transition-all duration-200"
+              className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-8 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
             >
               See pricing
-              <ChevronRight className="size-4" />
             </Link>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs font-medium text-gray-500">
-            {['Instant access', 'Lifetime use', 'Income tracking', 'Daily structure', 'Consistency system'].map((s, i) => (
-              <span key={s} className="flex items-center gap-2">
-                {i > 0 && <span className="size-1 rounded-full bg-gray-300" />}
-                {s}
-              </span>
-            ))}
-          </motion.div>
+          <motion.p variants={fadeUp} className="mt-6 text-xs text-gray-400">
+            Free for one week · Instant access · Lifetime use
+          </motion.p>
         </motion.div>
       </motion.section>
 
       {/* ── Pain Points ── */}
-      <section className="relative px-6 py-24 border-y border-rose-100 bg-gradient-to-b from-white to-rose-50/30">
-        <div className="mx-auto max-w-3xl">
+      <section className="px-6 py-24 border-t border-gray-100 bg-gray-50">
+        <div className="mx-auto max-w-2xl">
           <Reveal className="space-y-10">
-            <motion.div variants={fadeUp} className="text-center space-y-4">
+            <motion.div variants={fadeUp} className="space-y-3">
               <p className="text-xs font-semibold uppercase tracking-widest text-rose-600">If you've been feeling like this…</p>
-              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
-                You're not alone.
-              </h2>
+              <h2 className="text-3xl font-bold text-gray-900">You're not alone.</h2>
             </motion.div>
 
-            <motion.ul variants={stagger} className="space-y-4">
+            <motion.ul variants={stagger} className="space-y-3">
               {PAIN_POINTS.map((point, idx) => (
                 <motion.li
                   key={idx}
-                  variants={fadeUpDelay(idx * 0.07)}
-                  className="flex items-start gap-4 rounded-2xl border border-rose-100 bg-white p-5 shadow-sm"
+                  variants={fadeUpDelay(idx * 0.06)}
+                  className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4"
                 >
-                  <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-rose-100">
-                    <span className="size-2 rounded-full bg-rose-500" />
-                  </span>
-                  <p className="text-gray-700 leading-relaxed">{point}</p>
+                  <span className="mt-1 size-2 shrink-0 rounded-full bg-rose-400" />
+                  <p className="text-gray-700 text-sm leading-relaxed">{point}</p>
                 </motion.li>
               ))}
             </motion.ul>
 
-            <motion.div variants={fadeUp} className="text-center pt-4">
-              <p className="text-xl font-bold text-gray-900">You don't need more motivation.</p>
-              <p className="text-xl font-bold bg-gradient-to-r from-rose-600 to-violet-600 bg-clip-text text-transparent">You need structure.</p>
+            <motion.div variants={fadeUp} className="border-l-4 border-rose-600 pl-5">
+              <p className="text-lg font-bold text-gray-900">You don't need more motivation.</p>
+              <p className="text-lg font-bold text-rose-600">You need structure.</p>
             </motion.div>
           </Reveal>
         </div>
       </section>
 
-      {/* ── This isn't a discipline problem ── */}
-      <section className="px-6 py-24 bg-white">
-        <div className="mx-auto max-w-3xl">
-          <Reveal className="space-y-10">
-            <motion.div variants={fadeUp} className="text-center space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-widest text-violet-600">The real reason</p>
-              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
-                This isn't a{' '}
-                <span className="italic">discipline</span> problem.
+      {/* ── Not a discipline problem ── */}
+      <section className="px-6 py-24 bg-white border-t border-gray-100">
+        <div className="mx-auto max-w-2xl">
+          <Reveal className="space-y-8">
+            <motion.div variants={fadeUp} className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">The real reason</p>
+              <h2 className="text-3xl font-bold text-gray-900">
+                This isn't a <em>discipline</em> problem.
               </h2>
-              <p className="mx-auto max-w-xl text-gray-600 leading-relaxed">
-                You were never given a system that works for your life.
-              </p>
+              <p className="text-gray-600">You were never given a system that works for your life.</p>
             </motion.div>
 
-            <motion.div variants={stagger} className="space-y-4">
+            <motion.div variants={stagger} className="space-y-3">
               {[
-                { label: 'Your nervous system is overwhelmed', icon: '🧠' },
-                { label: 'Your focus is scattered', icon: '🌀' },
-                { label: 'Consistency feels impossible', icon: '⚡' },
-              ].map(({ label, icon }, idx) => (
+                'Your nervous system is overwhelmed',
+                'Your focus is scattered',
+                'Consistency feels impossible',
+              ].map((item, idx) => (
                 <motion.div
                   key={idx}
                   variants={fadeUpDelay(idx * 0.08)}
-                  className="flex items-center gap-4 rounded-2xl border border-violet-100 bg-violet-50/40 p-5"
+                  className="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3"
                 >
-                  <span className="text-2xl">{icon}</span>
-                  <p className="font-medium text-gray-800">{label}</p>
+                  <span className="size-1.5 shrink-0 rounded-full bg-gray-400" />
+                  <p className="text-gray-700 text-sm">{item}</p>
                 </motion.div>
               ))}
             </motion.div>
 
-            <motion.div variants={fadeUp} className="rounded-2xl border-2 border-violet-200 bg-gradient-to-br from-violet-50 to-rose-50 p-8 text-center space-y-3">
-              <p className="text-gray-700 leading-relaxed">
+            <motion.div variants={fadeUp} className="rounded-xl border border-gray-200 bg-gray-50 p-6">
+              <p className="text-gray-600 text-sm leading-relaxed">
                 So you don't follow through — not because you can't…
               </p>
-              <p className="text-lg font-bold text-gray-900">
+              <p className="mt-1 font-semibold text-gray-900">
                 but because you don't have a structure that holds you.
               </p>
             </motion.div>
@@ -337,24 +310,18 @@ export function LandingClient() {
       </section>
 
       {/* ── What the planner does ── */}
-      <section className="border-y border-gray-100 bg-gradient-to-b from-gray-50 to-white px-6 py-24">
-        <div className="mx-auto max-w-3xl">
-          <Reveal className="space-y-10">
-            <motion.div variants={fadeUp} className="text-center space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600">The solution</p>
-              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
-                This is where the{' '}
-                <span className="bg-gradient-to-r from-rose-600 to-violet-600 bg-clip-text text-transparent">
-                  Life & CEO Planner
-                </span>{' '}
-                changes everything.
+      <section className="px-6 py-24 bg-gray-50 border-t border-gray-100">
+        <div className="mx-auto max-w-2xl">
+          <Reveal className="space-y-8">
+            <motion.div variants={fadeUp} className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-rose-600">The solution</p>
+              <h2 className="text-3xl font-bold text-gray-900">
+                This is where the Life & CEO Planner changes everything.
               </h2>
-              <p className="mx-auto max-w-xl text-gray-600">
-                This isn't just a planner. It's a simple daily system that helps you:
-              </p>
+              <p className="text-gray-600">This isn't just a planner. It's a simple daily system that helps you:</p>
             </motion.div>
 
-            <motion.ul variants={stagger} className="space-y-4">
+            <motion.ul variants={stagger} className="space-y-3">
               {[
                 'Organize your life without overwhelm',
                 'Know exactly what to focus on each day',
@@ -364,14 +331,14 @@ export function LandingClient() {
                 <motion.li
                   key={idx}
                   variants={fadeUpDelay(idx * 0.07)}
-                  className="flex items-center gap-4 rounded-xl border border-emerald-100 bg-white p-5 shadow-sm"
+                  className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4"
                 >
-                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-teal-500">
-                    <svg className="size-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-rose-600">
+                    <svg className="size-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </span>
-                  <p className="font-medium text-gray-800">{item}</p>
+                  <p className="text-gray-800 text-sm font-medium">{item}</p>
                 </motion.li>
               ))}
             </motion.ul>
@@ -379,79 +346,53 @@ export function LandingClient() {
         </div>
       </section>
 
-      {/* ── Features / What you get ── */}
-      <section id="features" className="px-6 py-28 bg-white">
-        <div className="mx-auto max-w-6xl space-y-16">
-          <Reveal className="text-center space-y-4">
+      {/* ── Features / Bento ── */}
+      <section id="features" className="px-6 py-28 bg-white border-t border-gray-100">
+        <div className="mx-auto max-w-6xl space-y-12">
+          <Reveal className="space-y-3">
             <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-rose-600">
               What you get
             </motion.p>
-            <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
+            <motion.h2 variants={fadeUp} className="text-3xl font-bold text-gray-900">
               Inside the Life & CEO Planner
             </motion.h2>
           </Reveal>
 
-          <Reveal className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURES.map(({ icon: Icon, title, tag, desc, gradient }, idx) => (
-              <motion.div
-                key={title}
-                variants={fadeUpDelay(idx * 0.05)}
-                whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="group relative rounded-2xl border-2 border-gray-100 bg-gradient-to-br from-white to-gray-50 p-6 space-y-5 transition-all duration-300 hover:border-gray-200 hover:shadow-xl cursor-pointer"
-              >
-                <div className="flex items-start justify-between">
-                  <div className={cn('rounded-xl bg-gradient-to-br p-3', gradient)}>
-                    <Icon className="size-5 text-white" />
-                  </div>
-                  <span className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 pt-1">
-                    {tag}
-                  </span>
-                </div>
-                <div className="space-y-3">
-                  <h3 className="font-semibold text-gray-900 text-lg">{title}</h3>
-                  <p className="text-sm leading-relaxed text-gray-600">{desc}</p>
-                </div>
-                <div className={cn(
-                  'absolute -bottom-px left-1/2 -translate-x-1/2 h-px w-2/3 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-300',
-                  gradient
-                )} />
-              </motion.div>
+          <BentoGrid>
+            {FEATURES.map((feature) => (
+              <BentoCard key={feature.name} {...feature} />
             ))}
-          </Reveal>
+          </BentoGrid>
         </div>
       </section>
 
       {/* ── Before / After ── */}
-      <section className="border-y border-gray-100 bg-gray-50 px-6 py-24">
-        <div className="mx-auto max-w-4xl">
-          <Reveal className="space-y-12">
-            <motion.div variants={fadeUp} className="text-center space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-widest text-violet-600">The transformation</p>
-              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
-                From chaos → to calm
-              </h2>
+      <section className="px-6 py-24 bg-gray-50 border-t border-gray-100">
+        <div className="mx-auto max-w-3xl">
+          <Reveal className="space-y-10">
+            <motion.div variants={fadeUp} className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">The transformation</p>
+              <h2 className="text-3xl font-bold text-gray-900">From chaos → to calm</h2>
             </motion.div>
 
-            <motion.div variants={stagger} className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <motion.div variants={scaleIn} className="rounded-2xl border-2 border-red-100 bg-red-50/50 p-8 space-y-5">
+            <motion.div variants={stagger} className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <motion.div variants={scaleIn} className="rounded-xl border border-red-100 bg-red-50 p-6 space-y-4">
                 <p className="text-xs font-bold uppercase tracking-widest text-red-500">Before</p>
-                <ul className="space-y-3">
+                <ul className="space-y-2">
                   {['Overwhelmed', 'Inconsistent', 'Stuck in survival mode', 'No clear direction'].map((item, i) => (
-                    <li key={i} className="flex items-center gap-3 text-gray-700">
-                      <span className="text-red-400 font-bold">✗</span>
-                      {item}
+                    <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
+                      <span className="text-red-400">✗</span> {item}
                     </li>
                   ))}
                 </ul>
               </motion.div>
 
-              <motion.div variants={scaleIn} className="rounded-2xl border-2 border-emerald-100 bg-emerald-50/50 p-8 space-y-5">
+              <motion.div variants={scaleIn} className="rounded-xl border border-emerald-100 bg-emerald-50 p-6 space-y-4">
                 <p className="text-xs font-bold uppercase tracking-widest text-emerald-600">After</p>
-                <ul className="space-y-3">
+                <ul className="space-y-2">
                   {['Structured days', 'Clear focus', 'Consistent action', 'Building income + stability'].map((item, i) => (
-                    <li key={i} className="flex items-center gap-3 text-gray-700">
-                      <span className="text-emerald-500 font-bold">✓</span>
-                      {item}
+                    <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
+                      <span className="text-emerald-500">✓</span> {item}
                     </li>
                   ))}
                 </ul>
@@ -462,33 +403,29 @@ export function LandingClient() {
       </section>
 
       {/* ── Founder Story ── */}
-      <section className="px-6 py-24 bg-white">
-        <div className="mx-auto max-w-3xl">
+      <section className="px-6 py-24 bg-white border-t border-gray-100">
+        <div className="mx-auto max-w-2xl">
           <Reveal className="space-y-8">
-            <motion.div variants={fadeUp} className="text-center space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-widest text-rose-600">Why I Created This</p>
+            <motion.div variants={fadeUp} className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-rose-600">Why I created this</p>
             </motion.div>
 
-            <motion.div
-              variants={scaleIn}
-              className="relative rounded-2xl border-2 border-rose-100 bg-gradient-to-br from-rose-50 to-violet-50 p-8 md:p-10 space-y-6"
-            >
-              <div className="absolute -top-4 left-8 text-5xl opacity-20 font-black text-rose-400">"</div>
+            <motion.div variants={scaleIn} className="rounded-xl border border-gray-200 bg-gray-50 p-8 space-y-4">
               <div className="flex items-start gap-4">
-                <div className="size-12 shrink-0 rounded-full bg-gradient-to-br from-rose-400 to-violet-500 flex items-center justify-center">
-                  <Heart className="size-5 text-white" />
+                <div className="size-10 shrink-0 rounded-full bg-rose-100 flex items-center justify-center">
+                  <Heart className="size-5 text-rose-600" />
                 </div>
-                <div className="space-y-4">
-                  <p className="text-gray-700 leading-relaxed">
+                <div className="space-y-3">
+                  <p className="text-gray-700 text-sm leading-relaxed">
                     I was a solo mom in survival mode — overwhelmed, inconsistent, and trying to rebuild my life from scratch.
                   </p>
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-gray-700 text-sm leading-relaxed">
                     Nothing worked until I created a simple system that gave me structure, clarity, and direction.
                   </p>
-                  <p className="font-semibold text-gray-900 leading-relaxed">
+                  <p className="font-semibold text-gray-900 text-sm">
                     This planner helped me move from chaos to consistency — and start making real progress.
                   </p>
-                  <p className="text-rose-700 font-semibold">
+                  <p className="text-rose-600 font-semibold text-sm">
                     If that's where you are right now… this is for you.
                   </p>
                 </div>
@@ -499,33 +436,36 @@ export function LandingClient() {
       </section>
 
       {/* ── Why this works ── */}
-      <section className="border-y border-gray-100 bg-gray-50 px-6 py-24">
-        <div className="mx-auto max-w-4xl">
-          <Reveal className="space-y-12">
-            <motion.div variants={fadeUp} className="text-center space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-widest text-violet-600">The difference</p>
-              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
-                Why this works when other things haven't
-              </h2>
+      <section className="px-6 py-24 bg-gray-50 border-t border-gray-100">
+        <div className="mx-auto max-w-3xl">
+          <Reveal className="space-y-10">
+            <motion.div variants={fadeUp} className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">The difference</p>
+              <h2 className="text-3xl font-bold text-gray-900">Why this works when other things haven't</h2>
             </motion.div>
 
-            <motion.div variants={stagger} className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-              {WHY_WORKS.map(({ label, desc }, idx) => (
+            <motion.div variants={stagger} className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {[
+                { label: 'Not hustle-based', desc: 'Progress without burning out' },
+                { label: 'Not overwhelming', desc: 'One step at a time, always' },
+                { label: 'Built for women rebuilding', desc: 'Designed for your real life' },
+                { label: 'Structure + emotional stability', desc: 'Head and heart, together' },
+                { label: 'Real life, not perfect routines', desc: 'Works even on hard days' },
+              ].map(({ label, desc }, idx) => (
                 <motion.div
                   key={idx}
-                  variants={fadeUpDelay(idx * 0.06)}
-                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                  className="rounded-2xl border-2 border-violet-100 bg-white p-6 space-y-2 hover:border-violet-200 hover:shadow-lg transition-all duration-300"
+                  variants={fadeUpDelay(idx * 0.05)}
+                  className="flex items-start gap-3 rounded-lg border border-gray-200 bg-white p-4"
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-rose-400 to-violet-500">
-                      <svg className="size-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    </span>
-                    <p className="font-semibold text-gray-900 text-sm">{label}</p>
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-rose-100">
+                    <svg className="size-3 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900">{label}</p>
+                    <p className="text-xs text-gray-500">{desc}</p>
                   </div>
-                  <p className="text-xs text-gray-500 pl-7">{desc}</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -534,56 +474,52 @@ export function LandingClient() {
       </section>
 
       {/* ── Pricing ── */}
-      <section id="pricing" className="px-6 py-28 bg-white">
-        <div className="mx-auto max-w-6xl space-y-16">
-          <Reveal className="text-center space-y-4">
+      <section id="pricing" className="px-6 py-28 bg-white border-t border-gray-100">
+        <div className="mx-auto max-w-5xl space-y-12">
+          <Reveal className="space-y-4">
             <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-rose-600">
               Pricing
             </motion.p>
-            <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
+            <motion.h2 variants={fadeUp} className="text-3xl font-bold text-gray-900">
               Get your life structured so you can build income
             </motion.h2>
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
-              <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-              The Life & CEO Digital Planner is Free for One Week
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-xs font-semibold text-emerald-700">
+              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              Free for one week
             </motion.div>
           </Reveal>
 
-          <Reveal className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {PRICING.map(({ id, name, price, period, badge, badgeColor, highlight, features }, idx) => (
+          <Reveal className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {PRICING.map(({ id, name, price, period, badge, highlight, features }, idx) => (
               <motion.div
                 key={id}
                 variants={fadeUpDelay(idx * 0.07)}
-                whileHover={{ y: -8, transition: { duration: 0.25 } }}
-                className={cn(
-                  'relative rounded-2xl border-2 p-6 space-y-6 transition-all duration-300 cursor-pointer flex flex-col',
-                  highlight
-                    ? 'border-violet-400 bg-gradient-to-br from-violet-50 to-rose-50 shadow-xl shadow-violet-500/15'
-                    : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-lg'
-                )}
+                className={[
+                  'relative rounded-xl border p-6 space-y-5 flex flex-col transition-shadow hover:shadow-md',
+                  highlight ? 'border-rose-300 bg-rose-50' : 'border-gray-200 bg-white',
+                ].join(' ')}
               >
                 {badge && (
-                  <span className={cn('absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs font-semibold whitespace-nowrap', badgeColor)}>
+                  <span className={[
+                    'absolute -top-3 left-4 rounded-full px-3 py-0.5 text-xs font-semibold',
+                    highlight ? 'bg-rose-600 text-white' : 'bg-gray-900 text-white',
+                  ].join(' ')}>
                     {badge}
                   </span>
                 )}
 
-                <div className="space-y-1 pt-2">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-gray-500">{name}</p>
+                <div className="pt-2">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-1">{name}</p>
                   <div className="flex items-baseline gap-1">
                     <span className="text-3xl font-black text-gray-900">{price}</span>
-                    <span className="text-xs text-gray-500">/ {period}</span>
+                    <span className="text-xs text-gray-400">/ {period}</span>
                   </div>
                 </div>
 
                 <ul className="space-y-2 flex-1">
                   {features.map((f, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
-                      <span className={cn('shrink-0 size-4 rounded-full flex items-center justify-center', highlight ? 'bg-violet-500' : 'bg-gray-200')}>
-                        <svg className="size-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                      </span>
+                    <li key={i} className="flex items-center gap-2 text-xs text-gray-600">
+                      <span className="size-1 shrink-0 rounded-full bg-gray-400" />
                       {f}
                     </li>
                   ))}
@@ -591,12 +527,12 @@ export function LandingClient() {
 
                 <Link
                   href="/auth/signup"
-                  className={cn(
-                    'block w-full rounded-xl py-3 text-center text-sm font-semibold transition-all duration-200',
+                  className={[
+                    'block w-full rounded-lg py-2.5 text-center text-xs font-semibold transition-colors',
                     highlight
-                      ? 'bg-gradient-to-r from-rose-500 to-violet-600 text-white shadow-md shadow-violet-500/25 hover:opacity-90'
-                      : 'border-2 border-gray-200 text-gray-900 hover:bg-gray-50 hover:border-gray-300'
-                  )}
+                      ? 'bg-rose-600 text-white hover:bg-rose-700'
+                      : 'border border-gray-300 text-gray-900 hover:bg-gray-50',
+                  ].join(' ')}
                 >
                   Get started
                 </Link>
@@ -607,50 +543,42 @@ export function LandingClient() {
       </section>
 
       {/* ── Final CTA ── */}
-      <section className="relative overflow-hidden border-t border-rose-100 bg-gradient-to-b from-rose-50/40 to-violet-50/40 px-6 py-32">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-rose-200/40 blur-[120px]" />
-          <div className="absolute top-1/4 right-1/3 h-96 w-96 rounded-full bg-violet-200/30 blur-[90px]" />
-        </div>
-        <Reveal className="relative z-10 mx-auto max-w-3xl text-center space-y-10">
-          <motion.div variants={fadeUp} className="space-y-6">
-            <div className="flex justify-center">
-              <div className="flex gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="size-5 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-            </div>
-            <h2 className="text-4xl font-black tracking-tight sm:text-5xl text-gray-900">
-              If you're waiting to feel{' '}
-              <span className="italic">"ready"</span>
-              {' '}…
-              <br />
-              <span className="bg-gradient-to-r from-rose-600 to-violet-600 bg-clip-text text-transparent">
-                this is your sign.
-              </span>
+      <section className="px-6 py-32 bg-gray-50 border-t border-gray-100">
+        <Reveal className="mx-auto max-w-2xl text-center space-y-8">
+          <motion.div variants={fadeUp} className="flex justify-center gap-0.5">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="size-4 fill-amber-400 text-amber-400" />
+            ))}
+          </motion.div>
+
+          <motion.div variants={fadeUp} className="space-y-4">
+            <h2 className="text-4xl font-black tracking-tight text-gray-900">
+              If you're waiting to feel <em>"ready"</em>…<br />
+              this is your sign.
             </h2>
-            <p className="text-lg text-gray-600 max-w-xl mx-auto leading-relaxed">
+            <p className="text-gray-600 leading-relaxed">
               You don't need to have it all figured out. You just need a system that helps you take the next step.
             </p>
-            <p className="font-semibold text-gray-800">Start simple. Start structured. Start now.</p>
+            <p className="font-semibold text-gray-900">Start simple. Start structured. Start now.</p>
           </motion.div>
-          <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-center gap-4">
+
+          <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/auth/signup"
-              className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-rose-500/30 hover:opacity-90 transition-all duration-200"
+              className="group inline-flex items-center gap-2 rounded-xl bg-rose-600 px-8 py-4 text-sm font-semibold text-white hover:bg-rose-700 transition-colors"
             >
               Get The Planner
-              <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-1" />
+              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
             <Link
               href="#pricing"
-              className="inline-flex items-center rounded-xl border-2 border-gray-300 px-8 py-4 text-base font-semibold text-gray-900 hover:border-gray-400 hover:bg-gray-50 transition-all duration-200"
+              className="inline-flex items-center rounded-xl border border-gray-300 px-8 py-4 text-sm font-semibold text-gray-700 hover:bg-white transition-colors"
             >
               View pricing
             </Link>
           </motion.div>
-          <motion.p variants={fadeUp} className="text-sm text-gray-500">
+
+          <motion.p variants={fadeUp} className="text-xs text-gray-400">
             Free for one week · Instant access · Lifetime use
           </motion.p>
         </Reveal>
@@ -660,9 +588,9 @@ export function LandingClient() {
       <footer className="border-t border-gray-200 px-6 py-12 bg-white">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <div className="size-6 rounded-lg bg-gradient-to-br from-rose-500 to-violet-600 flex items-center justify-center">
+                <div className="size-6 rounded-md bg-rose-600 flex items-center justify-center">
                   <Sparkles className="size-3 text-white" />
                 </div>
                 <span className="font-bold text-sm text-gray-900">Life & CEO Planner</span>
@@ -671,29 +599,29 @@ export function LandingClient() {
             </div>
             <div className="space-y-3">
               <p className="text-xs font-semibold uppercase tracking-widest text-gray-700">Product</p>
-              <ul className="space-y-2 text-xs text-gray-600 hover:[&_a]:text-gray-900">
-                <li><Link href="#features">Features</Link></li>
-                <li><Link href="#pricing">Pricing</Link></li>
+              <ul className="space-y-2 text-xs text-gray-500">
+                <li><Link href="#features" className="hover:text-gray-900 transition-colors">Features</Link></li>
+                <li><Link href="#pricing" className="hover:text-gray-900 transition-colors">Pricing</Link></li>
               </ul>
             </div>
             <div className="space-y-3">
               <p className="text-xs font-semibold uppercase tracking-widest text-gray-700">Company</p>
-              <ul className="space-y-2 text-xs text-gray-600 hover:[&_a]:text-gray-900">
-                <li><Link href="#about">About</Link></li>
-                <li><Link href="#contact">Contact</Link></li>
+              <ul className="space-y-2 text-xs text-gray-500">
+                <li><Link href="#about" className="hover:text-gray-900 transition-colors">About</Link></li>
+                <li><Link href="#contact" className="hover:text-gray-900 transition-colors">Contact</Link></li>
               </ul>
             </div>
             <div className="space-y-3">
               <p className="text-xs font-semibold uppercase tracking-widest text-gray-700">Legal</p>
-              <ul className="space-y-2 text-xs text-gray-600 hover:[&_a]:text-gray-900">
-                <li><Link href="#privacy">Privacy</Link></li>
-                <li><Link href="#terms">Terms</Link></li>
+              <ul className="space-y-2 text-xs text-gray-500">
+                <li><Link href="#privacy" className="hover:text-gray-900 transition-colors">Privacy</Link></li>
+                <li><Link href="#terms" className="hover:text-gray-900 transition-colors">Terms</Link></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-200 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500">
+          <div className="border-t border-gray-100 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-gray-400">
             <span>© 2026 Life & CEO Planner. All rights reserved.</span>
-            <div className="flex items-center gap-6 mt-4 md:mt-0">
+            <div className="flex items-center gap-5 mt-4 md:mt-0">
               <Link href="#instagram" className="hover:text-gray-900 transition-colors">Instagram</Link>
               <Link href="#facebook" className="hover:text-gray-900 transition-colors">Facebook</Link>
               <Link href="#tiktok" className="hover:text-gray-900 transition-colors">TikTok</Link>
