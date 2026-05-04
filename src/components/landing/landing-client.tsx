@@ -2,29 +2,29 @@
 
 import { useRef } from 'react'
 import Link from 'next/link'
-import { motion, useInView, useScroll, useTransform } from 'motion/react'
+import { motion, useInView, useScroll, useTransform, type Variants } from 'motion/react'
 import {
   Calendar, CheckSquare, DollarSign, RotateCcw, BookOpen,
   ArrowRight, Heart, Star, Sparkles,
 } from 'lucide-react'
 import { BentoCard, BentoGrid } from '@/components/ui/bento-grid'
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden:   { opacity: 0, y: 20 },
   visible:  { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 }
 
-const fadeUpDelay = (delay: number) => ({
+const fadeUpDelay = (delay: number): Variants => ({
   hidden:   { opacity: 0, y: 20 },
   visible:  { opacity: 1, y: 0, transition: { duration: 0.5, delay, ease: 'easeOut' } },
 })
 
-const stagger = {
+const stagger: Variants = {
   hidden:  {},
   visible: { transition: { staggerChildren: 0.08 } },
 }
 
-const scaleIn = {
+const scaleIn: Variants = {
   hidden:   { opacity: 0, scale: 0.97 },
   visible:  { opacity: 1, scale: 1, transition: { duration: 0.4, ease: 'easeOut' } },
 }
