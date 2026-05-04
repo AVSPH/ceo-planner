@@ -59,25 +59,34 @@ export function TodayClient({ userId, date, initialEntry, firstName, insights }:
   })
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 pb-10">
+    <div className="max-w-2xl mx-auto space-y-8 pb-10 relative">
+      {/* Visual Ambient Light Background Blobs */}
+      <div className="absolute inset-0 -top-10 -z-10 h-72 overflow-hidden opacity-30 select-none pointer-events-none">
+        <div className="absolute -top-10 left-1/4 w-72 h-72 rounded-full bg-primary/20 blur-3xl" />
+        <div className="absolute top-20 right-1/4 w-60 h-60 rounded-full bg-secondary/20 blur-3xl" />
+      </div>
+
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold">
+          <h1 className="text-3xl font-semibold font-display tracking-tight text-foreground">
             {firstName ? `Good ${getGreeting()}, ${firstName}.` : 'Today'}
           </h1>
-          <p className="text-sm text-muted-foreground mt-0.5">{displayDate}</p>
+          <p className="text-sm text-muted-foreground/80 mt-1 font-medium">{displayDate}</p>
         </div>
         <AnimatePresence>
           {saving && (
-            <motion.span
-              initial={{ opacity: 0, y: -4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="text-xs text-muted-foreground mt-1.5 shrink-0"
+            <motion.div
+              initial={{ opacity: 0, y: -4, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="flex items-center gap-1.5 bg-primary/10 border border-primary/20 rounded-full px-3 py-1 mt-1.5 shrink-0"
             >
-              Saving...
-            </motion.span>
+              <span className="size-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="text-xs font-medium text-primary">
+                Saving
+              </span>
+            </motion.div>
           )}
         </AnimatePresence>
       </div>
@@ -89,35 +98,45 @@ export function TodayClient({ userId, date, initialEntry, firstName, insights }:
       <QuickShortcuts />
 
       {/* Tab nav */}
-      <div className="flex gap-1 rounded-lg bg-muted p-1">
-        {TABS.map(t => (
-          <button
-            key={t.id}
-            type="button"
-            onClick={() => setTab(t.id)}
-            className={cn(
-              'flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-150',
-              tab === t.id
-                ? 'bg-background text-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground'
-            )}
-          >
-            {t.label}
-          </button>
-        ))}
+      <div className="flex gap-1 rounded-xl bg-muted/60 backdrop-blur-md p-1.5 border border-muted-foreground/10 relative">
+        {TABS.map(t => {
+          const isActive = tab === t.id
+          return (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => setTab(t.id)}
+              className={cn(
+                'flex-1 rounded-lg px-3 py-2 text-sm font-semibold transition-colors duration-200 relative',
+                isActive
+                  ? 'text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              {isActive && (
+                <motion.span
+                  layoutId="activeTabUnderlay"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  className="absolute inset-0 bg-background rounded-lg shadow-md -z-10 border border-muted-foreground/10"
+                />
+              )}
+              {t.label}
+            </button>
+          )
+        })}
       </div>
 
       {/* Content */}
       {loading ? (
-        <div className="h-72 rounded-xl border bg-card animate-pulse" />
+        <div className="h-72 rounded-2xl border bg-card/60 animate-pulse backdrop-blur-md border-primary/10" />
       ) : (
         <AnimatePresence mode="wait">
           <motion.div
             key={tab}
-            initial={{ opacity: 0, y: 6 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.15 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
             {tab === 'morning' && (
               <MorningCheckIn entry={entry} onUpdate={update} />
