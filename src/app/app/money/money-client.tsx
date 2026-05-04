@@ -38,8 +38,13 @@ export function MoneyClient({
   monthGoal, yearGoal,
 }: Props) {
   const [tab, setTab] = useState<Tab>('daily')
+  const [activeDate, setActiveDate] = useState(today)
 
-  const { entry, saving, update } = useDailyEntry(userId, today, initialEntry)
+  const { entry, loading, saving, update } = useDailyEntry(
+    userId,
+    activeDate,
+    activeDate === today ? initialEntry : undefined
+  )
   const revenue  = useRevenue(userId, initialRevenue)
   const expenses = useExpenses(userId, initialExpenses)
   const debt     = useDebt(userId, initialDebt)
@@ -82,7 +87,14 @@ export function MoneyClient({
       </div>
 
       {tab === 'daily' && (
-        <DailyLog entry={entry} onUpdate={update} />
+        <DailyLog
+          entry={entry}
+          onUpdate={update}
+          date={activeDate}
+          today={today}
+          onDateChange={setActiveDate}
+          loading={loading}
+        />
       )}
       {tab === 'revenue' && (
         <RevenueTracker

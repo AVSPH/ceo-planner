@@ -1,9 +1,25 @@
 'use client'
 
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { AutoResizeTextarea } from '@/components/today/auto-resize-textarea'
+import { cn } from '@/lib/utils'
 import type { Tables, TablesUpdate } from '@/types/database'
 
 type DailyEntry = Tables<'daily_entries'>
+
+function addDays(dateStr: string, n: number): string {
+  const d = new Date(dateStr + 'T00:00:00')
+  d.setDate(d.getDate() + n)
+  return d.toISOString().split('T')[0]
+}
+
+function formatDate(dateStr: string, today: string): string {
+  if (dateStr === today) return 'Today'
+  const yesterday = addDays(today, -1)
+  if (dateStr === yesterday) return 'Yesterday'
+  const d = new Date(dateStr + 'T00:00:00')
+  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+}
 
 function CurrencyInput({
   value,
@@ -48,15 +64,54 @@ function Field({
 interface Props {
   entry: Partial<DailyEntry>
   onUpdate: (fields: TablesUpdate<'daily_entries'>) => void
+  date: string
+  today: string
+  onDateChange: (d: string) => void
+  loading?: boolean
 }
 
-export function DailyLog({ entry, onUpdate }: Props) {
+export function DailyLog({ entry, onUpdate, date, today, onDateChange, loading }: Props) {
   return (
     <div className="space-y-3">
+      {/* Date nav */}
+      <div className="flex items-center justify-between">
+        <button
+          type="button"
+          onClick={() => onDateChange(addDays(date, -1))}
+          className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </button>
+
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium">{formatDate(date, today)}</span>
+          {date !== today && (
+            <button
+              type="button"
+              onClick={() => onDateChange(today)}
+              className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors"
+            >
+              Back to today
+            </button>
+          )}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => onDateChange(addDays(date, 1))}
+          disabled={date >= today}
+          className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      </div>
+
       <p className="text-xs text-muted-foreground">
-        Fields save automatically as you type. No save button needed.
+        {date === today
+          ? 'Fields save automatically as you type. No save button needed.'
+          : 'Viewing a past entry. Changes save automatically.'}
       </p>
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+    <div className={cn('grid grid-cols-1 sm:grid-cols-2 gap-5 transition-opacity', loading && 'opacity-40 pointer-events-none')}>
       {/* Revenue */}
       <div className="rounded-xl border bg-card p-5 space-y-4">
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">

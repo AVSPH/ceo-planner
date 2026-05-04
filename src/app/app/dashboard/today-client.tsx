@@ -7,6 +7,8 @@ import { useDailyEntry } from '@/hooks/use-daily-entry'
 import { MorningCheckIn } from '@/components/today/morning-check-in'
 import { WellnessTrackers } from '@/components/today/wellness-trackers'
 import { EODClose } from '@/components/today/eod-close'
+import { DashboardInsights, type InsightsData } from '@/components/today/dashboard-insights'
+import { QuickShortcuts } from '@/components/today/quick-shortcuts'
 import type { Tables } from '@/types/database'
 
 type Tab = 'morning' | 'wellness' | 'eod'
@@ -43,9 +45,10 @@ interface Props {
   date: string
   initialEntry: Tables<'daily_entries'> | null
   firstName: string
+  insights: InsightsData
 }
 
-export function TodayClient({ userId, date, initialEntry, firstName }: Props) {
+export function TodayClient({ userId, date, initialEntry, firstName, insights }: Props) {
   const [tab, setTab] = useState<Tab>(getDefaultTab())
   const { entry, loading, saving, update } = useDailyEntry(userId, date, initialEntry)
 
@@ -78,6 +81,12 @@ export function TodayClient({ userId, date, initialEntry, firstName }: Props) {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Insights */}
+      <DashboardInsights {...insights} />
+
+      {/* Quick shortcuts */}
+      <QuickShortcuts />
 
       {/* Tab nav */}
       <div className="flex gap-1 rounded-lg bg-muted p-1">

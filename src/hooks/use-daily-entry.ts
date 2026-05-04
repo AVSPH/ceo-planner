@@ -19,8 +19,19 @@ export function useDailyEntry(
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const supabase = useRef(createClient()).current
 
+  // Sync entry when initialEntry changes (e.g. navigating back to today)
+  useEffect(() => {
+    if (initialEntry !== undefined) {
+      setEntry(initialEntry ?? { user_id: userId, entry_date: date })
+      setLoading(false)
+    }
+  }, [initialEntry, userId, date])
+
+  // Fetch when no initialEntry provided (past dates)
   useEffect(() => {
     if (initialEntry !== undefined) return
+    setLoading(true)
+    setEntry({ user_id: userId, entry_date: date })
     let mounted = true
     async function load() {
       const { data } = await supabase

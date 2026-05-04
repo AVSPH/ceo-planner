@@ -63,34 +63,34 @@
 /* ── Brand tokens ── */
 :root {
   /* Primary Colors */
-  --primary-brand:    #b186e0;
-  --secondary-brand:  #82c2b4;
-  --accent-dark:      #d2d3ff;
+  --primary-brand: #b186e0;
+  --secondary-brand: #82c2b4;
+  --accent-dark: #d2d3ff;
 
   /* Background Colors */
-  --bg-light:         #F4F0F8;
-  --bg-main:          #FDFBFF;
+  --bg-light: #f4f0f8;
+  --bg-main: #fdfbff;
 
   /* Text Colors */
-  --text-primary:     #2E2E3A;
-  --text-secondary:   #8A8A99;
+  --text-primary: #2e2e3a;
+  --text-secondary: #8a8a99;
 
   /* Interactive Colors */
-  --cta-hover:        #3A9EA3;
-  --emotional-accent: #D4A9B8;
-  --highlight-bg:     #E8F6F7;
+  --cta-hover: #3a9ea3;
+  --emotional-accent: #d4a9b8;
+  --highlight-bg: #e8f6f7;
 
   /* Brand aliases (used by Tailwind @theme) */
-  --brand-primary:    #b186e0;
-  --brand-secondary:  #82c2b4;
-  --brand-cta-hover:  #3A9EA3;
-  --brand-accent:     #d2d3ff;
-  --brand-blush:      #D4A9B8;
-  --brand-bg-light:   #F4F0F8;
-  --brand-bg-main:    #FDFBFF;
-  --brand-text:       #2E2E3A;
-  --brand-muted:      #8A8A99;
-  --brand-highlight:  #E8F6F7;
+  --brand-primary: #b186e0;
+  --brand-secondary: #82c2b4;
+  --brand-cta-hover: #3a9ea3;
+  --brand-accent: #d2d3ff;
+  --brand-blush: #d4a9b8;
+  --brand-bg-light: #f4f0f8;
+  --brand-bg-main: #fdfbff;
+  --brand-text: #2e2e3a;
+  --brand-muted: #8a8a99;
+  --brand-highlight: #e8f6f7;
 }
 
 /* ── Light (default) ── */
@@ -104,7 +104,7 @@
   --primary: #b186e0;
   --primary-foreground: #ffffff;
   --secondary: #82c2b4;
-  --secondary-foreground: #2E2E3A;
+  --secondary-foreground: #2e2e3a;
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
@@ -282,7 +282,7 @@
   --secondary: oklch(0.955 0.025 72);
   --secondary-foreground: oklch(0.3 0.04 72);
   --muted: oklch(0.955 0.025 72);
-  --muted-foreground: oklch(0.50 0.06 72);
+  --muted-foreground: oklch(0.5 0.06 72);
   --accent: oklch(0.955 0.025 72);
   --accent-foreground: oklch(0.3 0.04 72);
   --destructive: oklch(0.577 0.245 27.325);
@@ -349,5 +349,11 @@
   }
   html {
     @apply font-sans;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

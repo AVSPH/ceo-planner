@@ -39,31 +39,42 @@ const chartTooltipStyle = {
   color: 'hsl(var(--foreground))',
 }
 
-// ── Wellness streak heatmap ────────────────────────────────────────────────
+// ── Wellness habit card ────────────────────────────────────────────────────
 
-function HabitHeatmap({ habit }: { habit: HabitRow }) {
+const GRID_COLS = 6
+
+function HabitCard({ habit }: { habit: HabitRow }) {
+  const rows: boolean[][] = []
+  for (let i = 0; i < habit.last30.length; i += GRID_COLS) {
+    rows.push(habit.last30.slice(i, i + GRID_COLS))
+  }
+
   return (
-    <div className="flex items-center gap-3">
-      <span className="text-base leading-none w-6 shrink-0">{habit.emoji}</span>
-      <span className="text-xs font-medium w-16 shrink-0 text-muted-foreground">{habit.label}</span>
-      <div className="flex gap-0.5 flex-1">
-        {habit.last30.map((done, i) => (
-          <div
-            key={i}
-            title={done ? 'Done' : 'Missed'}
-            className={cn(
-              'h-3.5 flex-1 rounded-sm transition-colors',
-              done ? 'bg-primary' : 'bg-muted'
-            )}
-          />
+    <div className="rounded-xl border bg-card p-3 space-y-2">
+      <div className="flex items-center justify-between gap-1">
+        <div className="flex items-center gap-1.5 min-w-0">
+          <span className="text-sm leading-none shrink-0">{habit.emoji}</span>
+          <span className="text-xs font-medium text-foreground truncate">{habit.label}</span>
+        </div>
+        <span className={cn(
+          'text-xs font-semibold shrink-0',
+          habit.streak > 0 ? 'text-primary' : 'text-muted-foreground'
+        )}>
+          {habit.streak > 0 ? `${habit.streak}d` : '—'}
+        </span>
+      </div>
+      <div className="space-y-0.5">
+        {rows.map((row, ri) => (
+          <div key={ri} className="flex gap-0.5">
+            {row.map((done, ci) => (
+              <div
+                key={ci}
+                className={cn('flex-1 h-3 rounded-sm', done ? 'bg-primary' : 'bg-muted')}
+              />
+            ))}
+          </div>
         ))}
       </div>
-      <span className={cn(
-        'text-xs font-semibold w-10 text-right shrink-0',
-        habit.streak > 0 ? 'text-primary' : 'text-muted-foreground'
-      )}>
-        {habit.streak > 0 ? `${habit.streak}d` : '—'}
-      </span>
     </div>
   )
 }
@@ -209,14 +220,18 @@ export function InsightsClient({ data }: { data: InsightsData }) {
 
       {/* ── Wellness streaks ── */}
       <Card title="Wellness streaks — last 30 days">
-        <div className="space-y-5">
-          <div className="space-y-2.5">
+        <div className="space-y-4">
+          <div className="space-y-2">
             <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Body</p>
-            {bodyHabits.map(h => <HabitHeatmap key={h.key} habit={h} />)}
+            <div className="grid grid-cols-2 gap-2">
+              {bodyHabits.map(h => <HabitCard key={h.key} habit={h} />)}
+            </div>
           </div>
-          <div className="space-y-2.5">
+          <div className="space-y-2">
             <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Spirit</p>
-            {spiritHabits.map(h => <HabitHeatmap key={h.key} habit={h} />)}
+            <div className="grid grid-cols-2 gap-2">
+              {spiritHabits.map(h => <HabitCard key={h.key} habit={h} />)}
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-2 pt-1 border-t">
@@ -224,7 +239,7 @@ export function InsightsClient({ data }: { data: InsightsData }) {
             <div className="h-3 w-6 rounded-sm bg-primary" />
             <div className="h-3 w-6 rounded-sm bg-muted" />
           </div>
-          <span className="text-[10px] text-muted-foreground">Done / Missed · rightmost = today · number = current streak</span>
+          <span className="text-[10px] text-muted-foreground">Done / Missed · bottom-right = today · number = current streak</span>
         </div>
       </Card>
     </div>
