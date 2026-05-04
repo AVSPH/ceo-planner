@@ -2,10 +2,10 @@
 
 import { useRef } from 'react'
 import Link from 'next/link'
-import { motion, useInView, type Variants, useScroll, useTransform } from 'motion/react'
+import { motion, useInView, useScroll, useTransform } from 'motion/react'
 import {
-  LayoutDashboard, CheckSquare, DollarSign, Eye, Target, BarChart2,
-  ArrowRight, Zap, RotateCcw, TrendingUp, Sparkles, ChevronRight,
+  Calendar, CheckSquare, DollarSign, RotateCcw, BookOpen,
+  ArrowRight, Sparkles, ChevronRight, Heart, Star,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -45,129 +45,100 @@ function Reveal({ children, className }: { children: React.ReactNode; className?
   )
 }
 
-const TESTIMONIALS = [
-  {
-    name: 'Alex Chen',
-    role: 'Founder & CEO',
-    quote: 'Finally stopped spinning and started shipping. The daily loop is exactly how I needed to work.',
-    avatar: '👤',
-  },
-  {
-    name: 'Jordan Smith',
-    role: 'Solo Entrepreneur',
-    quote: 'Revenue tracking + task execution in one place. The energy tracking actually changed how I work.',
-    avatar: '👤',
-  },
-  {
-    name: 'Taylor Brown',
-    role: 'Digital Creator',
-    quote: 'Content planning with revenue insights. This is the system every content founder should use.',
-    avatar: '👤',
-  },
+const PAIN_POINTS = [
+  'Your life feels all over the place and you don\'t know where to start',
+  'You keep starting things but can\'t stay consistent',
+  'You want to make money, but don\'t have a clear plan',
+  'You\'ve spent years in survival mode and feel stuck',
+  'You\'re ready for change, but overwhelmed by how',
 ]
 
 const FEATURES = [
   {
-    icon: LayoutDashboard,
-    title: 'Today',
-    tag: 'Daily loop',
-    desc: 'Morning energy check-in, mood log, wellness habits, and a structured evening close. Run the same ritual every day.',
-    gradient: 'from-indigo-500 to-violet-600',
-    glow: 'shadow-indigo-500/20',
-    ring: 'border-indigo-500/20',
-    iconBg: 'bg-indigo-500/15',
+    icon: Calendar,
+    title: 'Daily Structure Pages',
+    tag: 'Daily',
+    desc: 'No more guessing what to do. Start each day with a clear, structured plan that tells you exactly where to focus.',
+    gradient: 'from-rose-500 to-pink-600',
   },
   {
     icon: CheckSquare,
-    title: 'Tasks',
-    tag: 'Execution',
-    desc: 'Priority tasks with recurring patterns. CEO, sales, admin, visibility — organized by what actually moves your business.',
-    gradient: 'from-sky-500 to-cyan-500',
-    glow: 'shadow-sky-500/20',
-    ring: 'border-sky-500/20',
-    iconBg: 'bg-sky-500/15',
+    title: 'Weekly Planning System',
+    tag: 'Weekly',
+    desc: 'Stay focused, not scattered. Map your week with intention so every day builds toward your bigger goals.',
+    gradient: 'from-violet-500 to-purple-600',
   },
   {
     icon: DollarSign,
-    title: 'Money',
-    tag: 'Revenue',
-    desc: 'Daily revenue log, expense tracker, debt overview, and goal progress ring. Your numbers, visible and honest every day.',
+    title: 'Income Planning + Tracking',
+    tag: 'Money',
+    desc: 'Turn effort into money. Track your income goals, log progress daily, and watch your financial picture get clearer.',
     gradient: 'from-emerald-500 to-teal-500',
-    glow: 'shadow-emerald-500/20',
-    ring: 'border-emerald-500/20',
-    iconBg: 'bg-emerald-500/15',
-  },
-  {
-    icon: Eye,
-    title: 'Visibility',
-    tag: 'Content',
-    desc: "What you're promoting, your content idea, your CTA, which platforms. Plus reflection on what resonated.",
-    gradient: 'from-pink-500 to-rose-500',
-    glow: 'shadow-pink-500/20',
-    ring: 'border-pink-500/20',
-    iconBg: 'bg-pink-500/15',
-  },
-  {
-    icon: Target,
-    title: 'Vision',
-    tag: 'Identity',
-    desc: 'CEO identity, word of year, dream life, values, annual goals, quarterly focus, and income targets. Your north star, always visible.',
-    gradient: 'from-amber-500 to-orange-500',
-    glow: 'shadow-amber-500/20',
-    ring: 'border-amber-500/20',
-    iconBg: 'bg-amber-500/15',
-  },
-  {
-    icon: BarChart2,
-    title: 'Insights',
-    tag: 'Intelligence',
-    desc: 'Energy trends, mood frequency, habit heatmap, task velocity, revenue vs goal. Thirty days of your life, made legible.',
-    gradient: 'from-purple-500 to-fuchsia-500',
-    glow: 'shadow-purple-500/20',
-    ring: 'border-purple-500/20',
-    iconBg: 'bg-purple-500/15',
-  },
-]
-
-const PILLARS = [
-  {
-    icon: Zap,
-    title: 'Input becomes output',
-    desc: 'Every log feeds your Insights. Habits become data. Data becomes decisions. Nothing you enter disappears.',
-    accent: 'text-indigo-400',
-    bg: 'bg-indigo-500/8 border-indigo-500/20',
   },
   {
     icon: RotateCcw,
-    title: 'One loop, every day',
-    desc: 'Morning intent → task execution → evening close. A complete operating rhythm built for founders who lead themselves first.',
-    accent: 'text-violet-400',
-    bg: 'bg-violet-500/8 border-violet-500/20',
+    title: 'Consistency System',
+    tag: 'Habits',
+    desc: 'So you actually follow through. Built-in systems that keep you on track even when life feels heavy.',
+    gradient: 'from-amber-500 to-orange-500',
   },
   {
-    icon: TrendingUp,
-    title: 'Solo-first',
-    desc: 'Built for one founder, not a team. No collaboration bloat, no noise. Just you, running your business with intention.',
-    accent: 'text-emerald-400',
-    bg: 'bg-emerald-500/8 border-emerald-500/20',
+    icon: BookOpen,
+    title: 'Simple Routines',
+    tag: 'Stability',
+    desc: 'Create stability through simplicity. Morning and evening rituals that calm your nervous system and ground your day.',
+    gradient: 'from-sky-500 to-cyan-500',
   },
 ]
 
-const LOOP_STEPS = [
+const WHY_WORKS = [
+  { label: 'Not hustle-based', desc: 'Progress without burning out' },
+  { label: 'Not overwhelming', desc: 'One step at a time, always' },
+  { label: 'Built for women rebuilding', desc: 'Designed for your real life' },
+  { label: 'Structure + emotional stability', desc: 'Head and heart, together' },
+  { label: 'Real life, not perfect routines', desc: 'Works even on hard days' },
+]
+
+const PRICING = [
   {
-    num: '01', phase: 'Morning', title: 'Set your intent',
-    desc: 'Energy, mood, top priorities, wellness. Own the first hour before the day owns you.',
-    accent: 'text-indigo-400', border: 'border-indigo-500/25', bg: 'bg-indigo-500/6',
+    id: 'planner',
+    name: 'Planner',
+    price: '$29.99',
+    period: 'one-time',
+    badge: 'Free for one week',
+    badgeColor: 'bg-emerald-100 text-emerald-700',
+    highlight: false,
+    features: ['Instant access', 'Lifetime use', 'Daily structure pages', 'Weekly planning system', 'All 5 modules'],
   },
   {
-    num: '02', phase: 'During', title: 'Execute',
-    desc: 'Work your tasks. Log revenue. Plan content. Every action tied back to your vision.',
-    accent: 'text-emerald-400', border: 'border-emerald-500/25', bg: 'bg-emerald-500/6',
+    id: 'monthly',
+    name: 'Monthly',
+    price: '$22.22',
+    period: 'per month',
+    badge: null,
+    badgeColor: '',
+    highlight: false,
+    features: ['Everything in Planner', 'Monthly subscription', 'New content drops', 'Priority support'],
   },
   {
-    num: '03', phase: 'Evening', title: 'Close strong',
-    desc: 'What worked. What to release. Your win of the day. End with reflection, not collapse.',
-    accent: 'text-violet-400', border: 'border-violet-500/25', bg: 'bg-violet-500/6',
+    id: '6months',
+    name: '6 Months',
+    price: '$130',
+    period: '6 months',
+    badge: 'Most popular',
+    badgeColor: 'bg-violet-100 text-violet-700',
+    highlight: true,
+    features: ['Everything in Monthly', 'Save vs monthly', '6 months of access', 'Bonus resources'],
+  },
+  {
+    id: '12months',
+    name: '12 Months',
+    price: '$260',
+    period: 'per year',
+    badge: 'Best value',
+    badgeColor: 'bg-rose-100 text-rose-700',
+    highlight: false,
+    features: ['Everything in 6 Months', 'Full year access', 'Maximum savings', 'VIP support'],
   },
 ]
 
@@ -180,24 +151,24 @@ export function LandingClient() {
     <div ref={containerRef} className="flex min-h-screen flex-col bg-white text-gray-900 overflow-x-hidden">
 
       {/* ── Navbar ── */}
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-white/70 backdrop-blur-2xl">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-rose-100 bg-white/70 backdrop-blur-2xl">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="flex items-center gap-2"
           >
-            <div className="size-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-              <Zap className="size-4 text-white" />
+            <div className="size-8 rounded-lg bg-gradient-to-br from-rose-500 to-violet-600 flex items-center justify-center shadow-lg shadow-rose-500/20">
+              <Sparkles className="size-4 text-white" />
             </div>
-            <span className="text-sm font-bold tracking-tight">CEO Planner</span>
+            <span className="text-sm font-bold tracking-tight">Life & CEO Planner</span>
           </motion.div>
           <div className="flex items-center gap-2">
             <Link href="/auth/login" className="rounded-lg px-3 py-2 text-xs font-medium text-gray-600 hover:text-gray-900 transition-colors">
               Sign in
             </Link>
-            <Link href="/auth/signup" className="rounded-lg bg-indigo-600 px-3 py-2 text-xs font-semibold text-white hover:bg-indigo-700 transition-colors">
-              Get started
+            <Link href="/auth/signup" className="rounded-lg bg-gradient-to-r from-rose-500 to-violet-600 px-3 py-2 text-xs font-semibold text-white hover:opacity-90 transition-opacity">
+              Get The Planner
             </Link>
           </div>
         </nav>
@@ -205,14 +176,12 @@ export function LandingClient() {
 
       {/* ── Hero ── */}
       <motion.section style={{ opacity: heroOpacity }} className="relative flex min-h-screen items-center justify-center px-6 pt-16">
-        {/* bg decorations */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] h-[700px] w-[700px] rounded-full bg-indigo-200/40 blur-[130px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] h-[700px] w-[700px] rounded-full bg-rose-200/40 blur-[130px]" />
           <div className="absolute top-1/3 right-1/4 h-72 w-72 rounded-full bg-violet-200/30 blur-[90px]" />
-          <div className="absolute bottom-1/4 left-1/4 h-64 w-64 rounded-full bg-sky-200/25 blur-[80px]" />
-          <div className="absolute top-1/4 right-1/3 h-96 w-96 rounded-full bg-emerald-200/20 blur-[100px]" />
+          <div className="absolute bottom-1/4 left-1/4 h-64 w-64 rounded-full bg-pink-200/25 blur-[80px]" />
           <div
-            className="absolute inset-0 opacity-[0.03]"
+            className="absolute inset-0 opacity-[0.025]"
             style={{
               backgroundImage: 'linear-gradient(rgba(0,0,0,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,1) 1px, transparent 1px)',
               backgroundSize: '64px 64px',
@@ -229,50 +198,57 @@ export function LandingClient() {
           <motion.div variants={fadeUp} className="mb-8 flex justify-center">
             <motion.span
               whileHover={{ scale: 1.05 }}
-              className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50/60 px-4 py-2 text-xs font-medium text-indigo-700 backdrop-blur-sm cursor-pointer"
+              className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50/60 px-4 py-2 text-xs font-medium text-rose-700 backdrop-blur-sm cursor-pointer"
             >
               <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-              Daily operating system for solo founders
+              For women 30+ ready to create real change
             </motion.span>
           </motion.div>
 
           <motion.h1
             variants={fadeUp}
-            className="mb-6 text-6xl font-black leading-[1.1] tracking-tight sm:text-7xl lg:text-8xl text-gray-900"
+            className="mb-6 text-5xl font-black leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl text-gray-900"
           >
-            Not a journal.{' '}
+            Turn chaos into structure —{' '}
             <br className="hidden sm:block" />
-            <span className="text-indigo-700">
-              A daily OS.
+            <span className="bg-gradient-to-r from-rose-600 to-violet-600 bg-clip-text text-transparent">
+              and structure into income.
             </span>
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
-            className="mx-auto mb-10 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg"
+            className="mx-auto mb-6 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg"
           >
-            CEO Planner combines task management, wellbeing tracking, content planning, and business intelligence into one focused daily rhythm — built for founders who run alone.
+            Simple, step-by-step systems to help you stay consistent, get organized, and finally see real progress.
+          </motion.p>
+
+          <motion.p
+            variants={fadeUp}
+            className="mx-auto mb-10 max-w-xl text-sm italic text-gray-500"
+          >
+            Your life doesn't change from thinking about it. It changes when you have a system you actually follow.
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-center gap-3 mb-12">
             <Link
               href="/auth/signup"
-              className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-indigo-600/30 hover:from-indigo-500 hover:to-indigo-600 transition-all duration-200 hover:shadow-indigo-600/50"
+              className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 to-violet-600 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-rose-500/30 hover:opacity-90 transition-all duration-200"
             >
-              Start for free
+              Get The Planner
               <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
             <Link
-              href="/auth/login"
+              href="#pricing"
               className="inline-flex items-center gap-2 rounded-xl border-2 border-gray-300 bg-white px-8 py-4 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:border-gray-400 transition-all duration-200"
             >
-              Explore features
+              See pricing
               <ChevronRight className="size-4" />
             </Link>
           </motion.div>
 
           <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs font-medium text-gray-500">
-            {['6 integrated modules', 'Habit streaks', 'Revenue tracking', 'Mood trends', 'Content planner'].map((s, i) => (
+            {['Instant access', 'Lifetime use', 'Income tracking', 'Daily structure', 'Consistency system'].map((s, i) => (
               <span key={s} className="flex items-center gap-2">
                 {i > 0 && <span className="size-1 rounded-full bg-gray-300" />}
                 {s}
@@ -282,80 +258,150 @@ export function LandingClient() {
         </motion.div>
       </motion.section>
 
-      {/* ── Visual Demo Preview ── */}
-      <section className="relative px-6 py-20 border-y border-gray-200 bg-gradient-to-b from-white to-gray-50">
-        <div className="mx-auto max-w-6xl">
-          <Reveal className="text-center space-y-6 mb-12">
-            <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-emerald-600">
-              See it in action
-            </motion.p>
-            <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
-              Your day visualized
-            </motion.h2>
-          </Reveal>
+      {/* ── Pain Points ── */}
+      <section className="relative px-6 py-24 border-y border-rose-100 bg-gradient-to-b from-white to-rose-50/30">
+        <div className="mx-auto max-w-3xl">
+          <Reveal className="space-y-10">
+            <motion.div variants={fadeUp} className="text-center space-y-4">
+              <p className="text-xs font-semibold uppercase tracking-widest text-rose-600">If you've been feeling like this…</p>
+              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
+                You're not alone.
+              </h2>
+            </motion.div>
 
-          <Reveal className="relative">
-            <motion.div
-              variants={scaleIn}
-              className="relative rounded-2xl overflow-hidden border-2 border-gray-200 bg-white p-1 shadow-xl shadow-indigo-500/10"
-            >
-              <div className="relative bg-gradient-to-br from-gray-50 to-white rounded-xl overflow-hidden h-96">
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-100/20 to-violet-100/10" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <motion.div
-                      animate={{ y: [0, -8, 0] }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                      className="space-y-4"
-                    >
-                      <LayoutDashboard className="size-16 mx-auto text-indigo-500/40" />
-                      <p className="text-gray-400 text-sm">Interactive dashboard preview</p>
-                    </motion.div>
-                  </div>
-                </div>
-                {/* Grid overlay */}
-                <div
-                  className="absolute inset-0 opacity-[0.02]"
-                  style={{
-                    backgroundImage: 'linear-gradient(rgba(0,0,0,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,1) 1px, transparent 1px)',
-                    backgroundSize: '32px 32px',
-                  }}
-                />
-              </div>
+            <motion.ul variants={stagger} className="space-y-4">
+              {PAIN_POINTS.map((point, idx) => (
+                <motion.li
+                  key={idx}
+                  variants={fadeUpDelay(idx * 0.07)}
+                  className="flex items-start gap-4 rounded-2xl border border-rose-100 bg-white p-5 shadow-sm"
+                >
+                  <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-rose-100">
+                    <span className="size-2 rounded-full bg-rose-500" />
+                  </span>
+                  <p className="text-gray-700 leading-relaxed">{point}</p>
+                </motion.li>
+              ))}
+            </motion.ul>
+
+            <motion.div variants={fadeUp} className="text-center pt-4">
+              <p className="text-xl font-bold text-gray-900">You don't need more motivation.</p>
+              <p className="text-xl font-bold bg-gradient-to-r from-rose-600 to-violet-600 bg-clip-text text-transparent">You need structure.</p>
             </motion.div>
           </Reveal>
         </div>
       </section>
 
-      {/* ── Features ── */}
-      <section className="px-6 py-28 bg-white">
+      {/* ── This isn't a discipline problem ── */}
+      <section className="px-6 py-24 bg-white">
+        <div className="mx-auto max-w-3xl">
+          <Reveal className="space-y-10">
+            <motion.div variants={fadeUp} className="text-center space-y-4">
+              <p className="text-xs font-semibold uppercase tracking-widest text-violet-600">The real reason</p>
+              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
+                This isn't a{' '}
+                <span className="italic">discipline</span> problem.
+              </h2>
+              <p className="mx-auto max-w-xl text-gray-600 leading-relaxed">
+                You were never given a system that works for your life.
+              </p>
+            </motion.div>
+
+            <motion.div variants={stagger} className="space-y-4">
+              {[
+                { label: 'Your nervous system is overwhelmed', icon: '🧠' },
+                { label: 'Your focus is scattered', icon: '🌀' },
+                { label: 'Consistency feels impossible', icon: '⚡' },
+              ].map(({ label, icon }, idx) => (
+                <motion.div
+                  key={idx}
+                  variants={fadeUpDelay(idx * 0.08)}
+                  className="flex items-center gap-4 rounded-2xl border border-violet-100 bg-violet-50/40 p-5"
+                >
+                  <span className="text-2xl">{icon}</span>
+                  <p className="font-medium text-gray-800">{label}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="rounded-2xl border-2 border-violet-200 bg-gradient-to-br from-violet-50 to-rose-50 p-8 text-center space-y-3">
+              <p className="text-gray-700 leading-relaxed">
+                So you don't follow through — not because you can't…
+              </p>
+              <p className="text-lg font-bold text-gray-900">
+                but because you don't have a structure that holds you.
+              </p>
+            </motion.div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── What the planner does ── */}
+      <section className="border-y border-gray-100 bg-gradient-to-b from-gray-50 to-white px-6 py-24">
+        <div className="mx-auto max-w-3xl">
+          <Reveal className="space-y-10">
+            <motion.div variants={fadeUp} className="text-center space-y-4">
+              <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600">The solution</p>
+              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
+                This is where the{' '}
+                <span className="bg-gradient-to-r from-rose-600 to-violet-600 bg-clip-text text-transparent">
+                  Life & CEO Planner
+                </span>{' '}
+                changes everything.
+              </h2>
+              <p className="mx-auto max-w-xl text-gray-600">
+                This isn't just a planner. It's a simple daily system that helps you:
+              </p>
+            </motion.div>
+
+            <motion.ul variants={stagger} className="space-y-4">
+              {[
+                'Organize your life without overwhelm',
+                'Know exactly what to focus on each day',
+                'Stay consistent (even when life feels heavy)',
+                'Start building income step by step',
+              ].map((item, idx) => (
+                <motion.li
+                  key={idx}
+                  variants={fadeUpDelay(idx * 0.07)}
+                  className="flex items-center gap-4 rounded-xl border border-emerald-100 bg-white p-5 shadow-sm"
+                >
+                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-teal-500">
+                    <svg className="size-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <p className="font-medium text-gray-800">{item}</p>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── Features / What you get ── */}
+      <section id="features" className="px-6 py-28 bg-white">
         <div className="mx-auto max-w-6xl space-y-16">
           <Reveal className="text-center space-y-4">
-            <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-indigo-600">
-              What's inside
+            <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-rose-600">
+              What you get
             </motion.p>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
-              Everything you need.{' '}
-              <span className="text-gray-400">Nothing you don't.</span>
+              Inside the Life & CEO Planner
             </motion.h2>
-            <motion.p variants={fadeUp} className="mx-auto max-w-xl text-gray-600">
-              Six purpose-built modules that cover every dimension of running your business and your life.
-            </motion.p>
           </Reveal>
 
           <Reveal className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURES.map(({ icon: Icon, title, tag, desc, gradient, glow, ring, iconBg }, idx) => (
+            {FEATURES.map(({ icon: Icon, title, tag, desc, gradient }, idx) => (
               <motion.div
                 key={title}
                 variants={fadeUpDelay(idx * 0.05)}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="group relative rounded-2xl border-2 border-gray-100 bg-gradient-to-br from-white to-gray-50 p-6 space-y-5 transition-all duration-300 hover:border-gray-200 hover:shadow-xl shadow-indigo-500/10 cursor-pointer"
+                className="group relative rounded-2xl border-2 border-gray-100 bg-gradient-to-br from-white to-gray-50 p-6 space-y-5 transition-all duration-300 hover:border-gray-200 hover:shadow-xl cursor-pointer"
               >
                 <div className="flex items-start justify-between">
-                  <div className="rounded-xl p-3 bg-gradient-to-br from-indigo-100 to-violet-100">
-                    <div className={cn('rounded-lg bg-gradient-to-br p-2.5', gradient)}>
-                      <Icon className="size-5 text-white" />
-                    </div>
+                  <div className={cn('rounded-xl bg-gradient-to-br p-3', gradient)}>
+                    <Icon className="size-5 text-white" />
                   </div>
                   <span className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 pt-1">
                     {tag}
@@ -375,170 +421,238 @@ export function LandingClient() {
         </div>
       </section>
 
-      {/* ── Built different ── */}
-      <section className="border-y border-gray-200 bg-gray-50 px-6 py-24">
+      {/* ── Before / After ── */}
+      <section className="border-y border-gray-100 bg-gray-50 px-6 py-24">
+        <div className="mx-auto max-w-4xl">
+          <Reveal className="space-y-12">
+            <motion.div variants={fadeUp} className="text-center space-y-4">
+              <p className="text-xs font-semibold uppercase tracking-widest text-violet-600">The transformation</p>
+              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
+                From chaos → to calm
+              </h2>
+            </motion.div>
+
+            <motion.div variants={stagger} className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <motion.div variants={scaleIn} className="rounded-2xl border-2 border-red-100 bg-red-50/50 p-8 space-y-5">
+                <p className="text-xs font-bold uppercase tracking-widest text-red-500">Before</p>
+                <ul className="space-y-3">
+                  {['Overwhelmed', 'Inconsistent', 'Stuck in survival mode', 'No clear direction'].map((item, i) => (
+                    <li key={i} className="flex items-center gap-3 text-gray-700">
+                      <span className="text-red-400 font-bold">✗</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              <motion.div variants={scaleIn} className="rounded-2xl border-2 border-emerald-100 bg-emerald-50/50 p-8 space-y-5">
+                <p className="text-xs font-bold uppercase tracking-widest text-emerald-600">After</p>
+                <ul className="space-y-3">
+                  {['Structured days', 'Clear focus', 'Consistent action', 'Building income + stability'].map((item, i) => (
+                    <li key={i} className="flex items-center gap-3 text-gray-700">
+                      <span className="text-emerald-500 font-bold">✓</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </motion.div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── Founder Story ── */}
+      <section className="px-6 py-24 bg-white">
+        <div className="mx-auto max-w-3xl">
+          <Reveal className="space-y-8">
+            <motion.div variants={fadeUp} className="text-center space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-rose-600">Why I Created This</p>
+            </motion.div>
+
+            <motion.div
+              variants={scaleIn}
+              className="relative rounded-2xl border-2 border-rose-100 bg-gradient-to-br from-rose-50 to-violet-50 p-8 md:p-10 space-y-6"
+            >
+              <div className="absolute -top-4 left-8 text-5xl opacity-20 font-black text-rose-400">"</div>
+              <div className="flex items-start gap-4">
+                <div className="size-12 shrink-0 rounded-full bg-gradient-to-br from-rose-400 to-violet-500 flex items-center justify-center">
+                  <Heart className="size-5 text-white" />
+                </div>
+                <div className="space-y-4">
+                  <p className="text-gray-700 leading-relaxed">
+                    I was a solo mom in survival mode — overwhelmed, inconsistent, and trying to rebuild my life from scratch.
+                  </p>
+                  <p className="text-gray-700 leading-relaxed">
+                    Nothing worked until I created a simple system that gave me structure, clarity, and direction.
+                  </p>
+                  <p className="font-semibold text-gray-900 leading-relaxed">
+                    This planner helped me move from chaos to consistency — and start making real progress.
+                  </p>
+                  <p className="text-rose-700 font-semibold">
+                    If that's where you are right now… this is for you.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── Why this works ── */}
+      <section className="border-y border-gray-100 bg-gray-50 px-6 py-24">
+        <div className="mx-auto max-w-4xl">
+          <Reveal className="space-y-12">
+            <motion.div variants={fadeUp} className="text-center space-y-4">
+              <p className="text-xs font-semibold uppercase tracking-widest text-violet-600">The difference</p>
+              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
+                Why this works when other things haven't
+              </h2>
+            </motion.div>
+
+            <motion.div variants={stagger} className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+              {WHY_WORKS.map(({ label, desc }, idx) => (
+                <motion.div
+                  key={idx}
+                  variants={fadeUpDelay(idx * 0.06)}
+                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                  className="rounded-2xl border-2 border-violet-100 bg-white p-6 space-y-2 hover:border-violet-200 hover:shadow-lg transition-all duration-300"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-rose-400 to-violet-500">
+                      <svg className="size-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </span>
+                    <p className="font-semibold text-gray-900 text-sm">{label}</p>
+                  </div>
+                  <p className="text-xs text-gray-500 pl-7">{desc}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── Pricing ── */}
+      <section id="pricing" className="px-6 py-28 bg-white">
         <div className="mx-auto max-w-6xl space-y-16">
           <Reveal className="text-center space-y-4">
-            <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-violet-600">
-              The philosophy
+            <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-rose-600">
+              Pricing
             </motion.p>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
-              Your day has a shape.{' '}
-              <span className="text-gray-400">We built the frame.</span>
+              Get your life structured so you can build income
             </motion.h2>
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
+              <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+              The Life & CEO Digital Planner is Free for One Week
+            </motion.div>
           </Reveal>
 
-          <Reveal className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {PILLARS.map(({ icon: Icon, title, desc, accent, bg }, idx) => (
+          <Reveal className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {PRICING.map(({ id, name, price, period, badge, badgeColor, highlight, features }, idx) => (
               <motion.div
-                key={title}
-                variants={fadeUpDelay(idx * 0.1)}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="rounded-2xl border-2 border-gray-200 bg-white p-8 space-y-4 cursor-pointer hover:border-gray-300 transition-all duration-300 shadow-md hover:shadow-lg"
+                key={id}
+                variants={fadeUpDelay(idx * 0.07)}
+                whileHover={{ y: -8, transition: { duration: 0.25 } }}
+                className={cn(
+                  'relative rounded-2xl border-2 p-6 space-y-6 transition-all duration-300 cursor-pointer flex flex-col',
+                  highlight
+                    ? 'border-violet-400 bg-gradient-to-br from-violet-50 to-rose-50 shadow-xl shadow-violet-500/15'
+                    : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-lg'
+                )}
               >
-                <Icon className={cn('size-7', accent)} />
-                <div className="space-y-3">
-                  <h3 className="font-bold text-gray-900 text-lg">{title}</h3>
-                  <p className="text-sm leading-relaxed text-gray-600">{desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </Reveal>
-        </div>
-      </section>
+                {badge && (
+                  <span className={cn('absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs font-semibold whitespace-nowrap', badgeColor)}>
+                    {badge}
+                  </span>
+                )}
 
-      {/* ── The Loop ── */}
-      <section className="px-6 py-28 bg-white">
-        <div className="mx-auto max-w-5xl space-y-16">
-          <Reveal className="text-center space-y-4">
-            <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-emerald-600">
-              The ritual
-            </motion.p>
-            <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
-              One loop. Every day.
-            </motion.h2>
-            <motion.p variants={fadeUp} className="mx-auto max-w-lg text-gray-600">
-              Three moments that close the gap between who you are and who you're becoming.
-            </motion.p>
-          </Reveal>
-
-          <Reveal className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {LOOP_STEPS.map(({ num, phase, title, desc, accent, border, bg }, idx) => (
-              <motion.div
-                key={num}
-                variants={fadeUpDelay(idx * 0.1)}
-                whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className="rounded-2xl border-2 border-gray-100 bg-gradient-to-br from-white to-gray-50 p-8 space-y-5 cursor-pointer hover:border-gray-200 transition-all duration-300 relative overflow-hidden shadow-md hover:shadow-lg"
-              >
-                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent opacity-50" />
-                <div className="flex items-start justify-between">
-                  <span className={cn('text-xs font-bold uppercase tracking-widest', accent)}>{phase}</span>
-                  <span className="text-5xl font-black text-gray-100 leading-none">{num}</span>
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-lg font-bold text-gray-900">{title}</h3>
-                  <p className="text-sm leading-relaxed text-gray-600">{desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── Testimonials ── */}
-      <section className="border-y border-gray-200 bg-gray-50 px-6 py-24">
-        <div className="mx-auto max-w-6xl space-y-12">
-          <Reveal className="text-center space-y-4">
-            <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-pink-600">
-              Loved by founders
-            </motion.p>
-            <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight sm:text-5xl text-gray-900">
-              Join the daily loop
-            </motion.h2>
-          </Reveal>
-
-          <Reveal className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {TESTIMONIALS.map(({ name, role, quote, avatar }, idx) => (
-              <motion.div
-                key={name}
-                variants={fadeUpDelay(idx * 0.1)}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="rounded-2xl border-2 border-gray-200 bg-white p-8 space-y-4 hover:border-gray-300 hover:shadow-lg transition-all duration-300 cursor-pointer"
-              >
-                <div className="flex items-start justify-between">
-                  <div className="space-y-2">
-                    <h3 className="font-semibold text-gray-900">{name}</h3>
-                    <p className="text-xs text-gray-500">{role}</p>
+                <div className="space-y-1 pt-2">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-gray-500">{name}</p>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-3xl font-black text-gray-900">{price}</span>
+                    <span className="text-xs text-gray-500">/ {period}</span>
                   </div>
-                  <span className="text-2xl">{avatar}</span>
                 </div>
-                <p className="text-sm leading-relaxed text-gray-700 italic">"{quote}"</p>
+
+                <ul className="space-y-2 flex-1">
+                  {features.map((f, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
+                      <span className={cn('shrink-0 size-4 rounded-full flex items-center justify-center', highlight ? 'bg-violet-500' : 'bg-gray-200')}>
+                        <svg className="size-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  href="/auth/signup"
+                  className={cn(
+                    'block w-full rounded-xl py-3 text-center text-sm font-semibold transition-all duration-200',
+                    highlight
+                      ? 'bg-gradient-to-r from-rose-500 to-violet-600 text-white shadow-md shadow-violet-500/25 hover:opacity-90'
+                      : 'border-2 border-gray-200 text-gray-900 hover:bg-gray-50 hover:border-gray-300'
+                  )}
+                >
+                  Get started
+                </Link>
               </motion.div>
             ))}
           </Reveal>
         </div>
       </section>
 
-      {/* ── Stats ── */}
-      <section className="px-6 py-24 bg-white">
-        <div className="mx-auto max-w-5xl">
-          <Reveal className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {[
-              { label: 'Daily Users', value: '2.5K+' },
-              { label: 'Tasks Tracked', value: '50K+' },
-              { label: 'Avg Streak', value: '34 days' },
-              { label: 'Uptime', value: '99.9%' },
-            ].map(({ label, value }, idx) => (
-              <motion.div key={label} variants={fadeUpDelay(idx * 0.1)} className="text-center space-y-2">
-                <p className="text-3xl font-black text-indigo-700">
-                  {value}
-                </p>
-                <p className="text-xs font-medium text-gray-500">{label}</p>
-              </motion.div>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
-      <section className="relative overflow-hidden border-t border-gray-200 bg-gradient-to-b from-white to-gray-50 px-6 py-32">
+      {/* ── Final CTA ── */}
+      <section className="relative overflow-hidden border-t border-rose-100 bg-gradient-to-b from-rose-50/40 to-violet-50/40 px-6 py-32">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-indigo-200/40 blur-[120px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-rose-200/40 blur-[120px]" />
           <div className="absolute top-1/4 right-1/3 h-96 w-96 rounded-full bg-violet-200/30 blur-[90px]" />
         </div>
         <Reveal className="relative z-10 mx-auto max-w-3xl text-center space-y-10">
-          <motion.div variants={fadeUp} className="space-y-4">
-            <h2 className="text-5xl font-black tracking-tight sm:text-6xl text-gray-900">
-              Ready to run{' '}
-              <span className="text-indigo-700">
-                your day?
+          <motion.div variants={fadeUp} className="space-y-6">
+            <div className="flex justify-center">
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="size-5 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+            </div>
+            <h2 className="text-4xl font-black tracking-tight sm:text-5xl text-gray-900">
+              If you're waiting to feel{' '}
+              <span className="italic">"ready"</span>
+              {' '}…
+              <br />
+              <span className="bg-gradient-to-r from-rose-600 to-violet-600 bg-clip-text text-transparent">
+                this is your sign.
               </span>
             </h2>
-            <p className="text-lg text-gray-600">
-              Join founders who've stopped reacting and started leading — one daily loop at a time.
+            <p className="text-lg text-gray-600 max-w-xl mx-auto leading-relaxed">
+              You don't need to have it all figured out. You just need a system that helps you take the next step.
             </p>
+            <p className="font-semibold text-gray-800">Start simple. Start structured. Start now.</p>
           </motion.div>
           <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-center gap-4">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              asChild
-            >
-              <Link
-                href="/auth/signup"
-                className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-indigo-600/30 hover:from-indigo-500 hover:to-indigo-600 transition-all duration-200"
-              >
-                Start your daily loop
-                <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-1" />
-              </Link>
-            </motion.div>
             <Link
-              href="/auth/login"
+              href="/auth/signup"
+              className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-rose-500/30 hover:opacity-90 transition-all duration-200"
+            >
+              Get The Planner
+              <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
+            <Link
+              href="#pricing"
               className="inline-flex items-center rounded-xl border-2 border-gray-300 px-8 py-4 text-base font-semibold text-gray-900 hover:border-gray-400 hover:bg-gray-50 transition-all duration-200"
             >
-              Sign in
+              View pricing
             </Link>
           </motion.div>
+          <motion.p variants={fadeUp} className="text-sm text-gray-500">
+            Free for one week · Instant access · Lifetime use
+          </motion.p>
         </Reveal>
       </section>
 
@@ -548,19 +662,18 @@ export function LandingClient() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <div className="size-6 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
-                  <Zap className="size-3 text-white" />
+                <div className="size-6 rounded-lg bg-gradient-to-br from-rose-500 to-violet-600 flex items-center justify-center">
+                  <Sparkles className="size-3 text-white" />
                 </div>
-                <span className="font-bold text-sm text-gray-900">CEO Planner</span>
+                <span className="font-bold text-sm text-gray-900">Life & CEO Planner</span>
               </div>
-              <p className="text-xs text-gray-500">Your daily operating system</p>
+              <p className="text-xs text-gray-500">Helping women 30+ turn chaos into structure — and structure into income.</p>
             </div>
             <div className="space-y-3">
               <p className="text-xs font-semibold uppercase tracking-widest text-gray-700">Product</p>
               <ul className="space-y-2 text-xs text-gray-600 hover:[&_a]:text-gray-900">
                 <li><Link href="#features">Features</Link></li>
                 <li><Link href="#pricing">Pricing</Link></li>
-                <li><Link href="#blog">Blog</Link></li>
               </ul>
             </div>
             <div className="space-y-3">
@@ -568,7 +681,6 @@ export function LandingClient() {
               <ul className="space-y-2 text-xs text-gray-600 hover:[&_a]:text-gray-900">
                 <li><Link href="#about">About</Link></li>
                 <li><Link href="#contact">Contact</Link></li>
-                <li><Link href="#status">Status</Link></li>
               </ul>
             </div>
             <div className="space-y-3">
@@ -580,11 +692,11 @@ export function LandingClient() {
             </div>
           </div>
           <div className="border-t border-gray-200 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500">
-            <span>© 2026 CEO Planner. All rights reserved.</span>
+            <span>© 2026 Life & CEO Planner. All rights reserved.</span>
             <div className="flex items-center gap-6 mt-4 md:mt-0">
-              <Link href="#twitter" className="hover:text-gray-900 transition-colors">Twitter</Link>
-              <Link href="#linkedin" className="hover:text-gray-900 transition-colors">LinkedIn</Link>
-              <Link href="#discord" className="hover:text-gray-900 transition-colors">Discord</Link>
+              <Link href="#instagram" className="hover:text-gray-900 transition-colors">Instagram</Link>
+              <Link href="#facebook" className="hover:text-gray-900 transition-colors">Facebook</Link>
+              <Link href="#tiktok" className="hover:text-gray-900 transition-colors">TikTok</Link>
             </div>
           </div>
         </div>

@@ -11,7 +11,10 @@
       "Bash(npx tsc *)",
       "Bash(npx next *)",
       "Bash(npm install *)",
-      "mcp__supabase__execute_sql"
+      "mcp__supabase__execute_sql",
+      "Bash(Get-ChildItem -Path \"D:\\\\ReactJS\\\\ceo-planner\\\\src\\\\app\\\\app\" -Recurse -File)",
+      "Bash(Select-Object FullName)",
+      "Bash(Sort-Object FullName)"
     ]
   },
   "enabledMcpjsonServers": [
