@@ -407,76 +407,81 @@ export function LandingClient() {
         </div>
       </section> */}
 
-      {/* ── Founder Story ── */}
-      {/* <section className="px-6 py-24 bg-brand-bg-light border-t border-brand-accent/20">
-        <div className="mx-auto max-w-2xl">
-          <Reveal className="space-y-8">
-            <motion.div variants={fadeUp} className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-widest text-brand">Why I created this</p>
-            </motion.div>
-
-            <motion.div variants={scaleIn} className="rounded-xl border border-brand-accent/30 bg-brand-bg-main p-8 space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="size-10 shrink-0 rounded-full bg-brand-bg-light flex items-center justify-center">
-                  <Heart className="size-5 text-brand" />
-                </div>
-                <div className="space-y-3">
-                  <p className="text-brand-text text-sm leading-relaxed">
-                    I was a solo mom in survival mode — overwhelmed, inconsistent, and trying to rebuild my life from scratch.
-                  </p>
-                  <p className="text-brand-text text-sm leading-relaxed">
-                    Nothing worked until I created a simple system that gave me structure, clarity, and direction.
-                  </p>
-                  <p className="font-semibold text-brand-text text-sm">
-                    This planner helped me move from chaos to consistency — and start making real progress.
-                  </p>
-                  <p className="text-brand-cta font-semibold text-sm">
+      {/* ── 04 · Why I created this ── */}
+      <section id="about" className="px-6 py-24 bg-brand-bg-main border-t border-brand-accent/20">
+        <div className="mx-auto max-w-5xl">
+          <Reveal>
+            <motion.div variants={stagger} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+              <motion.div variants={fadeUp} className="space-y-2">
+                <span className="block text-[7rem] leading-none font-display italic font-bold text-brand/20 select-none">04</span>
+                <h2 className="text-4xl sm:text-5xl font-display italic font-bold text-brand-text leading-tight -mt-4">
+                  Built from lived experience.
+                </h2>
+                <p className="text-xs font-semibold uppercase tracking-widest text-brand pt-2">
+                  Why I created this
+                </p>
+              </motion.div>
+              <motion.div variants={stagger} className="space-y-1">
+                {[
+                  'I was a solo mom in survival mode — overwhelmed, inconsistent, and trying to rebuild my life from scratch.',
+                  'Nothing worked until I created a simple system that gave me structure, clarity, and direction.',
+                  'This planner helped me move from chaos to consistency — and start making real progress.',
+                ].map((text, i) => (
+                  <motion.div key={i} variants={fadeUpDelay(i * 0.07)} className="flex items-start gap-3 py-3 border-b border-brand-accent/20 last:border-0">
+                    <span className="text-brand-blush mt-0.5 shrink-0">—</span>
+                    <p className="text-brand-text text-sm leading-relaxed">{text}</p>
+                  </motion.div>
+                ))}
+                <motion.div variants={fadeUp} className="pt-5 border-l-4 border-brand-cta pl-5">
+                  <p className="font-display italic text-xl text-brand-cta">
                     If that's where you are right now… this is for you.
                   </p>
-                </div>
-              </div>
-            </motion.div>
-          </Reveal>
-        </div>
-      </section> */}
-
-      {/* ── Why this works ── */}
-      {/* <section className="px-6 py-24 bg-brand-bg-main border-t border-brand-accent/20">
-        <div className="mx-auto max-w-3xl">
-          <Reveal className="space-y-10">
-            <motion.div variants={fadeUp} className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-widest text-brand-muted">The difference</p>
-              <h2 className="text-3xl font-display italic font-bold text-brand-text">Why this works when other things haven't</h2>
-            </motion.div>
-
-            <motion.div variants={stagger} className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {[
-                { label: 'Not hustle-based', desc: 'Progress without burning out' },
-                { label: 'Not overwhelming', desc: 'One step at a time, always' },
-                { label: 'Built for women rebuilding', desc: 'Designed for your real life' },
-                { label: 'Structure + emotional stability', desc: 'Head and heart, together' },
-                { label: 'Real life, not perfect routines', desc: 'Works even on hard days' },
-              ].map(({ label, desc }, idx) => (
-                <motion.div
-                  key={idx}
-                  variants={fadeUpDelay(idx * 0.05)}
-                  className="flex items-start gap-3 rounded-lg border border-brand-accent/30 bg-brand-bg-light p-4"
-                >
-                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-brand-bg-light border border-brand/30">
-                    <svg className="size-3 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold text-brand-text">{label}</p>
-                    <p className="text-xs text-brand-muted">{desc}</p>
-                  </div>
                 </motion.div>
-              ))}
+              </motion.div>
             </motion.div>
           </Reveal>
         </div>
-      </section> */}
+      </section>
+
+      {/* ── 05 · Why this works ── */}
+      <section id="why" className="px-6 py-24 bg-brand-bg-light border-t border-brand-accent/20">
+        <div className="mx-auto max-w-5xl">
+          <Reveal>
+            <motion.div variants={stagger} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+              <motion.div variants={stagger} className="space-y-3 order-2 lg:order-1">
+                {[
+                  { label: 'Not hustle-based', desc: 'Progress without burning out' },
+                  { label: 'Not overwhelming', desc: 'One step at a time, always' },
+                  { label: 'Built for women rebuilding', desc: 'Designed for your real life' },
+                  { label: 'Structure + emotional stability', desc: 'Head and heart, together' },
+                  { label: 'Real life, not perfect routines', desc: 'Works even on hard days' },
+                ].map(({ label, desc }, i) => (
+                  <motion.div key={i} variants={fadeUpDelay(i * 0.06)} className="flex items-center gap-3 p-4 rounded-xl bg-brand-highlight border border-brand-cta/30">
+                    <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-brand-cta">
+                      <svg className="size-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold text-brand-text">{label}</p>
+                      <p className="text-xs text-brand-muted">{desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+              <motion.div variants={fadeUp} className="space-y-2 order-1 lg:order-2">
+                <span className="block text-[7rem] leading-none font-display italic font-bold text-brand-cta/20 select-none">05</span>
+                <h2 className="text-4xl sm:text-5xl font-display italic font-bold text-brand-text leading-tight -mt-4">
+                  Why this works when other things haven't.
+                </h2>
+                <p className="text-xs font-semibold uppercase tracking-widest text-brand pt-2">
+                  The difference
+                </p>
+              </motion.div>
+            </motion.div>
+          </Reveal>
+        </div>
+      </section>
 
       {/* ── Pricing ── */}
       <section id="pricing" className="px-6 py-28 bg-brand-bg-light border-t border-brand-accent/20">

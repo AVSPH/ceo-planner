@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ChevronDownIcon } from 'lucide-react'
 import { createClient } from '@/utils/supabase/client'
-import { Button } from '@/components/animate-ui/components/buttons/button'
+import Stepper, { Step } from '@/components/Stepper'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -65,8 +65,8 @@ function Field({
 
 export function OnboardingWizard() {
   const router = useRouter()
-  const [step, setStep] = useState(1)
   const [saving, setSaving] = useState(false)
+  const [currentStep, setCurrentStep] = useState(1)
   const [form, setForm] = useState<FormState>({
     full_name: '',
     business_name: '',
@@ -110,23 +110,17 @@ export function OnboardingWizard() {
     router.push('/app')
   }
 
+  const nextDisabled = (currentStep === 1 && !form.full_name.trim()) || saving
+
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-md space-y-8">
-        {/* Progress bar */}
-        <div className="flex gap-2">
-          {[1, 2, 3].map((n) => (
-            <div
-              key={n}
-              className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${
-                n <= step ? 'bg-primary' : 'bg-muted'
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Step 1 */}
-        {step === 1 && (
+      <Stepper
+        onStepChange={setCurrentStep}
+        onFinalStepCompleted={finish}
+        nextButtonProps={{ disabled: nextDisabled }}
+        backButtonProps={{ disabled: saving }}
+      >
+        <Step>
           <div className="space-y-6">
             <div>
               <h1 className="text-2xl font-bold">Tell us about you</h1>
@@ -152,18 +146,10 @@ export function OnboardingWizard() {
                 placeholder="CEO / Founder / Coach"
               />
             </div>
-            <Button
-              className="w-full"
-              onClick={() => setStep(2)}
-              disabled={!form.full_name.trim()}
-            >
-              Continue
-            </Button>
           </div>
-        )}
+        </Step>
 
-        {/* Step 2 */}
-        {step === 2 && (
+        <Step>
           <div className="space-y-6">
             <div>
               <h1 className="text-2xl font-bold">Preferences</h1>
@@ -203,7 +189,7 @@ export function OnboardingWizard() {
                       onClick={() => update('theme', t)}
                       className={`flex-1 rounded-md border py-2 text-sm capitalize transition-colors ${
                         form.theme === t
-                          ? 'border-primary bg-primary text-primary-foreground'
+                          ? 'border-brand bg-brand text-white'
                           : 'border-input bg-background hover:bg-accent'
                       }`}
                     >
@@ -213,19 +199,10 @@ export function OnboardingWizard() {
                 </div>
               </div>
             </div>
-            <div className="flex gap-3">
-              <Button variant="outline" className="flex-1" onClick={() => setStep(1)}>
-                Back
-              </Button>
-              <Button className="flex-1" onClick={() => setStep(3)}>
-                Continue
-              </Button>
-            </div>
           </div>
-        )}
+        </Step>
 
-        {/* Step 3 */}
-        {step === 3 && (
+        <Step>
           <div className="space-y-6">
             <div>
               <h1 className="text-2xl font-bold">Set your money goal</h1>
@@ -249,17 +226,9 @@ export function OnboardingWizard() {
                 You can update this anytime in Vision &amp; Goals.
               </p>
             </div>
-            <div className="flex gap-3">
-              <Button variant="outline" className="flex-1" onClick={() => setStep(2)}>
-                Back
-              </Button>
-              <Button className="flex-1" onClick={finish} disabled={saving}>
-                {saving ? 'Saving…' : 'Get Started'}
-              </Button>
-            </div>
           </div>
-        )}
-      </div>
+        </Step>
+      </Stepper>
     </div>
   )
 }

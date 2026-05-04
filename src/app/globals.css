@@ -62,6 +62,25 @@
 
 /* ── Brand tokens ── */
 :root {
+  /* Primary Colors */
+  --primary-brand:    #b186e0;
+  --secondary-brand:  #82c2b4;
+  --accent-dark:      #d2d3ff;
+
+  /* Background Colors */
+  --bg-light:         #F4F0F8;
+  --bg-main:          #FDFBFF;
+
+  /* Text Colors */
+  --text-primary:     #2E2E3A;
+  --text-secondary:   #8A8A99;
+
+  /* Interactive Colors */
+  --cta-hover:        #3A9EA3;
+  --emotional-accent: #D4A9B8;
+  --highlight-bg:     #E8F6F7;
+
+  /* Brand aliases (used by Tailwind @theme) */
   --brand-primary:    #b186e0;
   --brand-secondary:  #82c2b4;
   --brand-cta-hover:  #3A9EA3;
@@ -82,10 +101,10 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --primary: #b186e0;
+  --primary-foreground: #ffffff;
+  --secondary: #82c2b4;
+  --secondary-foreground: #2E2E3A;
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
