@@ -50,16 +50,23 @@ export function MoneyClient({
   const debt     = useDebt(userId, initialDebt)
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 pb-10">
+    <div className="relative max-w-2xl mx-auto space-y-8 pb-10">
+      {/* Background ambient light blobs */}
+      <div className="absolute -top-12 -left-12 -z-10 h-64 w-64 rounded-full bg-primary/8 opacity-20 blur-3xl" />
+      <div className="absolute top-20 -right-12 -z-10 h-72 w-72 rounded-full bg-rose-500/8 opacity-15 blur-3xl" />
+
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Money</h1>
+        <div className="space-y-1">
+          <h1 className="text-3xl font-extrabold tracking-tight font-display bg-gradient-to-r from-foreground to-foreground/75 bg-clip-text text-transparent">Money</h1>
+          <p className="text-xs text-muted-foreground font-medium">Track your income, expenses, and monthly financial goals</p>
+        </div>
         <AnimatePresence>
           {saving && tab === 'daily' && (
             <motion.span
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="text-xs text-muted-foreground"
+              className="text-xs font-semibold px-3 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-full border border-emerald-500/20 backdrop-blur-md animate-pulse"
             >
               Saving...
             </motion.span>
@@ -67,23 +74,26 @@ export function MoneyClient({
         </AnimatePresence>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-1 rounded-lg bg-muted p-1">
-        {TABS.map(t => (
-          <button
-            key={t.id}
-            type="button"
-            onClick={() => setTab(t.id)}
-            className={cn(
-              'flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-150',
-              tab === t.id
-                ? 'bg-background text-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground'
-            )}
-          >
-            {t.label}
-          </button>
-        ))}
+      {/* Tabs with premium underlay animation */}
+      <div className="flex p-1 gap-1.5 rounded-xl bg-muted/40 backdrop-blur-md border border-muted/50 select-none">
+        {TABS.map(t => {
+          const isActive = tab === t.id
+          return (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => setTab(t.id)}
+              className={cn(
+                'relative flex-1 rounded-lg px-3 py-2 text-xs font-bold tracking-wide transition-all duration-200 uppercase text-center select-none cursor-pointer outline-none',
+                isActive
+                  ? 'bg-background text-foreground shadow-sm border border-muted-foreground/10'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/40'
+              )}
+            >
+              {t.label}
+            </button>
+          )
+        })}
       </div>
 
       {tab === 'daily' && (

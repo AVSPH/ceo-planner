@@ -21,10 +21,10 @@ interface Props {
   initialProfile: Profile | null
 }
 
-function SectionCard({ title, children }: { title: string; children: React.ReactNode }) {
+function SectionCard({ title, children, className }: { title: string; children: React.ReactNode; className?: string }) {
   return (
-    <div className="rounded-xl border bg-card p-6 space-y-5">
-      <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{title}</p>
+    <div className={cn('rounded-xl border border-border/60 bg-card/45 backdrop-blur-md p-6 space-y-5 hover:border-border transition-all select-none hover:shadow-sm', className)}>
+      <p className="text-[10px] font-bold uppercase tracking-widest text-primary/75 select-none">{title}</p>
       {children}
     </div>
   )
@@ -33,7 +33,7 @@ function SectionCard({ title, children }: { title: string; children: React.React
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="space-y-1.5">
-      <label className="text-sm font-medium">{label}</label>
+      <label className="text-sm font-medium text-foreground/90">{label}</label>
       {children}
     </div>
   )
@@ -48,7 +48,7 @@ function Input({ value, onChange, placeholder, type = 'text' }: {
       value={value}
       onChange={e => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full rounded-lg border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring transition"
+      className="w-full rounded-lg border border-border/40 bg-card/40 px-3 py-2 text-sm outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition-all font-medium placeholder:text-muted-foreground/35"
     />
   )
 }
@@ -150,14 +150,17 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
   return (
     <div className="max-w-2xl mx-auto space-y-6 pb-10">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Settings</h1>
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">Settings</h1>
+          <p className="text-xs text-muted-foreground/80">Manage your profile, visibility, and privacy.</p>
+        </div>
         <AnimatePresence>
           {profileSaving && (
             <motion.span
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="text-xs text-muted-foreground"
+              className="text-xs font-medium text-muted-foreground/75 select-none"
             >
               Saving...
             </motion.span>
@@ -188,7 +191,7 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
             placeholder="CEO, Founder, Coach..."
           />
         </Field>
-        <p className="text-xs text-muted-foreground">{email}</p>
+        <p className="text-xs text-muted-foreground/60 select-none pt-1">{email}</p>
       </SectionCard>
 
       {/* ── Avatar ── */}
@@ -199,10 +202,10 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
               <img
                 src={profile.avatar_url}
                 alt="Avatar"
-                className="size-16 rounded-full object-cover border"
+                className="size-16 rounded-full object-cover border border-border/60 hover:scale-102 transition-all hover:shadow-sm"
               />
             ) : (
-              <div className="size-16 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xl font-bold">
+              <div className="size-16 rounded-full bg-primary/90 flex items-center justify-center text-primary-foreground text-xl font-bold hover:scale-102 transition-all hover:shadow-sm select-none">
                 {initials}
               </div>
             )}
@@ -225,7 +228,7 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
               type="button"
               onClick={() => fileRef.current?.click()}
               disabled={uploading}
-              className="flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium hover:bg-muted transition disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-lg border border-border/40 bg-card px-3.5 py-2 text-sm font-medium hover:bg-muted/70 hover:border-border/60 transition disabled:opacity-50 select-none"
             >
               <Camera className="size-3.5" />
               {profile.avatar_url ? 'Change' : 'Upload'}
@@ -234,7 +237,7 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
               <button
                 type="button"
                 onClick={removeAvatar}
-                className="flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium hover:bg-muted transition text-muted-foreground"
+                className="flex items-center gap-1.5 rounded-lg border border-border/40 bg-card px-3.5 py-2 text-sm font-medium hover:bg-muted/70 hover:border-border/60 transition text-muted-foreground select-none"
               >
                 <Trash2 className="size-3.5" />
                 Remove
@@ -260,14 +263,14 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
                       supabase.from('profiles').update({ theme: value }).eq('id', userId)
                     }}
                     className={cn(
-                      'flex flex-col items-center gap-1.5 rounded-xl border-2 p-2.5 transition-all',
+                      'flex flex-col items-center gap-1.5 rounded-xl border-2 p-2.5 transition-all select-none',
                       active
-                        ? 'border-primary'
-                        : 'border-transparent hover:border-border'
+                        ? 'border-primary/80 bg-primary/5 shadow-sm shadow-primary/5'
+                        : 'border-transparent hover:border-border/40'
                     )}
                   >
                     <div
-                      className="size-10 rounded-lg border overflow-hidden relative"
+                      className="size-10 rounded-lg border border-border/40 overflow-hidden relative transition-all"
                       style={{ background: bg }}
                     >
                       {accent && (
@@ -309,7 +312,7 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
           <Input type="password" value={confirmPw} onChange={setConfirmPw} placeholder="Repeat password" />
         </Field>
         {pwMsg && (
-          <p className={cn('text-xs', pwMsg.ok ? 'text-emerald-500' : 'text-destructive')}>
+          <p className={cn('text-xs font-medium select-none', pwMsg.ok ? 'text-emerald-500/90' : 'text-destructive/90')}>
             {pwMsg.text}
           </p>
         )}
@@ -317,7 +320,7 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
           type="button"
           onClick={changePassword}
           disabled={pwLoading || !newPw}
-          className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition disabled:opacity-50"
+          className="w-full sm:w-auto rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition disabled:opacity-50 select-none shadow-sm"
         >
           {pwLoading ? 'Updating...' : 'Update password'}
         </button>
@@ -328,12 +331,12 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium">Sign out</p>
-            <p className="text-xs text-muted-foreground mt-0.5">{email}</p>
+            <p className="text-xs text-muted-foreground mt-0.5 select-none">{email}</p>
           </div>
           <button
             type="button"
             onClick={() => signOut()}
-            className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-muted transition"
+            className="rounded-lg border border-border/40 bg-card px-4 py-2 text-sm font-medium hover:bg-muted/70 hover:border-border/60 transition select-none"
           >
             Sign out
           </button>
@@ -341,17 +344,17 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
       </SectionCard>
 
       {/* ── Danger zone ── */}
-      <div className="rounded-xl border border-destructive/40 bg-card p-6 space-y-4">
-        <p className="text-xs font-semibold uppercase tracking-widest text-destructive/70">Danger zone</p>
+      <div className="rounded-xl border border-destructive/30 bg-destructive/5 backdrop-blur-md p-6 space-y-4 hover:border-destructive/40 transition-all hover:shadow-sm">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-destructive/80 select-none">Danger zone</p>
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium">Delete account</p>
-            <p className="text-xs text-muted-foreground mt-0.5">Permanently deletes all your data. Cannot be undone.</p>
+            <p className="text-xs text-muted-foreground/80 mt-0.5 select-none">Permanently deletes all your data. Cannot be undone.</p>
           </div>
           <button
             type="button"
             onClick={() => setDeleteOpen(true)}
-            className="rounded-lg border border-destructive px-4 py-2 text-sm font-medium text-destructive hover:bg-destructive/10 transition"
+            className="rounded-lg border border-destructive/40 bg-card/60 px-4 py-2 text-sm font-medium text-destructive hover:bg-destructive/10 transition select-none"
           >
             Delete
           </button>
@@ -360,13 +363,13 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
 
       {/* ── Delete confirmation dialog ── */}
       <Dialog open={deleteOpen} onOpenChange={open => { setDeleteOpen(open); setDeleteInput('') }}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md bg-card/90 backdrop-blur-md border border-border/60 shadow-lg">
           <DialogHeader>
-            <DialogTitle>Delete account</DialogTitle>
+            <DialogTitle className="text-lg font-bold tracking-tight">Delete account</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-2">
-            <p className="text-sm text-muted-foreground">
-              This will permanently delete all your entries, tasks, and data. Type <strong>DELETE</strong> to confirm.
+            <p className="text-sm text-muted-foreground/90">
+              This will permanently delete all your entries, tasks, and data. Type <strong className="text-foreground">DELETE</strong> to confirm.
             </p>
             <Input
               value={deleteInput}
@@ -374,9 +377,9 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
               placeholder="Type DELETE to confirm"
             />
           </div>
-          <DialogFooter>
+          <DialogFooter className="gap-2 sm:gap-0">
             <DialogClose asChild>
-              <button type="button" className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-muted transition">
+              <button type="button" className="rounded-lg border border-border/40 bg-card px-4 py-2 text-sm font-medium hover:bg-muted transition select-none">
                 Cancel
               </button>
             </DialogClose>
@@ -384,7 +387,7 @@ export function SettingsClient({ userId, email, initialProfile }: Props) {
               type="button"
               onClick={deleteAccount}
               disabled={deleteInput !== 'DELETE' || deleting}
-              className="rounded-lg bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground hover:bg-destructive/90 transition disabled:opacity-50"
+              className="rounded-lg bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground hover:bg-destructive/90 transition disabled:opacity-50 select-none shadow-sm"
             >
               {deleting ? 'Deleting...' : 'Delete account'}
             </button>

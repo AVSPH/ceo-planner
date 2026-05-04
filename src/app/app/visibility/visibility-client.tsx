@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { useDailyEntry } from '@/hooks/use-daily-entry'
 import { AutoResizeTextarea } from '@/components/today/auto-resize-textarea'
+import { Sparkles, Eye } from 'lucide-react'
 import type { Tables } from '@/types/database'
 
 type Tab = 'plan' | 'reflect'
@@ -15,25 +16,25 @@ const TABS: { id: Tab; label: string }[] = [
 ]
 
 const PLATFORMS = [
-  { key: 'fb',  label: 'Facebook',  color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300' },
-  { key: 'ig',  label: 'Instagram', color: 'bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300' },
-  { key: 'li',  label: 'LinkedIn',  color: 'bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300' },
-  { key: 'tt',  label: 'TikTok',    color: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300' },
-  { key: 'yt',  label: 'YouTube',   color: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300' },
+  { key: 'fb',  label: 'Facebook',  color: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20 ring-blue-500/30' },
+  { key: 'ig',  label: 'Instagram', color: 'bg-pink-500/10 text-pink-600 dark:text-pink-400 border-pink-500/20 ring-pink-500/30' },
+  { key: 'li',  label: 'LinkedIn',  color: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20 ring-sky-500/30' },
+  { key: 'tt',  label: 'TikTok',    color: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20 ring-slate-500/30' },
+  { key: 'yt',  label: 'YouTube',   color: 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20 ring-red-500/30' },
 ] as const
 
 const PILLARS = [
-  { value: 'Educational',   color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300' },
-  { value: 'Storytelling',  color: 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' },
-  { value: 'Promotional',   color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300' },
-  { value: 'Inspirational', color: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300' },
-  { value: 'Other',         color: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400' },
+  { value: 'Educational',   color: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20 ring-blue-500/30' },
+  { value: 'Storytelling',  color: 'bg-violet-500/10 text-violet-600 dark:text-violet-400 border-violet-500/20 ring-violet-500/30' },
+  { value: 'Promotional',   color: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 ring-amber-500/30' },
+  { value: 'Inspirational', color: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 ring-emerald-500/30' },
+  { value: 'Other',         color: 'bg-gray-500/10 text-gray-600 dark:text-gray-400 border-gray-500/20 ring-gray-500/30' },
 ] as const
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="space-y-1.5">
-      <label className="text-sm font-medium">{label}</label>
+    <div className="space-y-1.5 select-none">
+      <label className="text-xs font-bold tracking-wide text-muted-foreground uppercase">{label}</label>
       {children}
     </div>
   )
@@ -63,59 +64,71 @@ export function VisibilityClient({ userId, today, initialEntry }: Props) {
   })
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 pb-10">
+    <div className="max-w-2xl mx-auto space-y-6 pb-12 select-none">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Visibility</h1>
-          <p className="text-xs text-muted-foreground mt-0.5">{displayDate}</p>
+        <div className="flex items-center gap-3">
+          <div className="size-10 rounded-xl bg-primary/10 border border-primary/20 backdrop-blur-md flex items-center justify-center text-primary shadow-sm shrink-0 select-none">
+            <Eye className="size-5" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-extrabold tracking-tight select-none">Visibility Tracker</h1>
+            <p className="text-xs font-bold text-muted-foreground/80 mt-0.5 select-none uppercase tracking-wide">{displayDate}</p>
+          </div>
         </div>
         <AnimatePresence>
           {saving && (
-            <motion.span
-              initial={{ opacity: 0, y: -4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="text-xs text-muted-foreground"
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="flex items-center gap-1.5 px-3 py-1 bg-muted/40 backdrop-blur-md border border-muted/50 rounded-full text-xs font-bold text-muted-foreground tracking-wide select-none shadow-sm"
             >
+              <span className="size-1.5 rounded-full bg-amber-500 animate-pulse" />
               Saving...
-            </motion.span>
+            </motion.div>
           )}
         </AnimatePresence>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 rounded-lg bg-muted p-1">
-        {TABS.map(t => (
-          <button
-            key={t.id}
-            type="button"
-            onClick={() => setTab(t.id)}
-            className={cn(
-              'flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-150',
-              tab === t.id
-                ? 'bg-background text-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground'
-            )}
-          >
-            {t.label}
-          </button>
-        ))}
+      <div className="flex gap-1.5 rounded-2xl bg-muted/30 backdrop-blur-md border border-muted/20 p-1.5 transition-all select-none">
+        {TABS.map(t => {
+          const active = tab === t.id
+          return (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => setTab(t.id)}
+              className={cn(
+                'flex-1 rounded-xl px-4 py-2 text-xs font-bold tracking-wide uppercase transition-all duration-200 select-none cursor-pointer',
+                active
+                  ? 'bg-background text-foreground shadow-sm ring-1 ring-border/40 font-extrabold'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-background/25'
+              )}
+            >
+              {t.label}
+            </button>
+          )
+        })}
       </div>
 
       <AnimatePresence mode="wait">
         <motion.div
           key={tab}
-          initial={{ opacity: 0, y: 6 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -6 }}
-          transition={{ duration: 0.15 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.18, ease: 'easeInOut' }}
         >
           {/* ── Content Plan ── */}
           {tab === 'plan' && (
-            <div className="rounded-xl border bg-card p-6 space-y-6">
-              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                Content Plan
-              </p>
+            <div className="rounded-2xl border border-border/60 bg-card/45 backdrop-blur-md p-6 space-y-6 hover:shadow-sm hover:border-border transition-all select-none">
+              <div className="flex items-center gap-2">
+                <Sparkles className="size-4 text-primary shrink-0 select-none animate-pulse" />
+                <p className="text-xs font-extrabold uppercase tracking-widest text-muted-foreground/80 select-none">
+                  Content Plan Strategy
+                </p>
+              </div>
 
               <Field label="What am I promoting today?">
                 <AutoResizeTextarea
@@ -144,9 +157,9 @@ export function VisibilityClient({ userId, today, initialEntry }: Props) {
                 />
               </Field>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Platforms today</label>
-                <div className="flex flex-wrap gap-2">
+              <div className="space-y-2 select-none">
+                <label className="text-xs font-bold tracking-wide text-muted-foreground uppercase">Platforms Today</label>
+                <div className="flex flex-wrap gap-2.5 pt-0.5">
                   {PLATFORMS.map(({ key, label, color }) => {
                     const active = activePlatforms.includes(key)
                     return (
@@ -155,10 +168,10 @@ export function VisibilityClient({ userId, today, initialEntry }: Props) {
                         type="button"
                         onClick={() => togglePlatform(key)}
                         className={cn(
-                          'rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-150',
+                          'rounded-xl px-3.5 py-2 text-xs font-bold transition-all border select-none cursor-pointer',
                           active
-                            ? color + ' ring-2 ring-offset-1 ring-current'
-                            : 'bg-muted text-muted-foreground hover:bg-muted/70'
+                            ? color + ' ring-2 ring-offset-1 scale-102 shadow-sm font-extrabold'
+                            : 'bg-muted/40 border-muted-foreground/15 text-muted-foreground hover:bg-muted/70 hover:text-foreground'
                         )}
                       >
                         {label}
@@ -172,14 +185,17 @@ export function VisibilityClient({ userId, today, initialEntry }: Props) {
 
           {/* ── Reflection ── */}
           {tab === 'reflect' && (
-            <div className="rounded-xl border bg-card p-6 space-y-6">
-              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                Content Reflection
-              </p>
+            <div className="rounded-2xl border border-border/60 bg-card/45 backdrop-blur-md p-6 space-y-6 hover:shadow-sm hover:border-border transition-all select-none">
+              <div className="flex items-center gap-2">
+                <Sparkles className="size-4 text-primary shrink-0 select-none animate-pulse" />
+                <p className="text-xs font-extrabold uppercase tracking-widest text-muted-foreground/80 select-none">
+                  Content Reflection Insights
+                </p>
+              </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Content pillar</label>
-                <div className="flex flex-wrap gap-2">
+              <div className="space-y-2 select-none">
+                <label className="text-xs font-bold tracking-wide text-muted-foreground uppercase">Content Pillar</label>
+                <div className="flex flex-wrap gap-2.5 pt-0.5">
                   {PILLARS.map(({ value, color }) => {
                     const active = entry.vis_pillar === value
                     return (
@@ -188,10 +204,10 @@ export function VisibilityClient({ userId, today, initialEntry }: Props) {
                         type="button"
                         onClick={() => update({ vis_pillar: active ? null : value })}
                         className={cn(
-                          'rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-150',
+                          'rounded-xl px-3.5 py-2 text-xs font-bold transition-all border select-none cursor-pointer',
                           active
-                            ? color + ' ring-2 ring-offset-1 ring-current'
-                            : 'bg-muted text-muted-foreground hover:bg-muted/70'
+                            ? color + ' ring-2 ring-offset-1 scale-102 shadow-sm font-extrabold'
+                            : 'bg-muted/40 border-muted-foreground/15 text-muted-foreground hover:bg-muted/70 hover:text-foreground'
                         )}
                       >
                         {value}
@@ -234,3 +250,4 @@ export function VisibilityClient({ userId, today, initialEntry }: Props) {
     </div>
   )
 }
+

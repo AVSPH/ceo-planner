@@ -20,7 +20,7 @@ const TABS: { id: Tab; label: string }[] = [
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+    <p className="text-[10px] font-bold uppercase tracking-widest text-primary/75 mb-1.5 select-none">
       {children}
     </p>
   )
@@ -36,8 +36,8 @@ function Field({
   return (
     <div className="space-y-1.5">
       <div>
-        <label className="text-sm font-medium">{label}</label>
-        {sublabel && <p className="text-xs text-muted-foreground mt-0.5">{sublabel}</p>}
+        <label className="text-sm font-medium text-foreground/90">{label}</label>
+        {sublabel && <p className="text-xs text-muted-foreground/80 mt-0.5">{sublabel}</p>}
       </div>
       {children}
     </div>
@@ -70,8 +70,8 @@ function CurrencyInput({
   placeholder?: string
 }) {
   return (
-    <div className="flex items-center gap-1 border-b border-border focus-within:border-primary pb-1 transition-colors">
-      <span className="text-sm text-muted-foreground">$</span>
+    <div className="flex items-center gap-1 border-b border-border/40 focus-within:border-primary/50 pb-1 transition-colors hover:border-border/60">
+      <span className="text-sm text-muted-foreground/60 select-none">$</span>
       <input
         type="number"
         min="0"
@@ -79,7 +79,7 @@ function CurrencyInput({
         value={value ?? ''}
         onChange={e => onChange(e.target.value ? parseFloat(e.target.value) : null)}
         placeholder={placeholder}
-        className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground/40"
+        className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground/30 font-medium tracking-tight"
       />
     </div>
   )
@@ -91,18 +91,18 @@ function IdentityTab({ data, update }: { data: Partial<PermanentData>; update: (
   return (
     <div className="space-y-5">
       {/* Word of the year */}
-      <div className="rounded-xl border bg-card p-6 text-center space-y-2">
+      <div className="rounded-xl border border-border/60 bg-card/45 backdrop-blur-md p-6 text-center space-y-2 hover:border-border transition-all hover:shadow-sm">
         <SectionLabel>Word of the Year</SectionLabel>
         <input
           value={data.p_word ?? ''}
           onChange={e => update({ p_word: e.target.value })}
           placeholder="e.g. Abundance"
-          className="w-full text-center text-3xl font-bold bg-transparent outline-none placeholder:text-muted-foreground/30 placeholder:text-2xl"
+          className="w-full text-center text-3xl font-bold bg-transparent outline-none placeholder:text-muted-foreground/25 placeholder:text-2xl transition-all"
         />
       </div>
 
       {/* CEO Identity */}
-      <div className="rounded-xl border bg-card p-6 space-y-5">
+      <div className="rounded-xl border border-border/60 bg-card/45 backdrop-blur-md p-6 space-y-5 hover:border-border transition-all hover:shadow-sm">
         <SectionLabel>CEO Identity</SectionLabel>
 
         <Field label="Who I'm becoming" sublabel="This season's growth edge">
@@ -119,7 +119,7 @@ function IdentityTab({ data, update }: { data: Partial<PermanentData>; update: (
       </div>
 
       {/* Dream Life */}
-      <div className="rounded-xl border bg-card p-6 space-y-5">
+      <div className="rounded-xl border border-border/60 bg-card/45 backdrop-blur-md p-6 space-y-5 hover:border-border transition-all hover:shadow-sm">
         <SectionLabel>Dream Life</SectionLabel>
 
         <Field label="Vision for this year">
@@ -141,18 +141,18 @@ function IdentityTab({ data, update }: { data: Partial<PermanentData>; update: (
       </div>
 
       {/* Business Values */}
-      <div className="rounded-xl border bg-card p-6 space-y-4">
+      <div className="rounded-xl border border-border/60 bg-card/45 backdrop-blur-md p-6 space-y-4 hover:border-border transition-all hover:shadow-sm">
         <SectionLabel>Business Values</SectionLabel>
-        <p className="text-xs text-muted-foreground">Up to 6 core values that guide how you operate.</p>
+        <p className="text-xs text-muted-foreground/80">Up to 6 core values that guide how you operate.</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {(['p_v1', 'p_v2', 'p_v3', 'p_v4', 'p_v5', 'p_v6'] as const).map((k, i) => (
-            <div key={k} className="rounded-lg border bg-muted/30 px-3 py-2.5 space-y-1">
-              <p className="text-[10px] text-muted-foreground font-medium">Value {i + 1}</p>
+            <div key={k} className="rounded-xl border border-border/40 bg-muted/25 px-3 py-2.5 space-y-1 hover:bg-muted/40 transition-colors">
+              <p className="text-[10px] text-muted-foreground/70 font-medium select-none">Value {i + 1}</p>
               <input
                 value={data[k] ?? ''}
                 onChange={e => update({ [k]: e.target.value })}
                 placeholder="e.g. Integrity"
-                className="w-full bg-transparent text-sm font-medium outline-none placeholder:text-muted-foreground/40"
+                className="w-full bg-transparent text-sm font-medium outline-none placeholder:text-muted-foreground/35"
               />
             </div>
           ))}
@@ -168,7 +168,7 @@ function GoalsTab({ data, update }: { data: Partial<PermanentData>; update: (f: 
   return (
     <div className="space-y-5">
       {/* Annual */}
-      <div className="rounded-xl border bg-card p-6 space-y-5">
+      <div className="rounded-xl border border-border/60 bg-card/45 backdrop-blur-md p-6 space-y-5 hover:border-border transition-all hover:shadow-sm">
         <SectionLabel>Annual Vision</SectionLabel>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -195,7 +195,7 @@ function GoalsTab({ data, update }: { data: Partial<PermanentData>; update: (f: 
       </div>
 
       {/* Quarterly */}
-      <div className="rounded-xl border bg-card p-6 space-y-4">
+      <div className="rounded-xl border border-border/60 bg-card/45 backdrop-blur-md p-6 space-y-4 hover:border-border transition-all hover:shadow-sm">
         <SectionLabel>Quarterly Focus</SectionLabel>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {(['p_q1', 'p_q2', 'p_q3', 'p_q4'] as const).map((k, i) => (
@@ -220,7 +220,7 @@ function MoneyGoalsTab({ data, update }: { data: Partial<PermanentData>; update:
   return (
     <div className="space-y-5">
       {/* Income & Sales */}
-      <div className="rounded-xl border bg-card p-6 space-y-5">
+      <div className="rounded-xl border border-border/60 bg-card/45 backdrop-blur-md p-6 space-y-5 hover:border-border transition-all hover:shadow-sm">
         <SectionLabel>Income &amp; Sales Goals</SectionLabel>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -247,7 +247,7 @@ function MoneyGoalsTab({ data, update }: { data: Partial<PermanentData>; update:
       </div>
 
       {/* Living Budget */}
-      <div className="rounded-xl border bg-card p-6 space-y-4">
+      <div className="rounded-xl border border-border/60 bg-card/45 backdrop-blur-md p-6 space-y-4 hover:border-border transition-all hover:shadow-sm">
         <SectionLabel>Essential Living Budget</SectionLabel>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-5 gap-y-4">
           {([
@@ -273,7 +273,7 @@ function MoneyGoalsTab({ data, update }: { data: Partial<PermanentData>; update:
       </div>
 
       {/* Business Budget */}
-      <div className="rounded-xl border bg-card p-6 space-y-4">
+      <div className="rounded-xl border border-border/60 bg-card/45 backdrop-blur-md p-6 space-y-4 hover:border-border transition-all hover:shadow-sm">
         <SectionLabel>Recurring Business Expenses</SectionLabel>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-5 gap-y-4">
           {([
@@ -316,8 +316,8 @@ export function VisionClient({ userId, initialData }: Props) {
     <div className="max-w-2xl mx-auto space-y-6 pb-10">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Vision</h1>
-          <p className="text-xs text-muted-foreground mt-0.5">Permanent — set once, revisit anytime.</p>
+          <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">Vision</h1>
+          <p className="text-xs text-muted-foreground/80 mt-0.5">Permanent — set once, revisit anytime.</p>
         </div>
         <AnimatePresence>
           {saving && (
@@ -325,7 +325,7 @@ export function VisionClient({ userId, initialData }: Props) {
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="text-xs text-muted-foreground"
+              className="text-xs font-medium text-muted-foreground/75"
             >
               Saving...
             </motion.span>
@@ -334,7 +334,7 @@ export function VisionClient({ userId, initialData }: Props) {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 rounded-lg bg-muted p-1">
+      <div className="flex gap-1 rounded-lg bg-card/60 backdrop-blur-md border border-border/50 p-1">
         {TABS.map(t => (
           <button
             key={t.id}
@@ -343,8 +343,8 @@ export function VisionClient({ userId, initialData }: Props) {
             className={cn(
               'flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-150',
               tab === t.id
-                ? 'bg-background text-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground'
+                ? 'bg-background/80 backdrop-blur-sm text-foreground shadow-sm'
+                : 'text-muted-foreground/80 hover:text-foreground hover:bg-background/25'
             )}
           >
             {t.label}
