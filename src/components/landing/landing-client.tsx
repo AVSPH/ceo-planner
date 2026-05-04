@@ -150,6 +150,7 @@ const PRICING = [
     period: 'one-time',
     badge: 'Free for 1 week',
     highlight: false,
+    href: 'https://stan.store/genxbirthmentor/p/the-life--ceo-digital-planner--7q2v4ziy',
     features: ['Instant access', 'Lifetime use', 'All 5 modules', 'Step-by-step structure system'],
   },
   {
@@ -159,24 +160,27 @@ const PRICING = [
     period: 'per month',
     badge: null,
     highlight: false,
+    href: 'https://stan.store/genxbirthmentor/p/the-life--ceo-digital-planner-',
     features: ['Everything in Planner', 'Monthly subscription', 'New content drops', 'Support'],
   },
   {
     id: '6months',
     name: '6 Months',
-    price: '$130',
+    price: '$111',
     period: '6 months',
     badge: 'Most popular',
     highlight: true,
+    href: 'https://stan.store/genxbirthmentor/p/life--ceo-digital-planner-',
     features: ['Everything in Monthly', 'Save vs monthly', '6 months access', 'Bonus resources'],
   },
   {
     id: '12months',
     name: '12 Months',
-    price: '$260',
+    price: '$197',
     period: 'per year',
     badge: 'Best value',
     highlight: false,
+    href: 'https://stan.store/genxbirthmentor/p/the-life--ceo-digital-planner--5nzm7jv1',
     features: ['Everything in 6 Months', 'Full year access', 'Maximum savings', 'VIP support'],
   },
 ]
@@ -500,7 +504,7 @@ export function LandingClient() {
           </Reveal>
 
           <Reveal className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {PRICING.map(({ id, name, price, period, badge, highlight, features }, idx) => (
+            {PRICING.map(({ id, name, price, period, badge, highlight, href, features }, idx) => (
               <motion.div
                 key={id}
                 variants={fadeUpDelay(idx * 0.07)}
@@ -536,7 +540,9 @@ export function LandingClient() {
                 </ul>
 
                 <Link
-                  href="/auth/signup"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={[
                     'block w-full rounded-lg py-2.5 text-center text-xs font-semibold transition-colors',
                     highlight
