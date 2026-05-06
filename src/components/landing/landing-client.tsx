@@ -368,10 +368,10 @@ export function LandingClient() {
 
             <motion.h1
               variants={fadeUp}
-              className="mb-6 text-5xl font-display font-bold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl text-brand-text"
+              className="mb-6 text-5xl font-display font-bold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl text-brand"
             >
               Helping women 30+ turn chaos into structure
-              <span className="block text-brand-cta italic">
+              <span className="block text-brand italic">
                 {" "}
                 and structure into income.
               </span>
@@ -434,7 +434,7 @@ export function LandingClient() {
                 <span className="block text-[7rem] leading-none font-display italic font-bold text-brand/20 select-none">
                   01
                 </span>
-                <h2 className="text-4xl sm:text-5xl font-display italic font-bold text-brand-text leading-tight -mt-4">
+                <h2 className="text-4xl sm:text-5xl font-display italic font-bold text-brand leading-tight -mt-4">
                   You're not alone.
                 </h2>
                 <p className="text-xs font-semibold uppercase tracking-widest text-brand pt-2">
@@ -519,7 +519,7 @@ export function LandingClient() {
                 <span className="block text-[7rem] leading-none font-display italic font-bold text-white/5 select-none">
                   02
                 </span>
-                <h2 className="text-4xl sm:text-5xl font-display italic font-bold text-white leading-tight -mt-4">
+                <h2 className="text-4xl sm:text-5xl font-display italic font-bold text-brand leading-tight -mt-4">
                   This isn't a discipline problem.
                 </h2>
                 <p className="text-brand-muted text-sm pt-2">
@@ -543,7 +543,7 @@ export function LandingClient() {
                 <span className="block text-[7rem] leading-none font-display italic font-bold text-brand-cta/20 select-none">
                   03
                 </span>
-                <h2 className="text-4xl sm:text-5xl font-display italic font-bold text-brand-text leading-tight -mt-4">
+                <h2 className="text-4xl sm:text-5xl font-display italic font-bold text-brand leading-tight -mt-4">
                   The Life & CEO Planner changes everything.
                 </h2>
                 <p className="text-brand-muted text-sm pt-2">
@@ -603,7 +603,7 @@ export function LandingClient() {
             </motion.p>
             <motion.h2
               variants={fadeUp}
-              className="text-3xl font-display italic font-bold text-brand-text"
+              className="text-3xl font-display italic font-bold text-brand"
             >
               Inside the Life & CEO Planner
             </motion.h2>
@@ -668,7 +668,7 @@ export function LandingClient() {
                 <span className="block text-[7rem] leading-none font-display italic font-bold text-brand/20 select-none">
                   04
                 </span>
-                <h2 className="text-4xl sm:text-5xl font-display italic font-bold text-brand-text leading-tight -mt-4">
+                <h2 className="text-4xl sm:text-5xl font-display italic font-bold text-brand leading-tight -mt-4">
                   Built from lived experience.
                 </h2>
                 <p className="text-xs font-semibold uppercase tracking-widest text-brand pt-2">
@@ -778,7 +778,7 @@ export function LandingClient() {
                 <span className="block text-[7rem] leading-none font-display italic font-bold text-brand-cta/20 select-none">
                   05
                 </span>
-                <h2 className="text-4xl sm:text-5xl font-display italic font-bold text-brand-text leading-tight -mt-4">
+                <h2 className="text-4xl sm:text-5xl font-display italic font-bold text-brand leading-tight -mt-4">
                   Why this works when other things haven't.
                 </h2>
                 <p className="text-xs font-semibold uppercase tracking-widest text-brand pt-2">
@@ -805,7 +805,7 @@ export function LandingClient() {
             </motion.p>
             <motion.h2
               variants={fadeUp}
-              className="text-3xl font-display italic font-bold text-brand-text"
+              className="text-3xl font-display italic font-bold text-brand"
             >
               Get your life structured so you can build income
             </motion.h2>
@@ -852,7 +852,7 @@ export function LandingClient() {
                       {name}
                     </p>
                     <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-black text-brand-text">
+                      <span className="text-3xl font-black text-brand">
                         {price}
                       </span>
                       <span className="text-xs text-brand-muted">
@@ -903,7 +903,7 @@ export function LandingClient() {
           </motion.div>
 
           <motion.div variants={fadeUp} className="space-y-4">
-            <h2 className="text-4xl font-display italic font-bold tracking-tight text-brand-text">
+            <h2 className="text-4xl font-display italic font-bold tracking-tight text-brand">
               If you're waiting to feel "ready"…
               <br />
               this is your sign.
