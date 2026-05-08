@@ -32,7 +32,7 @@ export async function signUp(prevState: AuthState, formData: FormData): Promise<
       .eq('id', data.user.id)
   }
 
-  redirect('/onboarding')
+  redirect('/pending')
 }
 
 export async function signIn(prevState: AuthState, formData: FormData): Promise<AuthState> {
@@ -42,9 +42,17 @@ export async function signIn(prevState: AuthState, formData: FormData): Promise<
   const email = formData.get('email') as string
   const password = formData.get('password') as string
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password })
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password })
   if (error) return { error: error.message }
 
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('is_active, onboarding_completed')
+    .eq('id', data.user.id)
+    .single()
+
+  if (!profile?.is_active) redirect('/pending')
+  if (!profile?.onboarding_completed) redirect('/onboarding')
   redirect('/app')
 }
 
