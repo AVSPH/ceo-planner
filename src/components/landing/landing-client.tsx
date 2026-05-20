@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import {
   motion,
@@ -20,7 +20,6 @@ import {
   Sparkles,
 } from "lucide-react";
 import Image from "next/image";
-import { toast } from "sonner";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import CardNav, { type CardNavItem } from "@/components/CardNav";
 
@@ -266,73 +265,10 @@ const PRICING = [
   },
 ];
 
-const PURCHASE_NAMES = [
-  "Maya",
-  "Danielle",
-  "Ashley",
-  "Keisha",
-  "Nicole",
-  "Brianna",
-  "Tanya",
-  "Alicia",
-];
-
-const PURCHASE_LOCATIONS = [
-  "Atlanta, GA",
-  "Dallas, TX",
-  "Phoenix, AZ",
-  "Brooklyn, NY",
-  "Tampa, FL",
-  "Charlotte, NC",
-  "Detroit, MI",
-  "Oakland, CA",
-];
-
-function getRandomPurchaseTime() {
-  const useHours = Math.random() > 0.35;
-
-  if (useHours) {
-    const hours = Math.floor(Math.random() * 23) + 1;
-    return hours === 1 ? "1 hr ago" : `${hours} hrs ago`;
-  }
-
-  const minutes = Math.floor(Math.random() * 55) + 5;
-  return `${minutes} mins ago`;
-}
-
 export function LandingClient() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
   const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0.4]);
-
-  useEffect(() => {
-    const showPurchaseToast = () => {
-      const name =
-        PURCHASE_NAMES[Math.floor(Math.random() * PURCHASE_NAMES.length)];
-      const location =
-        PURCHASE_LOCATIONS[
-          Math.floor(Math.random() * PURCHASE_LOCATIONS.length)
-        ];
-      const plan = PRICING[Math.floor(Math.random() * PRICING.length)];
-      const purchasedAt = getRandomPurchaseTime();
-
-      toast.success(
-        `${name} from ${location} purchased the Life & CEO Planner (${plan.name} plan)`,
-        {
-          description: purchasedAt,
-          duration: 4200,
-        },
-      );
-    };
-
-    const initialTimeout = window.setTimeout(showPurchaseToast, 2500);
-    const intervalId = window.setInterval(showPurchaseToast, 5000);
-
-    return () => {
-      window.clearTimeout(initialTimeout);
-      window.clearInterval(intervalId);
-    };
-  }, []);
 
   return (
     <div
@@ -796,7 +732,7 @@ export function LandingClient() {
         className="px-6 py-28 bg-brand-bg-light border-t border-brand-accent/20"
       >
         <div className="mx-auto max-w-5xl space-y-12">
-          <Reveal className="space-y-4">
+          <Reveal className="space-y-4 text-center items-center flex flex-col">
             <motion.p
               variants={fadeUp}
               className="text-xs font-semibold uppercase tracking-widest text-brand"
@@ -816,6 +752,14 @@ export function LandingClient() {
               <span className="size-1.5 rounded-full bg-brand-cta animate-pulse" />
               Free for one week
             </motion.div>
+            <motion.p
+              variants={fadeUp}
+              className="max-w-3xl text-sm leading-relaxed text-brand-muted"
+            >
+              Your card will NOT be charged today. You have a full 7-days to try
+              risk-free. Cancel any time before your trial ends no charges, no
+              hassle.
+            </motion.p>
           </Reveal>
 
           <Reveal className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
