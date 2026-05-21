@@ -18,6 +18,7 @@ import {
   ArrowRight,
   Star,
   Sparkles,
+  ShieldCheck,
 } from "lucide-react";
 import Image from "next/image";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
@@ -752,14 +753,15 @@ export function LandingClient() {
               <span className="size-1.5 rounded-full bg-brand-cta animate-pulse" />
               Free for one week
             </motion.div>
-            <motion.p
+            <motion.div
               variants={fadeUp}
-              className="max-w-3xl text-sm leading-relaxed text-brand-muted"
+              className="max-w-2xl mx-auto flex items-start gap-3 rounded-xl border border-brand-accent/40 bg-white/70 backdrop-blur-xs p-4 text-left text-sm leading-relaxed text-brand-text shadow-xs"
             >
-              Your card will NOT be charged today. You have a full 7-days to try
-              risk-free. Cancel any time before your trial ends no charges, no
-              hassle.
-            </motion.p>
+              <ShieldCheck className="size-5 shrink-0 text-brand-cta mt-0.5" />
+              <p>
+                Your card will <strong className="font-bold text-brand-cta">NOT</strong> be charged today. You have a full <strong className="font-semibold text-brand-text">7-days to try risk-free</strong>. Cancel any time before your trial ends — <strong className="font-semibold text-brand-cta">no charges, no hassle</strong>.
+              </p>
+            </motion.div>
           </Reveal>
 
           <Reveal className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
