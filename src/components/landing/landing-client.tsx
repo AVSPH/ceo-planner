@@ -759,7 +759,7 @@ export function LandingClient() {
             >
               <ShieldCheck className="size-5 shrink-0 text-brand-cta mt-0.5" />
               <p>
-                Your card will <strong className="font-bold text-brand-cta">NOT</strong> be charged today. You have a full <strong className="font-semibold text-brand-text">7-days to try risk-free</strong>. Cancel any time before your trial ends — <strong className="font-semibold text-brand-cta">no charges, no hassle</strong>.
+                Your card will <strong className="font-bold text-brand-cta">NOT</strong> be charged today. You have a full <strong className="font-semibold text-brand-text">7-days to try risk-free</strong>. Cancel any time before your trial ends, <strong className="font-semibold text-brand-cta">no charges, no hassle</strong>.
               </p>
             </motion.div>
           </Reveal>
