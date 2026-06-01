@@ -307,10 +307,10 @@ export function LandingClient() {
               variants={fadeUp}
               className="mb-6 text-5xl font-display font-bold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl text-brand"
             >
-              Helping women 30+ turn chaos into structure
+              Get organized, Build Systems,
               <span className="block text-brand italic">
                 {" "}
-                and structure into income.
+                and Increase your Revenue.
               </span>
             </motion.h1>
 
