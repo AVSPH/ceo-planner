@@ -307,10 +307,10 @@ export function LandingClient() {
               variants={fadeUp}
               className="mb-6 text-5xl font-display font-bold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl text-brand"
             >
-              Get organized, Build Systems,
+              Simplify Operations and Increase Revenue
               <span className="block text-brand italic">
                 {" "}
-                and Increase your Revenue.
+                with Smarter Systems.
               </span>
             </motion.h1>
 
