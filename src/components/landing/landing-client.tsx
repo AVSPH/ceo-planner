@@ -303,6 +303,16 @@ export function LandingClient() {
               For women 30+ ready to create real change
             </motion.p>
 
+            <motion.div variants={fadeUp} className="mb-6 flex justify-center">
+              <span className="inline-flex items-center gap-2 rounded-full bg-brand-bg-light px-4 py-1.5 text-xs font-medium text-brand-text border border-brand-accent/30 shadow-sm">
+                <Sparkles className="size-3 text-brand-cta" />
+                New: your planner now comes with a built-in AI prompt library.{" "}
+                <Link href="#ai-prompts" className="underline font-semibold text-brand-cta hover:text-brand-cta-hover">
+                  See the Claude AI section
+                </Link>
+              </span>
+            </motion.div>
+
             <motion.h1
               variants={fadeUp}
               className="mb-6 text-5xl font-display font-bold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl text-brand"
@@ -551,6 +561,32 @@ export function LandingClient() {
               <BentoCard key={feature.name} {...feature} />
             ))}
           </BentoGrid>
+        </div>
+      </section>
+
+      {/* ── Bonus: AI Prompts Teaser ── */}
+      <section id="ai-prompts" className="px-6 py-20 bg-brand-bg-main border-t border-brand-accent/20">
+        <div className="mx-auto max-w-4xl text-center">
+          <Reveal className="space-y-6">
+            <span className="inline-flex items-center gap-2 rounded-full bg-brand-highlight px-4 py-1.5 text-xs font-semibold text-brand-cta">
+              <Sparkles className="size-4" />
+              New Bonus Included
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-display italic font-bold text-brand">
+              Claude AI Prompt Library
+            </h2>
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-brand-text">
+              Your planner gives you the structure. Claude gives you the thinking partner. Together they run your business like a CEO would. Get instant access to <strong>16 proven AI prompts</strong> directly inside your planner dashboard.
+            </p>
+            <div className="pt-4">
+              <Link
+                href="/auth/signup"
+                className="inline-flex items-center gap-2 rounded-xl bg-brand-cta px-6 py-3 text-sm font-semibold text-white hover:bg-brand-cta-hover transition-colors"
+              >
+                Get The Planner to Access
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
 
