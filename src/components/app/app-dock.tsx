@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, CheckSquare, DollarSign, Eye, Target, BarChart2, Settings } from 'lucide-react'
+import { Home, CheckSquare, DollarSign, Eye, Target, BarChart2, Settings, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Dock, DockIcon } from '@/components/ui/dock'
 import {
@@ -16,6 +16,7 @@ const NAV = [
   { href: '/app/visibility', label: 'Visibility', Icon: Eye },
   { href: '/app/vision',     label: 'Vision',     Icon: Target },
   { href: '/app/insights',   label: 'Insights',   Icon: BarChart2 },
+  { href: '/app/prompts',    label: 'AI Prompts', Icon: Sparkles },
   { href: '/app/settings',   label: 'Settings',   Icon: Settings },
 ]
 
