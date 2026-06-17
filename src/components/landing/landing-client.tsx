@@ -206,16 +206,19 @@ const FEATURES = [
 const PRICING = [
   {
     id: "planner",
-    name: "Planner",
+    name: "One-Time Purchase",
     price: "$29.99",
     period: "one-time",
-    badge: "Free for 1 week",
+    subLine: "Pay once, yours for life",
+    badge: null,
+    topLabel: null,
     highlight: false,
     href: "https://stan.store/genxbirthmentor/p/the-life--ceo-digital-planner--7q2v4ziy",
     features: [
       "Instant access",
       "Lifetime use",
       "All 5 modules",
+      "Claude AI Prompt Library",
       "Step-by-step structure system",
     ],
   },
@@ -223,15 +226,17 @@ const PRICING = [
     id: "monthly",
     name: "Monthly",
     price: "$22.22",
-    period: "per month",
+    period: "month",
+    subLine: "Onboarding fee waived",
     badge: null,
+    topLabel: "Monthly Subscription",
     highlight: false,
     href: "https://stan.store/genxbirthmentor/p/the-life--ceo-digital-planner-",
     features: [
-      "Everything in Planner",
-      "Monthly subscription",
+      "Everything in the planner",
       "New content drops",
-      "Support",
+      "Ongoing support",
+      "Cancel anytime",
     ],
   },
   {
@@ -239,22 +244,26 @@ const PRICING = [
     name: "6 Months",
     price: "$111",
     period: "6 months",
+    subLine: "Just $18.50/month. Save $22 vs monthly.",
     badge: "Most popular",
+    topLabel: null,
     highlight: true,
     href: "https://stan.store/genxbirthmentor/p/life--ceo-digital-planner-",
     features: [
       "Everything in Monthly",
-      "Save vs monthly",
       "6 months access",
       "Bonus resources",
+      "Onboarding fee waived",
     ],
   },
   {
     id: "12months",
     name: "12 Months",
     price: "$197",
-    period: "per year",
+    period: "year",
+    subLine: "Just $16.42/month. Your biggest savings.",
     badge: "Best value",
+    topLabel: null,
     highlight: false,
     href: "https://stan.store/genxbirthmentor/p/the-life--ceo-digital-planner--5nzm7jv1",
     features: [
@@ -782,6 +791,12 @@ export function LandingClient() {
             >
               Get your life structured so you can build income
             </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              className="text-sm text-brand-muted max-w-2xl mx-auto mt-2 mb-6"
+            >
+              Two ways to get your planner: buy it once for lifetime use, or subscribe and we'll waive the one-time onboarding fee. Cancel anytime.
+            </motion.p>
             <motion.div
               variants={fadeUp}
               className="inline-flex items-center gap-2 rounded-full border border-brand-cta/30 bg-brand-highlight px-4 py-1.5 text-xs font-semibold text-brand-cta"
@@ -800,77 +815,138 @@ export function LandingClient() {
             </motion.div>
           </Reveal>
 
-          <Reveal className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {PRICING.map(
-              (
-                { id, name, price, period, badge, highlight, href, features },
-                idx,
-              ) => (
-                <motion.div
-                  key={id}
-                  variants={fadeUpDelay(idx * 0.07)}
-                  className={[
-                    "relative rounded-xl border p-6 space-y-5 flex flex-col transition-shadow hover:shadow-md",
-                    highlight
-                      ? "border-brand bg-brand-bg-light"
-                      : "border-brand-accent/30 bg-brand-bg-main",
-                  ].join(" ")}
-                >
-                  {badge && (
-                    <span
+          <Reveal className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-6 mt-12">
+            <div className="lg:col-span-1 flex flex-col gap-4">
+              <p className="text-sm font-semibold text-brand text-center lg:text-left bg-brand-bg-main py-1.5 px-3 rounded-md border border-brand-accent/20 w-max mx-auto lg:mx-0">Buy once</p>
+              {(() => {
+                const { id, name, price, period, subLine, badge, topLabel, highlight, href, features } = PRICING[0];
+                return (
+                  <motion.div
+                    key={id}
+                    variants={fadeUpDelay(0)}
+                    className="relative rounded-xl border p-6 space-y-5 flex flex-col transition-shadow hover:shadow-md h-full border-brand-accent/30 bg-brand-bg-main"
+                  >
+                    <div className="pt-2">
+                      <p className="text-xs font-semibold uppercase tracking-widest text-brand-muted mb-1">
+                        {name}
+                      </p>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-3xl font-black text-brand">
+                          {price}
+                        </span>
+                        <span className="text-xs text-brand-muted inline-block ml-1">
+                          one-time
+                        </span>
+                      </div>
+                      {subLine && <p className="text-xs text-brand-muted mt-2">{subLine}</p>}
+                    </div>
+
+                    <ul className="space-y-2 flex-1">
+                      {features.map((f, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-xs text-brand-muted"
+                        >
+                          <span className="size-1 shrink-0 rounded-full bg-brand-blush mt-1.5" />
+                          <span className="leading-tight">{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Link
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full rounded-lg py-2.5 text-center text-xs font-semibold transition-colors mt-auto border border-brand-accent text-brand-text hover:bg-brand-bg-light"
+                    >
+                      Get started
+                    </Link>
+                  </motion.div>
+                );
+              })()}
+            </div>
+
+            <div className="lg:col-span-3 flex flex-col gap-4">
+              <p className="text-sm font-semibold text-brand text-center lg:text-left bg-brand-bg-main py-1.5 px-3 rounded-md border border-brand-accent/20 w-max mx-auto lg:mx-0">Or subscribe </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 flex-1">
+                {PRICING.slice(1).map(
+                  (
+                    { id, name, price, period, subLine, badge, topLabel, highlight, href, features },
+                    idx,
+                  ) => (
+                    <motion.div
+                      key={id}
+                      variants={fadeUpDelay((idx + 1) * 0.07)}
                       className={[
-                        "absolute -top-3 left-4 rounded-full px-3 py-0.5 text-xs font-semibold",
+                        "relative rounded-xl border p-6 space-y-5 flex flex-col transition-shadow hover:shadow-md h-full",
                         highlight
-                          ? "bg-brand text-white"
-                          : "bg-brand-text text-white",
+                          ? "border-brand bg-brand-bg-light"
+                          : "border-brand-accent/30 bg-brand-bg-main",
                       ].join(" ")}
                     >
-                      {badge}
-                    </span>
-                  )}
+                      {badge && (
+                        <span
+                          className={[
+                            "absolute -top-3 right-4 rounded-full px-3 py-0.5 text-xs font-semibold",
+                            highlight
+                              ? "bg-brand text-white"
+                              : "bg-brand-text text-white",
+                          ].join(" ")}
+                        >
+                          {badge}
+                        </span>
+                      )}
+                      {topLabel && (
+                        <span className="absolute -top-3 left-4 rounded-full bg-brand-highlight border border-brand-cta/30 text-brand-cta px-3 py-0.5 text-[10px] font-semibold whitespace-nowrap">
+                          {topLabel}
+                        </span>
+                      )}
 
-                  <div className="pt-2">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-brand-muted mb-1">
-                      {name}
-                    </p>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-black text-brand">
-                        {price}
-                      </span>
-                      <span className="text-xs text-brand-muted">
-                        / {period}
-                      </span>
-                    </div>
-                  </div>
+                      <div className="pt-2">
+                        <p className="text-xs font-semibold uppercase tracking-widest text-brand-muted mb-1">
+                          {name}
+                        </p>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-3xl font-black text-brand">
+                            {price}
+                          </span>
+                          <span className="text-xs text-brand-muted">
+                            / {period}
+                          </span>
+                        </div>
+                        {subLine && <p className="text-xs text-brand-muted mt-2">{subLine}</p>}
+                      </div>
 
-                  <ul className="space-y-2 flex-1">
-                    {features.map((f, i) => (
-                      <li
-                        key={i}
-                        className="flex items-center gap-2 text-xs text-brand-muted"
+                      <ul className="space-y-2 flex-1">
+                        {features.map((f, i) => (
+                          <li
+                            key={i}
+                            className="flex items-start gap-2 text-xs text-brand-muted"
+                          >
+                            <span className="size-1 shrink-0 rounded-full bg-brand-blush mt-1.5" />
+                            <span className="leading-tight">{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <Link
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={[
+                          "block w-full rounded-lg py-2.5 text-center text-xs font-semibold transition-colors mt-auto",
+                          highlight
+                            ? "bg-brand-cta text-white hover:bg-brand-cta-hover"
+                            : "border border-brand-accent text-brand-text hover:bg-brand-bg-light",
+                        ].join(" ")}
                       >
-                        <span className="size-1 shrink-0 rounded-full bg-brand-blush" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={[
-                      "block w-full rounded-lg py-2.5 text-center text-xs font-semibold transition-colors",
-                      highlight
-                        ? "bg-brand-cta text-white hover:bg-brand-cta-hover"
-                        : "border border-brand-accent text-brand-text hover:bg-brand-bg-light",
-                    ].join(" ")}
-                  >
-                    Get started
-                  </Link>
-                </motion.div>
-              ),
-            )}
+                        Get started
+                      </Link>
+                    </motion.div>
+                  ),
+                )}
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
