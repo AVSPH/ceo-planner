@@ -1,5 +1,6 @@
 'use client'
-import { removeAdmin } from '@/lib/actions/admin'
+import { removeAdmin, resetAdminPassword } from '@/lib/actions/admin'
+import { ResetPasswordDialog } from '@/components/admin/reset-password-dialog'
 
 type Admin = {
   id: string
@@ -31,14 +32,21 @@ export function AdminsList({ admins, currentAdminId }: { admins: Admin[]; curren
               </p>
             </div>
             {!isSelf && (
-              <form action={removeAdmin.bind(null, admin.id)}>
-                <button
-                  type="submit"
-                  className="rounded-md border border-destructive/40 px-2.5 py-1 text-xs font-medium text-destructive hover:bg-destructive/10 transition-colors shrink-0"
-                >
-                  Remove
-                </button>
-              </form>
+              <div className="flex items-center gap-2 shrink-0">
+                <ResetPasswordDialog
+                  targetName={admin.full_name ?? ''}
+                  targetEmail={admin.email}
+                  action={resetAdminPassword.bind(null, admin.id)}
+                />
+                <form action={removeAdmin.bind(null, admin.id)}>
+                  <button
+                    type="submit"
+                    className="rounded-md border border-destructive/40 px-2.5 py-1 text-xs font-medium text-destructive hover:bg-destructive/10 transition-colors shrink-0"
+                  >
+                    Remove
+                  </button>
+                </form>
+              </div>
             )}
           </div>
         )
