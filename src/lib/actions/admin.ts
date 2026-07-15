@@ -213,6 +213,64 @@ export async function removeAdmin(adminId: string) {
   revalidatePath('/admin/admins')
 }
 
+export async function resetUserPassword(
+  userId: string,
+  prevState: AdminState,
+  formData: FormData,
+): Promise<AdminState> {
+  const session = await verifyAdminSession()
+  if (!session) redirect('/admin/login')
+
+  const password = formData.get('password') as string
+  if (!password) return { error: 'Password required' }
+  if (password.length < 8) return { error: 'Password must be at least 8 characters' }
+
+  const supabase = createAdminClient()
+  const { data: authUser } = await supabase.auth.admin.getUserById(userId)
+  if (!authUser.user) return { error: 'User not found' }
+
+  const { error } = await supabase.auth.admin.updateUserById(userId, { password })
+  if (error) return { error: error.message }
+
+  await audit(session, 'reset_user_password', userId, authUser.user.email ?? '')
+  revalidatePath('/admin/users')
+  return { success: 'Password updated' }
+}
+
+export async function resetAdminPassword(
+  adminId: string,
+  prevState: AdminState,
+  formData: FormData,
+): Promise<AdminState> {
+  const session = await verifyAdminSession()
+  if (!session) redirect('/admin/login')
+
+  const password = formData.get('password') as string
+  if (!password) return { error: 'Password required' }
+  if (password.length < 8) return { error: 'Password must be at least 8 characters' }
+
+  const supabase = createAdminClient()
+  const { data: target } = await supabase
+    .from('admin_users')
+    .select('email')
+    .eq('id', adminId)
+    .single()
+
+  if (!target) return { error: 'Admin not found' }
+
+  const password_hash = await bcrypt.hash(password, 10)
+  const { error } = await supabase
+    .from('admin_users')
+    .update({ password_hash, failed_attempts: 0, locked_until: null })
+    .eq('id', adminId)
+
+  if (error) return { error: 'Failed to update password' }
+
+  await audit(session, 'reset_admin_password', adminId, target.email)
+  revalidatePath('/admin/admins')
+  return { success: 'Password updated' }
+}
+
 export async function changeAdminPassword(
   prevState: AdminState,
   formData: FormData,

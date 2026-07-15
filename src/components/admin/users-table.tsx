@@ -1,6 +1,7 @@
 'use client'
 import { useState, useMemo, useTransition } from 'react'
-import { approveUser, deactivateUser, bulkApproveUsers } from '@/lib/actions/admin'
+import { approveUser, deactivateUser, bulkApproveUsers, resetUserPassword } from '@/lib/actions/admin'
+import { ResetPasswordDialog } from '@/components/admin/reset-password-dialog'
 import { LuDownload } from 'react-icons/lu'
 
 type User = {
@@ -210,19 +211,26 @@ export function UsersTable({ users }: { users: User[] }) {
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      {u.profile?.is_active ? (
-                        <form action={deactivateUser.bind(null, u.id)}>
-                          <button type="submit" className="rounded-md border border-destructive/40 px-2.5 py-1 text-xs font-medium text-destructive hover:bg-destructive/10 transition-colors">
-                            Deactivate
-                          </button>
-                        </form>
-                      ) : (
-                        <form action={approveUser.bind(null, u.id)}>
-                          <button type="submit" className="rounded-md bg-emerald-600 px-2.5 py-1 text-xs font-medium text-white hover:bg-emerald-700 transition-colors">
-                            Approve
-                          </button>
-                        </form>
-                      )}
+                      <div className="flex items-center gap-2">
+                        {u.profile?.is_active ? (
+                          <form action={deactivateUser.bind(null, u.id)}>
+                            <button type="submit" className="rounded-md border border-destructive/40 px-2.5 py-1 text-xs font-medium text-destructive hover:bg-destructive/10 transition-colors">
+                              Deactivate
+                            </button>
+                          </form>
+                        ) : (
+                          <form action={approveUser.bind(null, u.id)}>
+                            <button type="submit" className="rounded-md bg-emerald-600 px-2.5 py-1 text-xs font-medium text-white hover:bg-emerald-700 transition-colors">
+                              Approve
+                            </button>
+                          </form>
+                        )}
+                        <ResetPasswordDialog
+                          targetName={u.profile?.full_name ?? ''}
+                          targetEmail={u.email}
+                          action={resetUserPassword.bind(null, u.id)}
+                        />
+                      </div>
                     </td>
                   </tr>
                 )
